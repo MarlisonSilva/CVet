@@ -6,7 +6,7 @@
 ///          Projeto Sistema de Gestão de Clínica Veterinária               ///
 ///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///
 ///////////////////////////////////////////////////////////////////////////////
-///                                Semana 2                                 ///
+///                                Semana 1                                 ///
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
