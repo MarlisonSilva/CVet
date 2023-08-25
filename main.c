@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 /////
 // Assinatura das funções
@@ -26,6 +27,7 @@ void delete_client(void);
 /////
 // Programa principal
 int main(void) {
+    setlocale(LC_ALL, "Portuguese_Brasil");
     main_menu();
     about_soft();
     about_dev();
