@@ -13,29 +13,47 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#define true 1
+#define false 0
+
 /////
 // Assinatura das funções
-void main_menu(void);
-void about_soft(void);
-void about_dev(void);
-void client_menu(void);
-void create_client(void);
-void search_client(void);
-void edit_client(void);
-void delete_client(void);
+char main_menu();
+void about_soft();
+void about_dev();
+char client_menu();
+void create_client();
+void search_client();
+void edit_client();
+void delete_client();
+void header();
+void header_complete();
+void no_operation();
 
 /////
 // Programa principal
-int main(void) {
+int main() {
     setlocale(LC_ALL, "Portuguese_Brasil");
-    main_menu();
-    about_soft();
-    about_dev();
-    client_menu();
-    create_client();
-    search_client();
-    edit_client();
-    delete_client();
+    int isRunning = true;
+    while (isRunning){
+        char op = main_menu();
+        char sub_op;
+        if (op == '0'){ // Sair
+            isRunning = false;
+        } else if(op == '1') { // Clientes
+            char inMenu = true;
+            while(inMenu) { 
+                sub_op = client_menu();
+                if (sub_op == '0') { // Sair clientes
+                    inMenu = false;
+                } else {
+                    no_operation("Menu Cliente");
+                }
+            }
+        } else {
+            no_operation("Menu Principal");
+        }
+    }
     return 0;
 }
 
@@ -43,19 +61,11 @@ int main(void) {
 /////
 // Funções
 
-void main_menu(void) {
+char main_menu() {
     char op;
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///          Projeto Sistema de Gestão de Clínica Veterinária               ///\n");
-    printf("///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///\n");
-    printf("///                                                                         ///\n");
+    header_complete();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = =      Clínica Veterinária CVet      = = = =           ///\n");
@@ -73,23 +83,16 @@ void main_menu(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+    return op;
 }
 
 
-void about_soft(void) {
+void about_soft() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///          Projeto Sistema de Gestão de Clínica Veterinária               ///\n");
-    printf("///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///\n");
-    printf("///                                                                         ///\n");
+    header_complete();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = =      Clínica Veterinária CVet      = = = =           ///\n");
@@ -102,23 +105,15 @@ void about_soft(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
 
-void about_dev(void) {
+void about_dev() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///          Projeto Sistema de Gestão de Clínica Veterinária               ///\n");
-    printf("///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///\n");
-    printf("///                                                                         ///\n");
+    header_complete();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///           = = = =      Clínica Veterinária CVet      = = = =            ///\n");
@@ -132,24 +127,16 @@ void about_dev(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 } 
 
 
-void client_menu(void) {
+char client_menu() {
     char op;
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
-    printf("///                                                                         ///\n");
+    header();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
@@ -169,23 +156,16 @@ void client_menu(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+    return op;
 }
 
 
-void create_client(void) {
+void create_client() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
-    printf("///                                                                         ///\n");
+    header();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
@@ -201,23 +181,15 @@ void create_client(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
 
-void search_client(void) {
+void search_client() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
-    printf("///                                                                         ///\n");
+    header();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
@@ -229,23 +201,15 @@ void search_client(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
 
-void edit_client(void) {
+void edit_client() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
-    printf("///                                                                         ///\n");
+    header();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
@@ -257,23 +221,15 @@ void edit_client(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
 
-void delete_client(void) {
+void delete_client() {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
-    printf("///                                                                         ///\n");
+    header();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
@@ -285,6 +241,46 @@ void delete_client(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void header_complete () {
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///          Projeto Sistema de Gestão de Clínica Veterinária               ///\n");
+    printf("///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+}
+
+void header() {
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            = = = =       Clínica Veterinária CVet      = = = =          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///              Desenvolvido por @iamrlison -- desde Ago, 2023             ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+}
+
+void no_operation(char next[]) {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = =  Nenhuma função definida para esta operação  = = = =      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para voltar para %s...\n", next);
     getchar();
 }
