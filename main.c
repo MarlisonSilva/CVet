@@ -6,7 +6,7 @@
 ///          Projeto Sistema de Gestão de Clínica Veterinária               ///
 ///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///
 ///////////////////////////////////////////////////////////////////////////////
-///                                Semana 1                                 ///
+///                                Semana 2                                 ///
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -29,6 +29,9 @@ void delete_client();
 void header();
 void header_complete();
 void no_operation();
+
+// Variáveis globais
+char caractere;
 
 /////
 // Programa principal
@@ -92,8 +95,7 @@ char main_menu() {
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
-    scanf("%c", &op);
-
+    scanf(" %c", &op);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -164,8 +166,7 @@ char client_menu() {
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
-    scanf("%c", &op);
-    
+    scanf(" %c", &op);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -177,6 +178,9 @@ char client_menu() {
 
 
 void create_client() {
+    char cpf[14], name[100], email[100], born_date[10];
+    int phone;
+    
     system("clear||cls");
     printf("\n");
     header();
@@ -186,21 +190,34 @@ void create_client() {
     printf("///            = = = = = = =  Cadastrar Cliente  = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            CPF (apenas números):                                        ///\n");
-    printf("///            Nome completo:                                               ///\n");
-    printf("///            E-mail:                                                      ///\n");
-    printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
-    printf("///            Celular (apenas números):                                    ///\n");
+    printf("///            CPF (apenas números): ");
+    scanf("%s", cpf);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
+    printf("///            Nome completo: ");
+    scanf("%s", name);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
+    printf("///            E-mail: ");
+    scanf("%s", email);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
+    printf("///            Data de Nascimento (dd/mm/aaaa): ");
+    scanf("%s", born_date);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
+    printf("///            Celular (apenas números): ");
+    scanf("%u", &phone);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("cpf: %s \tnome: %s \temail: %s \tnasc: %s \tcel.: %u", cpf, name, email, born_date, phone);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    getchar(); 
 }
 
 
 void search_client() {
+    
+    char search[14];
     system("clear||cls");
     printf("\n");
     header();
@@ -210,10 +227,13 @@ void search_client() {
     printf("///            = = = = = = =  Pesquisar Cliente  = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
+    printf("///            Informe o CPF (apenas números): ");
+    scanf("%s", search);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("buscado: %s", search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -221,6 +241,8 @@ void search_client() {
 
 
 void edit_client() {
+    
+    char cpf_client[14];
     system("clear||cls");
     printf("\n");
     header();
@@ -230,10 +252,20 @@ void edit_client() {
     printf("///            = = = = = = =  Alterar Cliente  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
+    printf("///            Informe o CPF (apenas números): ");
+    scanf("%s", cpf_client);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            Escolha a informação que deseja alterar:                     ///\n");
+    printf("///            1- Nome: Pessoa da Silva                                     ///\n");
+    printf("///            2- E-mail: pessoa@gmail.com                                  ///\n");
+    printf("///            3- Data de nascimento: 26/08/2023                            ///\n");
+    printf("///            4- Nº de telefone: 84999999999                               ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("CPF do cliente alterado: %s", cpf_client);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -241,6 +273,8 @@ void edit_client() {
 
 
 void delete_client() {
+    
+    char cpf_client[14];
     system("clear||cls");
     printf("\n");
     header();
@@ -250,10 +284,13 @@ void delete_client() {
     printf("///            = = = = = = = = Excluir Cliente = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe o CPF (apenas números):                              ///\n");
+    printf("///            Informe o CPF (apenas números): ");
+    scanf("%s", cpf_client);
+    while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("CPF do cliente alterado: %s", cpf_client);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
