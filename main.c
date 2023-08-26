@@ -46,10 +46,22 @@ int main() {
                 sub_op = client_menu();
                 if (sub_op == '0') { // Sair clientes
                     inMenu = false;
+                } else if (sub_op == '1') { // Cadastrar cliente
+                    create_client();
+                } else if (sub_op == '2') { // Pesquisar cliente
+                    search_client();
+                } else if (sub_op == '3') { // Atualizar cliente
+                    edit_client();
+                } else if (sub_op == '4') { // Remover cliente
+                    delete_client();
                 } else {
                     no_operation("Menu Cliente");
                 }
             }
+        } else if (op == '6'){ // Sobre o software
+            about_soft();
+        } else if (op == '7'){ // Sobre o desenvolvedor
+            about_dev();
         } else {
             no_operation("Menu Principal");
         }
@@ -75,16 +87,18 @@ char main_menu() {
     printf("///            3. Módulo Produtos e Serviços                                ///\n");
     printf("///            4. Módulo Funcionários                                       ///\n");
     printf("///            5. Módulo Vendas                                             ///\n");
+    printf("///            6. Sobre o software                                          ///\n");
+    printf("///            7. Sobre o desenvolvedor                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
     scanf("%c", &op);
-    getchar();
+
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    getchar(); getchar();
     return op;
 }
 
@@ -151,13 +165,13 @@ char client_menu() {
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
     scanf("%c", &op);
-    getchar();
+    
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    getchar(); getchar();
     return op;
 }
 
