@@ -32,7 +32,15 @@ void no_operation();
 
 // Variáveis globais
 char caractere;
-
+// Criação de array dos clientes por meio de estrutura
+// struct client {
+//     char cpf[11];
+//     char name[100];
+//     char email[255];
+//     int phone;
+//     int day, month, year;
+// };
+// struct client clients[10];
 /////
 // Programa principal
 int main() {
@@ -178,8 +186,9 @@ char client_menu() {
 
 
 void create_client() {
-    char cpf[14], name[100], email[100], born_date[10];
+    char cpf[11], name[100], email[255];
     int phone;
+    int day, month, year;
     
     system("clear||cls");
     printf("\n");
@@ -194,13 +203,13 @@ void create_client() {
     scanf("%s", cpf);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///            Nome completo: ");
-    scanf("%s", name);
+    scanf("%[^\n]%*c", name);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///            E-mail: ");
     scanf("%s", email);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///            Data de Nascimento (dd/mm/aaaa): ");
-    scanf("%s", born_date);
+    scanf("%d%*c%d%*c%d", &day, &month, &year);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///            Celular (apenas números): ");
     scanf("%u", &phone);
@@ -208,7 +217,7 @@ void create_client() {
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("cpf: %s \tnome: %s \temail: %s \tnasc: %s \tcel.: %u", cpf, name, email, born_date, phone);
+    printf("cpf: %s \temail: %s \tnome: %s \tnasc: %02d/%02d/%d\n \tcel.: %u", cpf, email, name, day, month, year, phone);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -242,7 +251,7 @@ void search_client() {
 
 void edit_client() {
     
-    char cpf_client[14];
+    char cpf_client[11];
     system("clear||cls");
     printf("\n");
     header();
@@ -274,7 +283,7 @@ void edit_client() {
 
 void delete_client() {
     
-    char cpf_client[14];
+    char cpf_client[11];
     system("clear||cls");
     printf("\n");
     header();
