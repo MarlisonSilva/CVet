@@ -12,9 +12,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 #define true 1
 #define false 0
+
+/////
+// Variáveis globais
+char caractere;
+// Definição da estrutura do nó da lista de clientes
+struct Client {
+    char cpf[11];
+    char name[100];
+    char email[255];
+    char phone[13];
+    int dayBorn, monthBorn, yearBorn;
+    struct Client* next;
+};
+
+struct Client* listClients = NULL; // Lista de clientes
 
 /////
 // Assinatura das funções
@@ -29,18 +45,10 @@ void delete_client();
 void header();
 void header_complete();
 void no_operation();
+void insertClient(struct Client** list, char cpf[], char name[], char email[], char phone[], int dayBorn, int monthBorn, int yearBorn);
+int saveData();
+char* clientToString(struct Client* list);
 
-// Variáveis globais
-char caractere;
-// Criação de array dos clientes por meio de estrutura
-// struct client {
-//     char cpf[11];
-//     char name[100];
-//     char email[255];
-//     int phone;
-//     int day, month, year;
-// };
-// struct client clients[10];
 /////
 // Programa principal
 int main() {
@@ -83,6 +91,95 @@ int main() {
 
 /////
 // Funções
+
+// Adaptado do ChatGPT 3.5
+// Função para inserir um elemento no final da lista de clientes
+void insertClient(struct Client** list, char cpf[], char name[], char email[], char phone[], int dayBorn, int monthBorn, int yearBorn) {
+    struct Client* newClient = (struct Client*)malloc(sizeof(struct Client));
+
+    strcpy(newClient->cpf, cpf);
+    strcpy(newClient->name, name);
+    strcpy(newClient->email, email);
+    strcpy(newClient->phone, phone);
+    newClient->dayBorn = dayBorn;
+    newClient->monthBorn = monthBorn;
+    newClient->yearBorn = yearBorn;
+    newClient->next = NULL;
+
+    if (*list == NULL) {
+        *list = newClient;
+    } else {
+        struct Client* current = *list;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newClient;
+    }
+}
+
+// Função para imprimir os elementos da lista
+void printClients(struct Client* list) {
+    struct Client* current = list;
+    while (current != NULL) {
+        printf("Cliente: \n");
+        printf("CPF: %s\n", current->cpf);
+        printf("Nome: %s\n", current->name);
+        printf("E-mail: %s\n", current->email);
+        printf("Telefone: %s\n", current->phone);
+        printf("Data de nascimento: %02d/%02d/%d\n", current->dayBorn, current->monthBorn, current->yearBorn);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+// Adaptado de linguagemc.com.br
+// salva os dados cadastrados em um arquivo
+int saveData() {
+    FILE *pont_arq; // cria variável ponteiro para o arquivo
+    
+    //abrindo o arquivo com tipo de abertura w
+    pont_arq = fopen("db_cvet.txt", "w");
+    
+    //testando se o arquivo foi realmente criado
+    if(pont_arq == NULL) {
+        printf("Erro na abertura do arquivo!");
+        return 1;
+    }
+    
+    char* list = clientToString(listClients);
+    printf("Lista: %s\n", list);
+
+    //usando fprintf para armazenar a string no arquivo
+    fprintf(pont_arq, "%s", list);
+    
+    //usando fclose para fechar o arquivo
+    fclose(pont_arq);
+    
+    printf("Dados gravados com sucesso! \n");
+
+    // Libera a memória alocada
+    free(list);
+
+    return 0;
+}
+
+// Adaptado do ChatGPT
+// Conversão da lista de struct para String
+char* clientToString(struct Client* list) {
+    char* result = (char*)malloc(1);  // Inicializa a string vazia
+    result[0] = '\0';  // Garante que a string está terminada corretamente
+    
+    struct Client* current = list;
+    while (current != NULL) {
+        char temp[100];
+        sprintf(temp, "%s, %s, %s, %s, %d, %d, %d \n", current->cpf, current->name, current->email, current->phone, current->dayBorn, current->monthBorn, current->yearBorn);
+        result = (char*)realloc(result, strlen(result) + strlen(temp) + 1);
+        strcat(result, temp);
+        current = current->next;
+    }
+
+    return result;
+}
 
 char main_menu() {
     char op;
@@ -186,8 +283,7 @@ char client_menu() {
 
 
 void create_client() {
-    char cpf[11], name[100], email[255];
-    int phone;
+    char cpf[11], name[100], email[255], phone[13];
     int day, month, year;
     
     system("clear||cls");
@@ -212,12 +308,14 @@ void create_client() {
     scanf("%d%*c%d%*c%d", &day, &month, &year);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///            Celular (apenas números): ");
-    scanf("%u", &phone);
+    scanf("%s", phone);
     while ((caractere = getchar()) != '\n' && caractere != EOF);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("cpf: %s \temail: %s \tnome: %s \tnasc: %02d/%02d/%d\n \tcel.: %u", cpf, email, name, day, month, year, phone);
+    insertClient(&listClients, cpf, name, email, phone, day, month, year);
+    saveData();
+    printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
