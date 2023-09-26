@@ -17,6 +17,7 @@
 #include "client.h"
 #include "animal.h"
 #include "product.h"
+#include "service.h"
 #include "sale.h"
 #include "worker.h"
 #include "about.h"
@@ -79,7 +80,7 @@ int main() {
                 } else if (sub_op == '4') { // Remover cliente
                     delete_client();
                 } else {
-                    no_operation("Menu Cliente");
+                    no_operation("Menu Clientes");
                 }
             }
             break;
@@ -87,7 +88,7 @@ int main() {
             inMenu = true;
             while(inMenu) { 
                 sub_op = animal_menu();
-                if (sub_op == '0') { // Sair animal
+                if (sub_op == '0') { // Sair animais
                     inMenu = false;
                 } else if (sub_op == '1') { // Cadastrar animal
                     create_animal();
@@ -98,36 +99,55 @@ int main() {
                 } else if (sub_op == '4') { // Remover animal
                     delete_animal();
                 } else {
-                    no_operation("Menu Animal");
+                    no_operation("Menu Animais");
                 }
             }
             break;
         
-        case '3': // PRODUTOS e SERVIÇOS
+        case '3': // PRODUTOS 
             inMenu = true;
             while(inMenu) { 
                 sub_op = product_menu();
-                if (sub_op == '0') { // Sair animal
+                if (sub_op == '0') { // Sair produtos
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar produtos e serviços
+                } else if (sub_op == '1') { // Cadastrar produtos
                     create_product();
-                } else if (sub_op == '2') { // Pesquisar produtos e serviços
+                } else if (sub_op == '2') { // Pesquisar produtos
                     search_product();
-                } else if (sub_op == '3') { // Atualizar produtos e serviços
+                } else if (sub_op == '3') { // Atualizar produtos
                     edit_product();
-                } else if (sub_op == '4') { // Remover produtos e serviços
+                } else if (sub_op == '4') { // Remover produtos
                     delete_product();
                 } else {
-                    no_operation("Menu Produtos e serviços");
+                    no_operation("Menu Produtos");
+                }
+            }
+            break;
+        case '4': // SERVIÇOS    
+            inMenu = true;
+            while(inMenu) { 
+                sub_op = service_menu();
+                if (sub_op == '0') { // Sair serviços
+                    inMenu = false;
+                } else if (sub_op == '1') { // Cadastrar serviços
+                    create_service();
+                } else if (sub_op == '2') { // Pesquisar serviços
+                    search_service();
+                } else if (sub_op == '3') { // Atualizar serviços
+                    edit_service();
+                } else if (sub_op == '4') { // Remover serviços
+                    delete_service();
+                } else {
+                    no_operation("Menu Serviços");
                 }
             }
             break;
 
-        case '4': // VENDAS
+        case '5': // VENDAS
             inMenu = true;
             while(inMenu) { 
                 sub_op = sale_menu();
-                if (sub_op == '0') { // Sair venda
+                if (sub_op == '0') { // Sair vendas
                     inMenu = false;
                 } else if (sub_op == '1') { // Cadastrar venda
                     create_sale();
@@ -136,15 +156,15 @@ int main() {
                 } else if (sub_op == '3') { // Remover venda
                     delete_sale();
                 } else {
-                    no_operation("Menu Venda");
+                    no_operation("Menu Vendas");
                 }
             }
             break;
-        case '5': // FUNCIONÁRIOS 
+        case '6': // FUNCIONÁRIOS 
             inMenu = true;
             while(inMenu) { 
                 sub_op = worker_menu();
-                if (sub_op == '0') { // Sair funcionário
+                if (sub_op == '0') { // Sair funcionários
                     inMenu = false;
                 } else if (sub_op == '1') { // Cadastrar funcionário
                     create_worker();
@@ -155,15 +175,15 @@ int main() {
                 } else if (sub_op == '4') { // Remover funcionário
                     delete_worker();
                 } else {
-                    no_operation("Menu Funcionário");
+                    no_operation("Menu Funcionários");
                 }
             }
             break;
         
-        case '6':
+        case '7':
             about_soft();
             break;
-        case '7':
+        case '8':
             about_dev();
             break;
         default:
@@ -189,11 +209,12 @@ char main_menu() {
     printf("///                                                                         ///\n");
     printf("///            1. Módulo Clientes                                           ///\n");
     printf("///            2. Módulo Animais                                            ///\n");
-    printf("///            3. Módulo Produtos e Serviços                                ///\n");
-    printf("///            4. Módulo Vendas                                             ///\n");
-    printf("///            5. Módulo Funcionários                                       ///\n");
-    printf("///            6. Sobre o software                                          ///\n");
-    printf("///            7. Sobre o desenvolvedor                                     ///\n");
+    printf("///            3. Módulo Produtos                                           ///\n");
+    printf("///            4. Módulo Serviços                                           ///\n");
+    printf("///            5. Módulo Vendas                                             ///\n");
+    printf("///            6. Módulo Funcionários                                       ///\n");
+    printf("///            7. Sobre o software                                          ///\n");
+    printf("///            8. Sobre o desenvolvedor                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
