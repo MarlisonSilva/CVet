@@ -168,8 +168,8 @@ void create_client() {
 
 
 void search_client() {
-    
-    char search[14];
+    int is_valid = 0;
+    char cpf[11];
     system("clear||cls");
     printf("\n");
     header();
@@ -179,13 +179,38 @@ void search_client() {
     printf("|||            = = = = = = =  Pesquisar Cliente  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
+    do
+    {
     printf("|||            Informe o CPF (apenas números): ");
-    scanf("%s", search);
-    while ((caractere = getchar()) != '\n' && caractere != EOF);
+        scanf("%[0-9]", cpf);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        is_valid = validate_cpf(cpf);
+        if (is_valid){
+            printf("|||            CPF digitado: ");
+            for (int i = 0; cpf[i] != '\0'; i++)
+            {
+                if (isalnum(cpf[i]))
+                {
+                    printf("%c",cpf[i]);
+                    if (i==2 || i==5)
+                    {
+                        printf(".");
+                    } else if (i==8)
+                    {
+                        printf("-");
+                    }   
+                }
+            }
+            printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else {
+            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            printf("|||                                                                         |||\n");
+        }
+    } while (!is_valid);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("buscado: %s", search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -194,7 +219,8 @@ void search_client() {
 
 void edit_client() {
     
-    char cpf_client[11];
+    char cpf[11];
+    int is_valid = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -204,9 +230,36 @@ void edit_client() {
     printf("|||            = = = = = = =  Alterar Cliente  = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
+    do
+    {
     printf("|||            Informe o CPF (apenas números): ");
-    scanf("%s", cpf_client);
-    while ((caractere = getchar()) != '\n' && caractere != EOF);
+        scanf("%[0-9]", cpf);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        is_valid = validate_cpf(cpf);
+        if (is_valid){
+            printf("|||            CPF digitado: ");
+            for (int i = 0; cpf[i] != '\0'; i++)
+            {
+                if (isalnum(cpf[i]))
+                {
+                    printf("%c",cpf[i]);
+                    if (i==2 || i==5)
+                    {
+                        printf(".");
+                    } else if (i==8)
+                    {
+                        printf("-");
+                    }   
+                }
+            }
+            printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else {
+            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            printf("|||                                                                         |||\n");
+        }
+    } while (!is_valid);
+
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a informação que deseja alterar:                     |||\n");
@@ -217,7 +270,6 @@ void edit_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("CPF do cliente alterado: %s", cpf_client);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -225,8 +277,8 @@ void edit_client() {
 
 
 void delete_client() {
-    
-    char cpf_client[11];
+    int is_valid = 0;
+    char cpf[11];
     system("clear||cls");
     printf("\n");
     header();
@@ -236,13 +288,38 @@ void delete_client() {
     printf("|||            = = = = = = = = Excluir Cliente = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
+   do
+    {
     printf("|||            Informe o CPF (apenas números): ");
-    scanf("%s", cpf_client);
-    while ((caractere = getchar()) != '\n' && caractere != EOF);
+        scanf("%[0-9]", cpf);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        is_valid = validate_cpf(cpf);
+        if (is_valid){
+            printf("|||            CPF digitado: ");
+            for (int i = 0; cpf[i] != '\0'; i++)
+            {
+                if (isalnum(cpf[i]))
+                {
+                    printf("%c",cpf[i]);
+                    if (i==2 || i==5)
+                    {
+                        printf(".");
+                    } else if (i==8)
+                    {
+                        printf("-");
+                    }   
+                }
+            }
+            printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else {
+            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            printf("|||                                                                         |||\n");
+        }
+    } while (!is_valid);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("CPF do cliente alterado: %s", cpf_client);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
