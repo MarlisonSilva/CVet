@@ -1,13 +1,13 @@
-///////////////////////////////////////////////////////////////////////////////
-///             Universidade Federal do Rio Grande do Norte                 ///
-///                 Centro de Ensino Superior do Seridó                     ///
-///               Departamento de Computação e Tecnologia                   ///
-///                  Disciplina DCT1106 -- Programação                      ///
-///          Projeto Sistema de Gestão de Clínica Veterinária               ///
-///           Desenvolvido por @iamrlison -- desde Ago, 2023                ///
-///////////////////////////////////////////////////////////////////////////////
-///                                Semana 2                                 ///
-///////////////////////////////////////////////////////////////////////////////
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// |||             Universidade Federal do Rio Grande do Norte                 |||
+// |||                 Centro de Ensino Superior do Seridó                     |||
+// |||               Departamento de Computação e Tecnologia                   |||
+// |||                  Disciplina DCT1106 -- Programação                      |||
+// |||          Projeto Sistema de Gestão de Clínica Veterinária               |||
+// |||           Desenvolvido por @iamrlison -- desde Ago, 2023                |||
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// |||                                Semana 2                                 |||
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,7 @@
 #define true 1
 #define false 0
 
-///////////////////////////////////////////////////////////////////////////////
+//
 // Variáveis globais
 char caractere;
 // Definição da estrutura do nó da lista de clientes
@@ -196,31 +196,31 @@ int main() {
 }
 
 
-///////////////////////////////////////////////////////////////////////////////
 // Funções
+/////////////////////////////////////////////////////////////////////////
 char main_menu() {
     char op;
     system("clear||cls");
     printf("\n");
     header_complete();
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = =      Clínica Veterinária CVet      = = = =           ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Módulo Clientes                                           ///\n");
-    printf("///            2. Módulo Animais                                            ///\n");
-    printf("///            3. Módulo Produtos                                           ///\n");
-    printf("///            4. Módulo Serviços                                           ///\n");
-    printf("///            5. Módulo Vendas                                             ///\n");
-    printf("///            6. Módulo Funcionários                                       ///\n");
-    printf("///            7. Sobre o software                                          ///\n");
-    printf("///            8. Sobre o desenvolvedor                                     ///\n");
-    printf("///            0. Sair                                                      ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Escolha a opção desejada: ");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = =      Clínica Veterinária CVet      = = = =           |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            1. Módulo Clientes                                           |||\n");
+    printf("|||            2. Módulo Animais                                            |||\n");
+    printf("|||            3. Módulo Produtos                                           |||\n");
+    printf("|||            4. Módulo Serviços                                           |||\n");
+    printf("|||            5. Módulo Vendas                                             |||\n");
+    printf("|||            6. Módulo Funcionários                                       |||\n");
+    printf("|||            7. Sobre o software                                          |||\n");
+    printf("|||            8. Sobre o desenvolvedor                                     |||\n");
+    printf("|||            0. Sair                                                      |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Escolha a opção desejada: ");
     scanf(" %c", &op);
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); getchar();
