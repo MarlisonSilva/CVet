@@ -4,7 +4,6 @@
 #include "worker.h"
 #include "aux_functions.h"
 
-char caractere;
 
 // Funcionários
 /////////////////////////////////////////////////////////////////////////
@@ -38,6 +37,7 @@ char worker_menu() {
 
 
 void create_worker() {
+    char caractere; 
     char cpf[11], name[100], email[255], phone[13];
     int day, month, year;
     
@@ -77,7 +77,7 @@ void create_worker() {
 
 
 void search_worker() {
-    
+    char caractere; 
     char search[14];
     system("clear||cls");
     printf("\n");
@@ -102,7 +102,7 @@ void search_worker() {
 
 
 void edit_worker() {
-    
+    char caractere; 
     char cpf_worker[11];
     system("clear||cls");
     printf("\n");
@@ -134,7 +134,7 @@ void edit_worker() {
 
 
 void delete_worker() {
-    
+    char caractere; 
     char cpf_worker[11];
     system("clear||cls");
     printf("\n");

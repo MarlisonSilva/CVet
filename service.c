@@ -4,8 +4,6 @@
 #include "service.h"
 #include "aux_functions.h"
 
-char caractere;
-
 // Serviços
 /////////////////////////////////////////////////////////////////////////
 char service_menu() {
@@ -38,6 +36,7 @@ char service_menu() {
 
 
 void create_service() {
+    char caractere; 
     char description[100], type[100];
     float price;
     
@@ -72,7 +71,7 @@ void create_service() {
 
 
 void search_service() {
-    
+    char caractere; 
     char search[14];
     system("clear||cls");
     printf("\n");
@@ -97,7 +96,7 @@ void search_service() {
 
 
 void edit_service() {
-    
+    char caractere; 
     char search[100];
     system("clear||cls");
     printf("\n");
@@ -141,7 +140,7 @@ void edit_service() {
 
 
 void delete_service() {
-    
+    char caractere; 
     char search[100];
     system("clear||cls");
     printf("\n");

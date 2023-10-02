@@ -6,7 +6,6 @@
 #include "aux_functions.h"
 #include "utils.h"
 
-char caractere;
 
 // Cliente
 /////////////////////////////////////////////////////////////////////////
@@ -40,6 +39,7 @@ char client_menu() {
 
 
 void create_client() {
+    char caractere;
     char cpf[11] = "", name[100] = "", email[255] = "", phone[13] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
@@ -61,7 +61,8 @@ void create_client() {
         is_valid = validate_cpf(cpf);
         if (is_valid){
             printf("|||            CPF digitado: ");
-            for (int i = 0; cpf[i] != '\0'; i++)
+            int i = 0;
+            do
             {
                 if (isalnum(cpf[i]))
                 {
@@ -74,7 +75,8 @@ void create_client() {
                         printf("-");
                     }   
                 }
-            }
+                i++;
+            } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
         } else {
@@ -86,14 +88,15 @@ void create_client() {
     do
     {
         printf("|||            Nome completo: ");
-        scanf("%[A-Z a-z]", name);
-        while ((caractere = getchar()) != '\n' && caractere != EOF);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", name);
+        // fgets(name, 100, stdin);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_name(name);
         if (is_valid){
             printf("|||            Nome digitado: %s\n", name);
             printf("|||                                                                         |||\n");
         } else {
-            printf("|||            Nome digitado inválido. Lembre-se de digitar apenas números! |||\n");
+            printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
@@ -136,7 +139,8 @@ void create_client() {
         is_valid = validate_phone(phone);
         if (is_valid){
             printf("|||            Telefone digitado: ");
-            for (int i = 0; phone[i] != '\0'; i++)
+            int i = 0;
+            do
             {
                 if (isalnum(phone[i])) {
                     printf("%c",phone[i]);
@@ -148,7 +152,8 @@ void create_client() {
                         printf("-");
                     }   
                 }
-            }
+                i++;
+            } while (phone[i] != '\0');
             printf("                             |||\n");
             printf("|||                                                                         |||\n");
         } else {
@@ -168,6 +173,7 @@ void create_client() {
 
 
 void search_client() {
+    char caractere;
     int is_valid = 0;
     char cpf[11];
     system("clear||cls");
@@ -187,7 +193,8 @@ void search_client() {
         is_valid = validate_cpf(cpf);
         if (is_valid){
             printf("|||            CPF digitado: ");
-            for (int i = 0; cpf[i] != '\0'; i++)
+            int i = 0;
+            do
             {
                 if (isalnum(cpf[i]))
                 {
@@ -200,7 +207,8 @@ void search_client() {
                         printf("-");
                     }   
                 }
-            }
+                i++;
+            } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
         } else {
@@ -218,7 +226,7 @@ void search_client() {
 
 
 void edit_client() {
-    
+    char caractere;
     char cpf[11];
     int is_valid = 0;
     system("clear||cls");
@@ -238,7 +246,8 @@ void edit_client() {
         is_valid = validate_cpf(cpf);
         if (is_valid){
             printf("|||            CPF digitado: ");
-            for (int i = 0; cpf[i] != '\0'; i++)
+            int i = 0;
+            do
             {
                 if (isalnum(cpf[i]))
                 {
@@ -251,7 +260,8 @@ void edit_client() {
                         printf("-");
                     }   
                 }
-            }
+                i++;
+            } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
         } else {
@@ -277,6 +287,7 @@ void edit_client() {
 
 
 void delete_client() {
+    char caractere;
     int is_valid = 0;
     char cpf[11];
     system("clear||cls");
@@ -296,7 +307,8 @@ void delete_client() {
         is_valid = validate_cpf(cpf);
         if (is_valid){
             printf("|||            CPF digitado: ");
-            for (int i = 0; cpf[i] != '\0'; i++)
+            int i = 0;
+            do
             {
                 if (isalnum(cpf[i]))
                 {
@@ -309,7 +321,8 @@ void delete_client() {
                         printf("-");
                     }   
                 }
-            }
+                i++;
+            } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
         } else {

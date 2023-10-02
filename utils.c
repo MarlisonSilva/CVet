@@ -15,7 +15,61 @@
 #define true 1
 #define false 0
 
-int validate_name(char name[]) {    
+
+// int isName(const char* str) {
+//     const char* letters = " ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÃÕÀÇabcdefghijklmnopqrstuvwxyzáéíóúãõàç";
+//     int count = 0;
+//     int len_str = 0;
+//     while (*str) {
+//         printf("STR: %c\n", *str);
+//         len_str++;
+//         while (*letters) {
+//             printf("LETTER: %c\n", *letters);
+
+//             // Check if the character is a special character
+//             if (*str > *letters) {
+//                 printf("igual");
+//                 count++;
+//             }
+//             letters++;
+//         }
+//         str++; // Move to the next character
+//     }
+//     printf("Len str: %d\n", len_str);
+//     printf("Count: %d\n", count);
+//     if (len_str == count)
+//     {
+//         return true;
+//     }
+    
+//     return false; // No special character found
+// }
+
+// void teste_name(const char* str) { 
+//     while (*str) {
+//         printf("STR CHAR: \"%d\"\n", *str);
+        
+//         str++; // Move to the next character
+    
+//     }
+
+// }
+
+int validate_name(char name[]) { 
+    // int i = 0;
+    // teste_name(name);
+    // do {
+    //     printf("CHAR: \"%d\"\n", name[i]);
+
+    //     if (!ehLetra(name[i]))
+    //     {
+    //         return false;
+
+    //     }
+        
+    //     i++;
+    // } while ((name[i] != '\0') || (name[i] != '\n'));
+    
     if (strlen(name) >= 2){
         return true;
     }
@@ -23,7 +77,7 @@ int validate_name(char name[]) {
 }
 
 int validate_cpf(char cpf[]) {
-    if (strlen(cpf) >= 11 && !has_space(cpf)){
+    if (strlen(cpf) == 11 && !has_space(cpf)){
         int i = 0;
         int n = 10;
         int soma = 0;
@@ -260,28 +314,37 @@ int validate_price(float price) {
     return false;
 }
 
+int validate_weight(float weight) {
+    if (weight > 0){
+        return true;
+    }
+    return false;
+}
+
 
 // auxiliares
 char* str_to_lower(char* str){
     char *aux = str;
-    char c = ' ';
-    for (int i = 0; i < strlen(str); i++)
+    int i = 0;
+    do
     {
         aux[i] = tolower(str[i]);
-    } 
+        i++;
+    } while (aux[i] != '\0');
     return aux;
 }
 
 
 int has_space(char* str) {
-    for (int i = 0; str[i] != '\0'; i++)
-    {   
+    int i = 0;
+    do
+    {
         if (isspace(str[i]))
         {
             return true;
         }
-        
-    }
+        i++;
+    } while (str[i] != '\0');
     
     return false;
 }

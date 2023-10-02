@@ -4,7 +4,6 @@
 #include "product.h"
 #include "aux_functions.h"
 
-char caractere;
 
 // Produtos
 /////////////////////////////////////////////////////////////////////////
@@ -38,6 +37,7 @@ char product_menu() {
 
 
 void create_product() {
+    char caractere;
     char description[100], type[100];
     float price;
     int day, month, year;
@@ -76,7 +76,7 @@ void create_product() {
 
 
 void search_product() {
-    
+    char caractere; 
     char search[14];
     system("clear||cls");
     printf("\n");
@@ -101,7 +101,7 @@ void search_product() {
 
 
 void edit_product() {
-    
+    char caractere; 
     char search[100];
     system("clear||cls");
     printf("\n");
@@ -145,7 +145,7 @@ void edit_product() {
 
 
 void delete_product() {
-    
+    char caractere; 
     char search[100];
     system("clear||cls");
     printf("\n");

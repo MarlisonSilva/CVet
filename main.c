@@ -28,7 +28,6 @@
 
 //
 // Variáveis globais
-char caractere;
 // Definição da estrutura do nó da lista de clientes
 struct Client {
     char cpf[11];
@@ -205,6 +204,10 @@ char main_menu() {
     header_complete();
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
+    printf("||| Validações funcionando temporariamente apenas em \"1. Módulo Clientes\"   |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
     printf("|||            = = = =      Clínica Veterinária CVet      = = = =           |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Módulo Clientes                                           |||\n");
@@ -221,6 +224,7 @@ char main_menu() {
     scanf(" %c", &op);
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); getchar();
