@@ -10,7 +10,7 @@
 // Cliente
 /////////////////////////////////////////////////////////////////////////
 char client_menu() {
-    char op;
+    int op = -1;
     system("clear||cls");
     printf("\n");
     header();
@@ -27,7 +27,7 @@ char client_menu() {
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
-    scanf(" %c", &op);
+    scanf("%d", &op);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -299,7 +299,7 @@ void delete_client() {
     printf("|||            = = = = = = = = Excluir Cliente = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-   do
+    do
     {
     printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);

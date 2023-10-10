@@ -56,46 +56,46 @@ int main() {
     setlocale(LC_ALL, "Portuguese_Brasil");
     int isRunning = true;
     while (isRunning){
-        char op = main_menu();
+        int op = main_menu();
         char inMenu = false;
-        char sub_op;
+        int sub_op;
         switch (op)
         {
-        case '0': // FECHAR PROGRAMA
+        case 0: // FECHAR PROGRAMA
             isRunning = false;
             break;
-        case '1': // CLIENTES
+        case 1: // CLIENTES
             inMenu = true;
             while(inMenu) { 
                 sub_op = client_menu();
-                if (sub_op == '0') { // Sair clientes
+                if (sub_op == 0) { // Sair clientes
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar cliente
+                } else if (sub_op == 1) { // Cadastrar cliente
                     create_client();
-                } else if (sub_op == '2') { // Pesquisar cliente
+                } else if (sub_op == 2) { // Pesquisar cliente
                     search_client();
-                } else if (sub_op == '3') { // Atualizar cliente
+                } else if (sub_op == 3) { // Atualizar cliente
                     edit_client();
-                } else if (sub_op == '4') { // Remover cliente
+                } else if (sub_op == 4) { // Remover cliente
                     delete_client();
                 } else {
                     no_operation("Menu Clientes");
                 }
             }
             break;
-        case '2': // ANIMAIS
+        case 2: // ANIMAIS
             inMenu = true;
             while(inMenu) { 
                 sub_op = animal_menu();
-                if (sub_op == '0') { // Sair animais
+                if (sub_op == 0) { // Sair animais
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar animal
+                } else if (sub_op == 1) { // Cadastrar animal
                     create_animal();
-                } else if (sub_op == '2') { // Pesquisar animal
+                } else if (sub_op == 2) { // Pesquisar animal
                     search_animal();
-                } else if (sub_op == '3') { // Atualizar animal
+                } else if (sub_op == 3) { // Atualizar animal
                     edit_animal();
-                } else if (sub_op == '4') { // Remover animal
+                } else if (sub_op == 4) { // Remover animal
                     delete_animal();
                 } else {
                     no_operation("Menu Animais");
@@ -103,38 +103,38 @@ int main() {
             }
             break;
         
-        case '3': // PRODUTOS 
+        case 3: // PRODUTOS 
             inMenu = true;
             while(inMenu) { 
                 sub_op = product_menu();
-                if (sub_op == '0') { // Sair produtos
+                if (sub_op == 0) { // Sair produtos
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar produtos
+                } else if (sub_op == 1) { // Cadastrar produtos
                     create_product();
-                } else if (sub_op == '2') { // Pesquisar produtos
+                } else if (sub_op == 2) { // Pesquisar produtos
                     search_product();
-                } else if (sub_op == '3') { // Atualizar produtos
+                } else if (sub_op == 3) { // Atualizar produtos
                     edit_product();
-                } else if (sub_op == '4') { // Remover produtos
+                } else if (sub_op == 4) { // Remover produtos
                     delete_product();
                 } else {
                     no_operation("Menu Produtos");
                 }
             }
             break;
-        case '4': // SERVIÇOS    
+        case 4: // SERVIÇOS    
             inMenu = true;
             while(inMenu) { 
                 sub_op = service_menu();
-                if (sub_op == '0') { // Sair serviços
+                if (sub_op == 0) { // Sair serviços
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar serviços
+                } else if (sub_op == 1) { // Cadastrar serviços
                     create_service();
-                } else if (sub_op == '2') { // Pesquisar serviços
+                } else if (sub_op == 2) { // Pesquisar serviços
                     search_service();
-                } else if (sub_op == '3') { // Atualizar serviços
+                } else if (sub_op == 3) { // Atualizar serviços
                     edit_service();
-                } else if (sub_op == '4') { // Remover serviços
+                } else if (sub_op == 4) { // Remover serviços
                     delete_service();
                 } else {
                     no_operation("Menu Serviços");
@@ -142,36 +142,36 @@ int main() {
             }
             break;
 
-        case '5': // VENDAS
+        case 5: // VENDAS
             inMenu = true;
             while(inMenu) { 
                 sub_op = sale_menu();
-                if (sub_op == '0') { // Sair vendas
+                if (sub_op == 0) { // Sair vendas
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar venda
+                } else if (sub_op == 1) { // Cadastrar venda
                     create_sale();
-                } else if (sub_op == '2') { // Pesquisar venda
+                } else if (sub_op == 2) { // Pesquisar venda
                     search_sale();
-                } else if (sub_op == '3') { // Remover venda
+                } else if (sub_op == 3) { // Remover venda
                     delete_sale();
                 } else {
                     no_operation("Menu Vendas");
                 }
             }
             break;
-        case '6': // FUNCIONÁRIOS 
+        case 6: // FUNCIONÁRIOS 
             inMenu = true;
             while(inMenu) { 
                 sub_op = worker_menu();
-                if (sub_op == '0') { // Sair funcionários
+                if (sub_op == 0) { // Sair funcionários
                     inMenu = false;
-                } else if (sub_op == '1') { // Cadastrar funcionário
+                } else if (sub_op == 1) { // Cadastrar funcionário
                     create_worker();
-                } else if (sub_op == '2') { // Pesquisar funcionário
+                } else if (sub_op == 2) { // Pesquisar funcionário
                     search_worker();
-                } else if (sub_op == '3') { // Atualizar funcionário
+                } else if (sub_op == 3) { // Atualizar funcionário
                     edit_worker();
-                } else if (sub_op == '4') { // Remover funcionário
+                } else if (sub_op == 4) { // Remover funcionário
                     delete_worker();
                 } else {
                     no_operation("Menu Funcionários");
@@ -179,10 +179,10 @@ int main() {
             }
             break;
         
-        case '7':
+        case 7:
             about_soft();
             break;
-        case '8':
+        case 8:
             about_dev();
             break;
         default:
@@ -198,14 +198,10 @@ int main() {
 // Funções
 /////////////////////////////////////////////////////////////////////////
 char main_menu() {
-    char op;
+    int op = -1;
     system("clear||cls");
     printf("\n");
     header_complete();
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("||| Validações funcionando temporariamente apenas em \"1. Módulo Clientes\"   |||\n");
-    printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = =      Clínica Veterinária CVet      = = = =           |||\n");
@@ -221,7 +217,7 @@ char main_menu() {
     printf("|||            0. Sair                                                      |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
-    scanf(" %c", &op);
+    scanf("%d", &op);
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
