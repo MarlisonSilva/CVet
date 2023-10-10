@@ -299,7 +299,7 @@ void delete_client() {
     printf("|||            = = = = = = = = Excluir Cliente = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-   do
+    do
     {
     printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
