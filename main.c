@@ -204,10 +204,6 @@ char main_menu() {
     header_complete();
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
-    printf("||| Validações funcionando temporariamente apenas em \"1. Módulo Clientes\"   |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
     printf("|||            = = = =      Clínica Veterinária CVet      = = = =           |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Módulo Clientes                                           |||\n");

@@ -298,6 +298,112 @@ int validate_date(int day, int month, int year) {
     return false;
 }
 
+int validate_expiration_date(int day, int month, int year) {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    if (year >= (tm.tm_year + 1900))
+    {
+        if (year > (tm.tm_year + 1900) || (year == (tm.tm_year + 1900) && month > tm.tm_mon + 1)) {
+            switch (month){
+                case 1:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 2:
+                    if (year % 4 == 0){
+                        if (day <= 29)
+                        {
+                            return true;
+                        }
+                    } else {
+                        if (day <= 28)
+                        {
+                            return true;
+                        } 
+                    }
+                    break;
+                case 3:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 4:
+                    if (day <= 30)
+                    {
+                        return true;
+                    }
+                    break;
+                case 5:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 6:
+                    if (day <= 30)
+                    {
+                        return true;
+                    }
+                    break;
+                case 7:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 8:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 9:
+                    if (day <= 30)
+                    {
+                        return true;
+                    }
+                    break;
+                case 10:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                case 11:
+                    if (day <= 30)
+                    {
+                        return true;
+                    }
+                    break;
+                case 12:
+                    if (day <= 31)
+                    {
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            } 
+            
+        } else if (month == (tm.tm_mon + 1) && day >= tm.tm_mday) {
+            return true;
+        }
+        
+        
+    } else if (year == 0 && month == 0 && day == 0)
+    {
+        return true;
+    }
+    
+    
+    
+    return false;
+}
+
 int validate_phone(char phone[]) {
     if (strlen(phone) >= 11)
     {
