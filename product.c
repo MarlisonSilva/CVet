@@ -89,16 +89,16 @@ void create_product() {
 
     do
     {
-        printf("|||            Peso: ");
+        printf("|||            Preço: ");
         scanf("%f", &price);
 
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_price(price);
         if (is_valid){
-            printf("|||            Peso digitado: %.2f\n", price);
+            printf("|||            Preço digitado: %.2f\n", price);
             printf("|||                                                                         |||\n");
         } else {
-            printf("|||            Peso digitado inválido. Verifique se é maior que 0.          |||\n");
+            printf("|||            Preço digitado inválido. Verifique se é maior que 0.         |||\n");
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
@@ -159,10 +159,10 @@ void search_product() {
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(search);
         if (is_valid){
-            printf("|||            Nome digitado: %s\n", search);
+            printf("|||            Descrição digitada: %s\n", search);
             printf("|||                                                                         |||\n");
         } else {
-            printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
+            printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
