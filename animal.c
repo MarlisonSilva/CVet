@@ -59,6 +59,7 @@ void create_animal() {
     {
         printf("|||            CPF do tutor (apenas números): ");
         scanf("%[0-9]", cpf);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
         if (is_valid){
@@ -91,8 +92,8 @@ void create_animal() {
     do
     {
         printf("|||            Nome do animal: ");
-        scanf("%[^\n]", name);
-        printf("Nome é: %s \n",name);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", name);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(name);
         if (is_valid){
@@ -107,7 +108,8 @@ void create_animal() {
     do
     {
         printf("|||            Espécie: ");
-        fgets(especie, 100, stdin);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", especie);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(especie);
         if (is_valid){
@@ -122,7 +124,8 @@ void create_animal() {
     do
     {
         printf("|||            Raça: ");
-        fgets(race, 100, stdin);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", race);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(race);
         if (is_valid){
@@ -138,10 +141,11 @@ void create_animal() {
     {
         printf("|||            Peso: ");
         scanf("%f", &weight);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_weight(weight);
         if (is_valid){
-            printf("|||            Peso digitado: %f\n", weight);
+            printf("|||            Peso digitado: %.3f\n", weight);
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            Peso digitado inválido. Verifique se é maior que 0.          |||\n");
@@ -153,6 +157,7 @@ void create_animal() {
     {
         printf("|||            Data de Nascimento (dd/mm/aaaa): ");
         scanf("%d%*c%d%*c%d", &day, &month, &year);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_date(day, month, year);
         if (is_valid){
@@ -224,7 +229,7 @@ void search_animal() {
     do
     {
         printf("|||            Informe o nome do animal: ");
-        fgets(search, 100, stdin);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(search);
         if (is_valid){
@@ -294,7 +299,7 @@ void edit_animal() {
     do
     {
         printf("|||            Informe o nome do animal: ");
-        fgets(search, 100, stdin);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(search);
         if (is_valid){
@@ -386,7 +391,7 @@ void delete_animal() {
     do
     {
         printf("|||            Informe o nome do animal: ");
-        fgets(search, 100, stdin);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(search);
         if (is_valid){
