@@ -41,7 +41,7 @@ char animal_menu() {
 void create_animal() {
     char caractere;
 
-    char cpf[11], name[100], especie[100],race[100];
+    char cpf[11], name[100], species[100],race[100];
     float weight;
     int day, month, year;
     int is_valid = 0;
@@ -108,12 +108,12 @@ void create_animal() {
     do
     {
         printf("|||            Espécie: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", especie);
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", species);
 
         while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(especie);
+        is_valid = validate_name(species);
         if (is_valid){
-            printf("|||            Espécie digitada: %s\n", especie);
+            printf("|||            Espécie digitada: %s\n", species);
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            Espécie digitada inválida. Digite apenas letras e espaços.   |||\n");
@@ -171,7 +171,7 @@ void create_animal() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    // insertClient(&listAnimals, client, name, especie, race, weight, day, month, year);
+    // insertClient(&listAnimals, client, name, species, race, weight, day, month, year);
     // saveData();
     printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
