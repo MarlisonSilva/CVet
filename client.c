@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "client.h"
+#include "database.h"
 #include "aux_functions.h"
 #include "utils.h"
 
@@ -165,6 +166,7 @@ void create_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    insert_client(cpf, name, email, phone, day, month, year);
     printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
@@ -219,6 +221,7 @@ void search_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    print_clients();
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

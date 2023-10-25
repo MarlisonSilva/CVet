@@ -26,29 +26,11 @@
 #define true 1
 #define false 0
 
-//
-// Variáveis globais
-// Definição da estrutura do nó da lista de clientes
-struct Client {
-    char cpf[11];
-    char name[100];
-    char email[255];
-    char phone[13];
-    int dayBorn, monthBorn, yearBorn;
-    struct Client* next;
-};
-
-struct Client* listClients = NULL; // Lista de clientes
 
 /////
 // Assinatura das funções
 // Menu principal
 char main_menu();
-
-
-
-
-
 
 /////
 // Programa principal
