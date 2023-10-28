@@ -252,7 +252,7 @@ void search_animal() {
 
 void edit_animal() {
     char caractere;
-    char cpf[11];
+    char cpf[12];
     char search[100];
     int is_valid = 0;
     system("clear||cls");
@@ -345,7 +345,7 @@ void edit_animal() {
 void delete_animal() {
     char caractere;
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     char search[100];
     system("clear||cls");
     printf("\n");

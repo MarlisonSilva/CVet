@@ -125,7 +125,7 @@ void create_sale() {
 
 void search_sale() {
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -179,7 +179,7 @@ void search_sale() {
 
 void delete_sale() {    
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");

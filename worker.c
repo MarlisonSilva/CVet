@@ -174,7 +174,7 @@ void create_worker() {
 
 void search_worker() {
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -227,7 +227,7 @@ void search_worker() {
 
 void edit_worker() {
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -288,7 +288,7 @@ void edit_worker() {
 void delete_worker() {
     char caractere; 
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     header();

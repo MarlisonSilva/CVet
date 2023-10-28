@@ -9,10 +9,10 @@
 typedef struct client Client;
 
 struct client {
-    char cpf[11];
+    char cpf[12];
     char name[100];
     char email[255];
-    char phone[13];
+    char phone[12];
     int day_born;
     int month_born;
     int year_born;
@@ -54,6 +54,7 @@ void insert_client(char cpf[], char name[], char email[], char phone[], int day_
     new_client->year_born = year_born;
     new_client->activated = 1;
 
+    printf("CPFFFF do cliente: %s\n",new_client->cpf);
     save_client(new_client);
     free(new_client);
 }
@@ -102,42 +103,67 @@ void list_clients(void) {
     fclose(p_file);
 }
 
-// Função para imprimir os elementos da lista
-// void print_clients(Client* list) {
-//     Client* current = list;
-//     while (current != NULL) {
-//         printf("Cliente: \n");
-//         printf("CPF: %s\n", current->cpf);
-//         printf("Nome: %s\n", current->name);
-//         printf("E-mail: %s\n", current->email);
-//         printf("Telefone: %s\n", current->phone);
-//         printf("Data de nascimento: %02d/%02d/%d\n", current->day_born, current->month_born, current->year_born);
-//         current = current->next;
-//     }
-//     printf("\n");
-// }
 
-// Conversão da lista de struct para String
-// char* client_to_string(Client* list) {
-//     char* result = (char*)malloc(1);  // Inicializa a string vazia
-//     result[0] = '\0';  // Garante que a string está terminada corretamente
+void find_client(char cpf[]) {
+    FILE* p_file;
+    Client* cl;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Não é possível continuar...\n");
+        return;
+    }
 
-//     Client* current = list;
-//     while (current != NULL) {
-//         char temp[100];
-//         sprintf(temp, "%s, %s, %s, %s, %d, %d, %d \n", current->cpf, current->name, current->email, current->phone, current->day_born, current->month_born, current->year_born);
-//         result = (char*)realloc(result, strlen(result) + strlen(temp) + 1);
-//         strcat(result, temp);
-//         current = current->next;
-//     }
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if ((strcmp(cl->cpf, cpf) == 0) && (cl->activated)) {
+            print_client(cl);
+            printf("\n");
+        }
+    }
+    fclose(p_file);
+    free(cl);
+}
 
-//     return result;
-// }
+void remove_client(char cpf[]) {
+    FILE* p_file;
+    Client* cl;
+    int found = 0;
+
+    if (cl == NULL) {
+        printf("O cliente informado não existe!\n");
+    } else {
+        cl = (Client*) malloc(sizeof(Client));
+        p_file = fopen("db_clients.dat", "r+b");
+        if (p_file == NULL) {
+            printf("Ops! Erro abertura do arquivo!\n");
+            printf("Não é possível continuar...\n");
+            exit(1);
+        }
+    }
+
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if ((strcmp(cl->cpf, cpf) == 0) && (cl->activated)) {
+            found = 1;
+            cl->activated = 0;
+            fseek(p_file, -1*sizeof(Client), SEEK_CUR);
+            fwrite(cl, sizeof(Client), 1, p_file);
+            printf("\nCliente excluído!\n");
+        }
+    }
+
+    if (!found) {
+        printf("\nCliente não encontrado!\n");
+    }
+
+    fclose(p_file);
+    free(cl);
+}
 
 typedef struct animal Animal;
 
 struct animal {
-    char cpf[11];
+    char cpf[12];
     char name[100];
     char species[100];
     char race[100];
@@ -181,7 +207,7 @@ struct sale {
 typedef struct worker Worker;
 
 struct worker {
-    char cpf[11];
+    char cpf[12];
     char name[100];
     char email[255];
     char phone[13];
