@@ -157,6 +157,8 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar funcionários
                     create_worker();
+                } else if (sub_op == 2) { // Listar funcionários
+                    all_workers();
                 } else if (sub_op == 2) { // Pesquisar funcionários
                     search_worker();
                 } else if (sub_op == 3) { // Atualizar funcionários
