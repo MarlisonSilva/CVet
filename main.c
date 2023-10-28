@@ -54,7 +54,7 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar cliente
                     create_client();
-                } else if (sub_op == 2) { // Pesquisar cliente
+                } else if (sub_op == 2) { // Listar clientes
                     all_clients();
                 } else if (sub_op == 3) { // Pesquisar cliente
                     search_client();
@@ -75,11 +75,13 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar animal
                     create_animal();
-                } else if (sub_op == 2) { // Pesquisar animal
+                } else if (sub_op == 2) { // Listar animais
+                    all_animals();
+                } else if (sub_op == 3) { // Pesquisar animal
                     search_animal();
-                } else if (sub_op == 3) { // Atualizar animal
+                } else if (sub_op == 4) { // Atualizar animal
                     edit_animal();
-                } else if (sub_op == 4) { // Remover animal
+                } else if (sub_op == 5) { // Remover animal
                     delete_animal();
                 } else {
                     no_operation("Menu Animais");

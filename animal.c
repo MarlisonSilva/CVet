@@ -21,9 +21,10 @@ char animal_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo animal                                  |||\n");
-    printf("|||            2. Pesquisar os dados de um animal                           |||\n");
-    printf("|||            3. Atualizar o cadastro de um animal                         |||\n");
-    printf("|||            4. Excluir um animal do sistema                              |||\n");
+    printf("|||            2. Listar todos os animais                                   |||\n");
+    printf("|||            3. Pesquisar os dados de um animal                           |||\n");
+    printf("|||            4. Atualizar o cadastro de um animal                         |||\n");
+    printf("|||            5. Excluir um animal do sistema                              |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -179,6 +180,26 @@ void create_animal() {
     getchar(); 
 }
 
+void all_animals() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Animais = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos animais cadastrados:                                   |||\n");
+    // list_animals();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
 
 void search_animal() {
     char caractere;
@@ -191,7 +212,7 @@ void search_animal() {
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
-    printf("|||            = = = = = = =  Pesquisar Animal  = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Animal = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     do
