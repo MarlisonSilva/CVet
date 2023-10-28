@@ -52,15 +52,15 @@ int main() {
                 sub_op = client_menu();
                 if (sub_op == 0) { // Sair clientes
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar cliente
+                } else if (sub_op == 1) { // Cadastrar clientes
                     create_client();
                 } else if (sub_op == 2) { // Listar clientes
                     all_clients();
-                } else if (sub_op == 3) { // Pesquisar cliente
+                } else if (sub_op == 3) { // Pesquisar clientes
                     search_client();
-                } else if (sub_op == 4) { // Atualizar cliente
+                } else if (sub_op == 4) { // Atualizar clientes
                     edit_client();
-                } else if (sub_op == 5) { // Remover cliente
+                } else if (sub_op == 5) { // Remover clientes
                     delete_client();
                 } else {
                     no_operation("Menu Clientes");
@@ -73,15 +73,15 @@ int main() {
                 sub_op = animal_menu();
                 if (sub_op == 0) { // Sair animais
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar animal
+                } else if (sub_op == 1) { // Cadastrar animais
                     create_animal();
                 } else if (sub_op == 2) { // Listar animais
                     all_animals();
-                } else if (sub_op == 3) { // Pesquisar animal
+                } else if (sub_op == 3) { // Pesquisar animais
                     search_animal();
-                } else if (sub_op == 4) { // Atualizar animal
+                } else if (sub_op == 4) { // Atualizar animais
                     edit_animal();
-                } else if (sub_op == 5) { // Remover animal
+                } else if (sub_op == 5) { // Remover animais
                     delete_animal();
                 } else {
                     no_operation("Menu Animais");
@@ -97,11 +97,13 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar produtos
                     create_product();
-                } else if (sub_op == 2) { // Pesquisar produtos
+                } else if (sub_op == 2) { // Listar produtos
+                    all_products();
+                } else if (sub_op == 3) { // Pesquisar produtos
                     search_product();
-                } else if (sub_op == 3) { // Atualizar produtos
+                } else if (sub_op == 4) { // Atualizar produtos
                     edit_product();
-                } else if (sub_op == 4) { // Remover produtos
+                } else if (sub_op == 5) { // Remover produtos
                     delete_product();
                 } else {
                     no_operation("Menu Produtos");
@@ -134,11 +136,11 @@ int main() {
                 sub_op = sale_menu();
                 if (sub_op == 0) { // Sair vendas
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar venda
+                } else if (sub_op == 1) { // Cadastrar vendas
                     create_sale();
-                } else if (sub_op == 2) { // Pesquisar venda
+                } else if (sub_op == 2) { // Pesquisar vendas
                     search_sale();
-                } else if (sub_op == 3) { // Remover venda
+                } else if (sub_op == 3) { // Remover vendas
                     delete_sale();
                 } else {
                     no_operation("Menu Vendas");
@@ -151,13 +153,13 @@ int main() {
                 sub_op = worker_menu();
                 if (sub_op == 0) { // Sair funcionários
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar funcionário
+                } else if (sub_op == 1) { // Cadastrar funcionários
                     create_worker();
-                } else if (sub_op == 2) { // Pesquisar funcionário
+                } else if (sub_op == 2) { // Pesquisar funcionários
                     search_worker();
-                } else if (sub_op == 3) { // Atualizar funcionário
+                } else if (sub_op == 3) { // Atualizar funcionários
                     edit_worker();
-                } else if (sub_op == 4) { // Remover funcionário
+                } else if (sub_op == 4) { // Remover funcionários
                     delete_worker();
                 } else {
                     no_operation("Menu Funcionários");

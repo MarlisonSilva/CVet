@@ -21,9 +21,10 @@ char product_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo produto                                 |||\n");
-    printf("|||            2. Pesquisar os dados de um produto                          |||\n");
-    printf("|||            3. Atualizar o cadastro de um produto                        |||\n");
-    printf("|||            4. Excluir um produto do sistema                             |||\n");
+    printf("|||            2. Listar todos os produtos                                  |||\n");
+    printf("|||            3. Pesquisar os dados de um produto                          |||\n");
+    printf("|||            4. Atualizar o cadastro de um produto                        |||\n");
+    printf("|||            5. Excluir um produto do sistema                             |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -137,6 +138,25 @@ void create_product() {
     getchar(); 
 }
 
+void all_products() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Produtos  = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos os produtos cadastrados:                               |||\n");
+    // list_products();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_product() {
     char caractere; 
