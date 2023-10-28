@@ -118,11 +118,13 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar serviços
                     create_service();
-                } else if (sub_op == 2) { // Pesquisar serviços
+                } else if (sub_op == 2) { // Listar serviços
+                    all_services();
+                } else if (sub_op == 3) { // Pesquisar serviços
                     search_service();
-                } else if (sub_op == 3) { // Atualizar serviços
+                } else if (sub_op == 4) { // Atualizar serviços
                     edit_service();
-                } else if (sub_op == 4) { // Remover serviços
+                } else if (sub_op == 5) { // Remover serviços
                     delete_service();
                 } else {
                     no_operation("Menu Serviços");
