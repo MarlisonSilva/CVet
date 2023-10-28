@@ -17,18 +17,14 @@ struct client {
     int month_born;
     int year_born;
     int activated;
-    // Sugestão ChatGPT
-    Client* next;
 };
 
-Client* list_clients = NULL; // Lista de clientes
-
-// salva os dados cadastrados em um arquivo
-int save_client(Client* client_to_save) {
+// salva o cliente em um arquivo
+int save_client(Client* cl) {
     FILE *p_file; // cria variável ponteiro para o arquivo
 
     //abrindo o arquivo com tipo de abertura w
-    p_file = fopen("db_clients.dat", "wb");
+    p_file = fopen("db_clients.dat", "ab");
 
     //testando se o arquivo foi realmente criado
     if(p_file == NULL) {
@@ -36,11 +32,7 @@ int save_client(Client* client_to_save) {
         return 1;
     }
 
-    size_t tamanho = sizeof(struct client);
-    fwrite(client_to_save, tamanho, 1, p_file);
-
-    //usando fprintf para armazenar a string no arquivo
-    // fprintf(p_file, client_to_save);
+    fwrite(cl, sizeof(Client), 1, p_file);
 
     //usando fclose para fechar o arquivo
     fclose(p_file);
@@ -49,7 +41,7 @@ int save_client(Client* client_to_save) {
     return 0;
 }
 
-// Função para inserir um elemento no final da lista de clientes
+// Trata os dados para salvar no cliente
 void insert_client(char cpf[], char name[], char email[], char phone[], int day_born, int month_born, int year_born) {
     Client* new_client = (Client*)malloc(sizeof(Client));
 
@@ -60,51 +52,54 @@ void insert_client(char cpf[], char name[], char email[], char phone[], int day_
     new_client->day_born = day_born;
     new_client->month_born = month_born;
     new_client->year_born = year_born;
-    new_client->next = NULL;
+    new_client->activated = 1;
 
-    if (list_clients == NULL) {
-        list_clients = new_client;
-    } else {
-        Client* current = list_clients;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = new_client;
-    }
     save_client(new_client);
     free(new_client);
 }
 
-// Função para imprimir os elementos da lista
-void print_clients() {
-    // Abra o arquivo binário para leitura
-    FILE *p_file;
-    p_file = fopen("db_clients.dat", "rb");
+// Função para imprimir um cliente
+void print_client(Client* cl) {
+    
+    if ((cl == NULL) || !(cl->activated)) {
+        printf("\n= = = CLIENTE INEXISTENTE = = =\n");
+    } else {
+        printf("Cliente: \n");
+        printf("CPF: %s\n", cl->cpf);
+        printf("Nome: %s\n", cl->name);
+        printf("E-mail: %s\n", cl->email);
+        printf("Telefone: %s\n", cl->phone);
+        printf("Data de nascimento: %02d/%02d/%d\n", cl->day_born, cl->month_born, cl->year_born);
 
+        if (cl->activated) {
+            printf("Situação do cliente: Ativo \n");
+        } else {
+            printf("Situação do cliente: Inativo \n");
+        }
+        
+    }
+}
+
+// Função para listar todos os clientes
+void list_clients(void) {
+    FILE* p_file;
+    Client* cl;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
-        perror("Erro ao abrir o arquivo");
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Não é possível continuar...\n");
         return;
     }
 
-    // Crie uma instância da struct para armazenar os dados lidos
-    Client client_saved;
-
-    // Leia a struct do arquivo binário
-    size_t tamanho = sizeof(struct client);
-    fread(&client_saved, tamanho, 1, p_file);
-
-    // Feche o arquivo
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if (cl->activated) {
+            print_client(cl);
+            printf("\n");
+        }
+    }
+    free(cl);
     fclose(p_file);
-
-    printf("Cliente: \n");
-    printf("CPF: %s\n", client_saved.cpf);
-    printf("Nome: %s\n", client_saved.name);
-    printf("E-mail: %s\n", client_saved.email);
-    printf("Telefone: %s\n", client_saved.phone);
-    printf("Data de nascimento: %02d/%02d/%d\n", client_saved.day_born, client_saved.month_born, client_saved.year_born);
-
-    
-    printf("\n");
 }
 
 // Função para imprimir os elementos da lista

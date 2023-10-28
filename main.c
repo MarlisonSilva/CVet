@@ -55,10 +55,12 @@ int main() {
                 } else if (sub_op == 1) { // Cadastrar cliente
                     create_client();
                 } else if (sub_op == 2) { // Pesquisar cliente
+                    all_clients();
+                } else if (sub_op == 3) { // Pesquisar cliente
                     search_client();
-                } else if (sub_op == 3) { // Atualizar cliente
+                } else if (sub_op == 4) { // Atualizar cliente
                     edit_client();
-                } else if (sub_op == 4) { // Remover cliente
+                } else if (sub_op == 5) { // Remover cliente
                     delete_client();
                 } else {
                     no_operation("Menu Clientes");

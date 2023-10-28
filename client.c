@@ -22,9 +22,10 @@ char client_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo cliente                                 |||\n");
-    printf("|||            2. Pesquisar os dados de um cliente                          |||\n");
-    printf("|||            3. Atualizar o cadastro de um cliente                        |||\n");
-    printf("|||            4. Excluir um cliente do sistema                             |||\n");
+    printf("|||            2. Listar todos os clientes                                  |||\n");
+    printf("|||            3. Pesquisar os dados de um cliente                          |||\n");
+    printf("|||            4. Atualizar o cadastro de um cliente                        |||\n");
+    printf("|||            5. Excluir um cliente do sistema                             |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -173,6 +174,28 @@ void create_client() {
     getchar(); 
 }
 
+void all_clients() {
+    char caractere;
+    int is_valid = 0;
+    char cpf[11];
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Clientes  = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos clientes cadastrados:                                  |||\n");
+    list_clients();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_client() {
     char caractere;
@@ -221,7 +244,7 @@ void search_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    print_clients();
+    list_clients();
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
