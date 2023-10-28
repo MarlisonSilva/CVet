@@ -40,7 +40,7 @@ char worker_menu() {
 
 void create_worker() {
     char caractere; 
-    char cpf[11] = "", name[100] = "", email[255] = "", phone[13] = "";
+    char cpf[12] = "", name[100] = "", email[255] = "", phone[13] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
     system("clear||cls");

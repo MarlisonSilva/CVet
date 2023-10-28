@@ -41,7 +41,7 @@ char animal_menu() {
 void create_animal() {
     char caractere;
 
-    char cpf[11], name[100], species[100],race[100];
+    char cpf[12], name[100], species[100],race[100];
     float weight;
     int day, month, year;
     int is_valid = 0;
@@ -183,7 +183,7 @@ void create_animal() {
 void search_animal() {
     char caractere;
     char search[100];
-    char cpf[14];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");

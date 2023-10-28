@@ -85,6 +85,7 @@ void print_client(Client* cl) {
 void list_clients(void) {
     FILE* p_file;
     Client* cl;
+    int found = 0;
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
@@ -96,9 +97,15 @@ void list_clients(void) {
     while(fread(cl, sizeof(Client), 1, p_file)) {
         if (cl->activated) {
             print_client(cl);
+            found++;
             printf("\n");
         }
     }
+    if (found == 0)
+    {
+        printf("Sem clientes! \n");
+    }
+    
     free(cl);
     fclose(p_file);
 }
