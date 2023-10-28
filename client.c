@@ -296,17 +296,9 @@ void edit_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||            Escolha a informação que deseja alterar:                     |||\n");
-    printf("|||            1- Nome: Pessoa da Silva                                     |||\n");
-    printf("|||            2- E-mail: pessoa@gmail.com                                  |||\n");
-    printf("|||            3- Data de nascimento: 26/08/2023                            |||\n");
-    printf("|||            4- Nº de telefone: 84999999999                               |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    update_client(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

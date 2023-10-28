@@ -5,4 +5,5 @@ void insert_client(char cpf[], char name[], char email[], char phone[], int day_
 void print_client(Client* cl);
 void list_clients(void);
 void find_client(char cpf[]);
+void update_client(char cpf[]); 
 void remove_client(char cpf[]);

@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
+#include <ctype.h> 
+#include "utils.h"
 
 #define true 1
 #define false 0
@@ -62,7 +64,7 @@ void insert_client(char cpf[], char name[], char email[], char phone[], int day_
 // Função para imprimir um cliente
 void print_client(Client* cl) {
     
-    if ((cl == NULL) || !(cl->activated)) {
+    if ((cl == NULL)) {
         printf("\n= = = CLIENTE INEXISTENTE = = =\n");
     } else {
         printf("Cliente: \n");
@@ -132,22 +134,168 @@ void find_client(char cpf[]) {
     free(cl);
 }
 
+void update_client(char cpf[]) {
+    FILE* p_file;
+    Client* cl;
+    int found = 0;
+    int is_valid = 0;
+    char caractere;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "r+b");
+    if (p_file == NULL) {
+        printf("Ops! Erro abertura do arquivo!\n");
+        printf("Não é possível continuar...\n");
+        return;
+    }
+    
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if ((strcmp(cl->cpf, cpf) == 0) && (cl->activated)) {
+            found = 1;
+            int updating = 1;
+            do
+            {
+                int op;
+                printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+                printf("|||                                                                         |||\n");
+                printf("|||            Qual informação deseja editar?                               |||\n");
+                printf("|||            [1] Nome: %s\n", cl->name);
+                printf("|||            [2] E-mail: %s\n", cl->email);
+                printf("|||            [3] Telefone: %s\n", cl->phone);
+                printf("|||            [4] Data de nascimento: %02d/%02d/%d\n", cl->day_born, cl->month_born, cl->year_born);
+                printf("|||            [0] Finalizar edição                                         |||\n");
+                printf("|||                                                                         |||\n");
+                printf("|||            >> Opção: ");
+                scanf("%d", &op);
+                getchar();
+
+                switch (op) {
+                    case 1:
+                        do
+                        {
+                            printf("|||            Novo nome: ");
+                            scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cl->name);
+
+                            while ((caractere = getchar()) != '\n' && caractere != EOF);  
+                            is_valid = validate_name(cl->name);
+                            if (is_valid){
+                                printf("|||            Nome digitado: %s\n", cl->name);
+                                printf("|||                                                                         |||\n");
+                            } else {
+                                printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
+                                printf("|||                                                                         |||\n");
+                            }
+                        } while (!is_valid);
+                        break;
+
+                    case 2:
+                        do
+                        {
+                            printf("|||            E-mail: ");
+                            scanf("%[-._@A-Za-z0-9]", cl->email);
+                            while ((caractere = getchar()) != '\n' && caractere != EOF);
+                            is_valid = validate_email(cl->email);
+                            if (is_valid){
+                                printf("|||            E-mail digitado: %s\n", cl->email);
+                                printf("|||                                                                         |||\n");
+                            } else {
+                                printf("|||            E-mail digitado inválido.                                    |||\n");
+                                printf("|||                                                                         |||\n");
+                            }
+                        } while (!is_valid);
+                        break;
+
+                    case 3:
+                        do
+                        {
+                            printf("|||            Celular (apenas números | ex.: 84999776655): ");
+                            scanf("%[0-9]", cl->phone);
+                            while ((caractere = getchar()) != '\n' && caractere != EOF);
+                            is_valid = validate_phone(cl->phone);
+                            if (is_valid){
+                                printf("|||            Telefone digitado: ");
+                                int i = 0;
+                                do
+                                {
+                                    if (isalnum(cl->phone[i])) {
+                                        printf("%c",cl->phone[i]);
+                                        if (i==1)
+                                        {
+                                            printf(" ");
+                                        } else if (i==6)
+                                        {
+                                            printf("-");
+                                        }   
+                                    }
+                                    i++;
+                                } while (cl->phone[i] != '\0');
+                                printf("                             |||\n");
+                                printf("|||                                                                         |||\n");
+                            } else {
+                                printf("|||            Telefone digitado inválido. Lembre do DDD do estado e o 9.   |||\n");
+                                printf("|||                                                                         |||\n");
+                            }
+                        } while (!is_valid);
+                        break;
+
+                    case 4:
+                        do
+                        {
+                            printf("|||            Data de Nascimento (dd/mm/aaaa): ");
+                            scanf("%d%*c%d%*c%d", &cl->day_born, &cl->month_born, &cl->year_born);
+                            while ((caractere = getchar()) != '\n' && caractere != EOF);
+                            is_valid = validate_date(cl->day_born, cl->month_born, cl->year_born);
+                            if (is_valid){
+                                printf("|||            Data digitada: %02d/%02d/%04d                                    |||\n", cl->day_born, cl->month_born, cl->year_born);
+                                printf("|||                                                                         |||\n");
+                            } else {
+                                printf("|||            Data digitada inválida.                                      |||\n");
+                                printf("|||                                                                         |||\n");
+                            }
+                        } while (!is_valid);
+                        break;
+
+                    case 0:
+                        printf("|||            >> Edição finalizada!                                        |||\n");
+                        printf("|||                                                                         |||\n");
+                        updating = 0;
+                        break;
+                    default:
+                        printf("|||            >> Opção inexistente!                                        |||\n");
+                        printf("|||                                                                         |||\n");
+                        break;
+                }
+                
+                fseek(p_file, -1*sizeof(Client), SEEK_CUR);
+                fwrite(cl, sizeof(Client), 1, p_file);
+            } while (updating);
+            
+            
+        }
+    }
+
+    if (!found) {        
+        printf("|||            >> Cliente não encontrado!                                   |||\n");
+        
+    }
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    fclose(p_file);
+    free(cl);
+}
+
 void remove_client(char cpf[]) {
     FILE* p_file;
     Client* cl;
     int found = 0;
 
-    if (cl == NULL) {
-        printf("O cliente informado não existe!\n");
-    } else {
-        cl = (Client*) malloc(sizeof(Client));
-        p_file = fopen("db_clients.dat", "r+b");
-        if (p_file == NULL) {
-            printf("Ops! Erro abertura do arquivo!\n");
-            printf("Não é possível continuar...\n");
-            exit(1);
-        }
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "r+b");
+    if (p_file == NULL) {
+        printf("Ops! Erro abertura do arquivo!\n");
+        printf("Não é possível continuar...\n");
+        return;
     }
+    
 
     while(fread(cl, sizeof(Client), 1, p_file)) {
         if ((strcmp(cl->cpf, cpf) == 0) && (cl->activated)) {
