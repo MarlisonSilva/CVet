@@ -21,9 +21,10 @@ char animal_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo animal                                  |||\n");
-    printf("|||            2. Pesquisar os dados de um animal                           |||\n");
-    printf("|||            3. Atualizar o cadastro de um animal                         |||\n");
-    printf("|||            4. Excluir um animal do sistema                              |||\n");
+    printf("|||            2. Listar todos os animais                                   |||\n");
+    printf("|||            3. Pesquisar os dados de um animal                           |||\n");
+    printf("|||            4. Atualizar o cadastro de um animal                         |||\n");
+    printf("|||            5. Excluir um animal do sistema                              |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -41,7 +42,7 @@ char animal_menu() {
 void create_animal() {
     char caractere;
 
-    char cpf[11], name[100], species[100],race[100];
+    char cpf[12], name[100], species[100],race[100];
     float weight;
     int day, month, year;
     int is_valid = 0;
@@ -179,11 +180,31 @@ void create_animal() {
     getchar(); 
 }
 
+void all_animals() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Animais = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos animais cadastrados:                                   |||\n");
+    // list_animals();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
 
 void search_animal() {
     char caractere;
     char search[100];
-    char cpf[14];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -191,7 +212,7 @@ void search_animal() {
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
-    printf("|||            = = = = = = =  Pesquisar Animal  = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Animal = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     do
@@ -252,7 +273,7 @@ void search_animal() {
 
 void edit_animal() {
     char caractere;
-    char cpf[11];
+    char cpf[12];
     char search[100];
     int is_valid = 0;
     system("clear||cls");
@@ -345,7 +366,7 @@ void edit_animal() {
 void delete_animal() {
     char caractere;
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     char search[100];
     system("clear||cls");
     printf("\n");

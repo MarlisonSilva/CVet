@@ -20,9 +20,10 @@ char service_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo serviço                                 |||\n");
-    printf("|||            2. Pesquisar os dados de um serviço                          |||\n");
-    printf("|||            3. Atualizar o cadastro de um serviço                        |||\n");
-    printf("|||            4. Excluir um serviço do sistema                             |||\n");
+    printf("|||            2. Listar todos os serviços                                  |||\n");
+    printf("|||            3. Pesquisar os dados de um serviço                          |||\n");
+    printf("|||            4. Atualizar o cadastro de um serviço                        |||\n");
+    printf("|||            5. Excluir um serviço do sistema                             |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -110,6 +111,25 @@ void create_service() {
     getchar(); 
 }
 
+void all_services() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Serviços  = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos os serviços cadastrados:                               |||\n");
+    // list_services();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_service() {
     char caractere; 

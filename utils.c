@@ -405,7 +405,7 @@ int validate_expiration_date(int day, int month, int year) {
 }
 
 int validate_phone(char phone[]) {
-    if (strlen(phone) >= 11)
+    if (strlen(phone) == 11)
     {
         return true;
     }

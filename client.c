@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "client.h"
+#include "database.h"
 #include "aux_functions.h"
 #include "utils.h"
 
@@ -21,9 +22,10 @@ char client_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo cliente                                 |||\n");
-    printf("|||            2. Pesquisar os dados de um cliente                          |||\n");
-    printf("|||            3. Atualizar o cadastro de um cliente                        |||\n");
-    printf("|||            4. Excluir um cliente do sistema                             |||\n");
+    printf("|||            2. Listar todos os clientes                                  |||\n");
+    printf("|||            3. Pesquisar os dados de um cliente                          |||\n");
+    printf("|||            4. Atualizar o cadastro de um cliente                        |||\n");
+    printf("|||            5. Excluir um cliente do sistema                             |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -40,7 +42,7 @@ char client_menu() {
 
 void create_client() {
     char caractere;
-    char cpf[11] = "", name[100] = "", email[255] = "", phone[13] = "";
+    char cpf[12] = "", name[100] = "", email[255] = "", phone[12] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
     system("clear||cls");
@@ -84,7 +86,7 @@ void create_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
-    
+        
     do
     {
         printf("|||            Nome completo: ");
@@ -100,7 +102,7 @@ void create_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
-    
+        
     do
     {
         printf("|||            E-mail: ");
@@ -130,7 +132,7 @@ void create_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
-    
+
     do
     {
         printf("|||            Celular (apenas números | ex.: 84999776655): ");
@@ -165,17 +167,40 @@ void create_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    insert_client(cpf, name, email, phone, day, month, year);
     printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
 }
 
+void all_clients() {
+    char caractere;
+    int is_valid = 0;
+    char cpf[12];
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Clientes  = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos clientes cadastrados:                                  |||\n");
+    list_clients();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_client() {
     char caractere;
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     header();
@@ -216,9 +241,11 @@ void search_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_client(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -227,7 +254,7 @@ void search_client() {
 
 void edit_client() {
     char caractere;
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -269,17 +296,9 @@ void edit_client() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||            Escolha a informação que deseja alterar:                     |||\n");
-    printf("|||            1- Nome: Pessoa da Silva                                     |||\n");
-    printf("|||            2- E-mail: pessoa@gmail.com                                  |||\n");
-    printf("|||            3- Data de nascimento: 26/08/2023                            |||\n");
-    printf("|||            4- Nº de telefone: 84999999999                               |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    update_client(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -289,7 +308,7 @@ void edit_client() {
 void delete_client() {
     char caractere;
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     header();
@@ -333,6 +352,7 @@ void delete_client() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    remove_client(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

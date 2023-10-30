@@ -26,29 +26,11 @@
 #define true 1
 #define false 0
 
-//
-// Variáveis globais
-// Definição da estrutura do nó da lista de clientes
-struct Client {
-    char cpf[11];
-    char name[100];
-    char email[255];
-    char phone[13];
-    int dayBorn, monthBorn, yearBorn;
-    struct Client* next;
-};
-
-struct Client* listClients = NULL; // Lista de clientes
 
 /////
 // Assinatura das funções
 // Menu principal
 char main_menu();
-
-
-
-
-
 
 /////
 // Programa principal
@@ -70,13 +52,15 @@ int main() {
                 sub_op = client_menu();
                 if (sub_op == 0) { // Sair clientes
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar cliente
+                } else if (sub_op == 1) { // Cadastrar clientes
                     create_client();
-                } else if (sub_op == 2) { // Pesquisar cliente
+                } else if (sub_op == 2) { // Listar clientes
+                    all_clients();
+                } else if (sub_op == 3) { // Pesquisar clientes
                     search_client();
-                } else if (sub_op == 3) { // Atualizar cliente
+                } else if (sub_op == 4) { // Atualizar clientes
                     edit_client();
-                } else if (sub_op == 4) { // Remover cliente
+                } else if (sub_op == 5) { // Remover clientes
                     delete_client();
                 } else {
                     no_operation("Menu Clientes");
@@ -89,13 +73,15 @@ int main() {
                 sub_op = animal_menu();
                 if (sub_op == 0) { // Sair animais
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar animal
+                } else if (sub_op == 1) { // Cadastrar animais
                     create_animal();
-                } else if (sub_op == 2) { // Pesquisar animal
+                } else if (sub_op == 2) { // Listar animais
+                    all_animals();
+                } else if (sub_op == 3) { // Pesquisar animais
                     search_animal();
-                } else if (sub_op == 3) { // Atualizar animal
+                } else if (sub_op == 4) { // Atualizar animais
                     edit_animal();
-                } else if (sub_op == 4) { // Remover animal
+                } else if (sub_op == 5) { // Remover animais
                     delete_animal();
                 } else {
                     no_operation("Menu Animais");
@@ -111,11 +97,13 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar produtos
                     create_product();
-                } else if (sub_op == 2) { // Pesquisar produtos
+                } else if (sub_op == 2) { // Listar produtos
+                    all_products();
+                } else if (sub_op == 3) { // Pesquisar produtos
                     search_product();
-                } else if (sub_op == 3) { // Atualizar produtos
+                } else if (sub_op == 4) { // Atualizar produtos
                     edit_product();
-                } else if (sub_op == 4) { // Remover produtos
+                } else if (sub_op == 5) { // Remover produtos
                     delete_product();
                 } else {
                     no_operation("Menu Produtos");
@@ -130,11 +118,13 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar serviços
                     create_service();
-                } else if (sub_op == 2) { // Pesquisar serviços
+                } else if (sub_op == 2) { // Listar serviços
+                    all_services();
+                } else if (sub_op == 3) { // Pesquisar serviços
                     search_service();
-                } else if (sub_op == 3) { // Atualizar serviços
+                } else if (sub_op == 4) { // Atualizar serviços
                     edit_service();
-                } else if (sub_op == 4) { // Remover serviços
+                } else if (sub_op == 5) { // Remover serviços
                     delete_service();
                 } else {
                     no_operation("Menu Serviços");
@@ -148,11 +138,11 @@ int main() {
                 sub_op = sale_menu();
                 if (sub_op == 0) { // Sair vendas
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar venda
+                } else if (sub_op == 1) { // Cadastrar vendas
                     create_sale();
-                } else if (sub_op == 2) { // Pesquisar venda
+                } else if (sub_op == 2) { // Pesquisar vendas
                     search_sale();
-                } else if (sub_op == 3) { // Remover venda
+                } else if (sub_op == 3) { // Remover vendas
                     delete_sale();
                 } else {
                     no_operation("Menu Vendas");
@@ -165,13 +155,15 @@ int main() {
                 sub_op = worker_menu();
                 if (sub_op == 0) { // Sair funcionários
                     inMenu = false;
-                } else if (sub_op == 1) { // Cadastrar funcionário
+                } else if (sub_op == 1) { // Cadastrar funcionários
                     create_worker();
-                } else if (sub_op == 2) { // Pesquisar funcionário
+                } else if (sub_op == 2) { // Listar funcionários
+                    all_workers();
+                } else if (sub_op == 2) { // Pesquisar funcionários
                     search_worker();
-                } else if (sub_op == 3) { // Atualizar funcionário
+                } else if (sub_op == 3) { // Atualizar funcionários
                     edit_worker();
-                } else if (sub_op == 4) { // Remover funcionário
+                } else if (sub_op == 4) { // Remover funcionários
                     delete_worker();
                 } else {
                     no_operation("Menu Funcionários");

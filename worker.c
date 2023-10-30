@@ -21,9 +21,10 @@ char worker_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo funcionário                             |||\n");
-    printf("|||            2. Pesquisar os dados de um funcionário                      |||\n");
-    printf("|||            3. Atualizar o cadastro de um funcionário                    |||\n");
-    printf("|||            4. Excluir um funcionário do sistema                         |||\n");
+    printf("|||            2. Listar todos os funcionários                              |||\n");
+    printf("|||            3. Pesquisar os dados de um funcionário                      |||\n");
+    printf("|||            4. Atualizar o cadastro de um funcionário                    |||\n");
+    printf("|||            5. Excluir um funcionário do sistema                         |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -40,7 +41,7 @@ char worker_menu() {
 
 void create_worker() {
     char caractere; 
-    char cpf[11] = "", name[100] = "", email[255] = "", phone[13] = "";
+    char cpf[12] = "", name[100] = "", email[255] = "", phone[13] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
     system("clear||cls");
@@ -171,10 +172,29 @@ void create_worker() {
     getchar(); 
 }
 
+void all_workers() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = =  Lista de Funcionários  = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos os funcionários cadastrados:                           |||\n");
+    // list_workers();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_worker() {
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -227,7 +247,7 @@ void search_worker() {
 
 void edit_worker() {
     char caractere; 
-    char cpf[11];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -288,7 +308,7 @@ void edit_worker() {
 void delete_worker() {
     char caractere; 
     int is_valid = 0;
-    char cpf[11];
+    char cpf[12];
     system("clear||cls");
     printf("\n");
     header();
