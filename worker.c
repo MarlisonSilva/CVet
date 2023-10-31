@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "worker.h"
+#include "database.h"
 #include "aux_functions.h"
 #include "utils.h"
 
@@ -165,7 +166,7 @@ void create_worker() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    // saveData();
+    insert_worker(cpf, name, email, phone, day, month, year);
     printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
@@ -183,7 +184,7 @@ void all_workers() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Todos os funcionários cadastrados:                           |||\n");
-    // list_workers();
+    list_workers();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -236,6 +237,7 @@ void search_worker() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_worker(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -289,16 +291,7 @@ void edit_worker() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||            Escolha a informação que deseja alterar:                     |||\n");
-    printf("|||            1- Nome: Pessoa da Silva                                     |||\n");
-    printf("|||            2- E-mail: pessoa@gmail.com                                  |||\n");
-    printf("|||            3- Data de nascimento: 26/08/2023                            |||\n");
-    printf("|||            4- Nº de telefone: 84999999999                               |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    update_worker(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -352,6 +345,7 @@ void delete_worker() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    remove_worker(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

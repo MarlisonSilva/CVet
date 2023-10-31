@@ -159,11 +159,11 @@ int main() {
                     create_worker();
                 } else if (sub_op == 2) { // Listar funcionários
                     all_workers();
-                } else if (sub_op == 2) { // Pesquisar funcionários
+                } else if (sub_op == 3) { // Pesquisar funcionários
                     search_worker();
-                } else if (sub_op == 3) { // Atualizar funcionários
+                } else if (sub_op == 4) { // Atualizar funcionários
                     edit_worker();
-                } else if (sub_op == 4) { // Remover funcionários
+                } else if (sub_op == 5) { // Remover funcionários
                     delete_worker();
                 } else {
                     no_operation("Menu Funcionários");

@@ -175,9 +175,6 @@ void create_client() {
 }
 
 void all_clients() {
-    char caractere;
-    int is_valid = 0;
-    char cpf[12];
     system("clear||cls");
     printf("\n");
     header();
