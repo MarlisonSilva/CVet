@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "animal.h"
+#include "database.h"
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -172,8 +173,7 @@ void create_animal() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    // insertClient(&listAnimals, client, name, species, race, weight, day, month, year);
-    // saveData();
+    insert_animal(cpf, name, species, race, weight, day, month, year);
     printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
@@ -191,7 +191,7 @@ void all_animals() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Todos animais cadastrados:                                   |||\n");
-    // list_animals();
+    list_animals();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -261,7 +261,7 @@ void search_animal() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
-
+    find_animal(cpf, search);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -334,29 +334,8 @@ void edit_animal() {
     
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s de %s \n", search, cpf);
-    printf("    = = Animal 1 = = \n");
-    printf("    Nome: Choco \n");
-    printf("    Espécie: Cachorro \n");
-    printf("    Raça: Vira-lata \n");
-    printf("    Peso: 27,0 Kg \n");
-    printf("    Data de nasc.: 01/02/2022 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº do Animal: \n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||            Escolha a informação que deseja alterar:                     |||\n");
-    printf("|||            1- Nome: Choco                                               |||\n");
-    printf("|||            2- Espécie: Cachorro                                         |||\n");
-    printf("|||            3- Raça: Vira-lata                                           |||\n");
-    printf("|||            4- Peso: 27,0 Kg                                             |||\n");
-    printf("|||            5- Data de nascimento: 01/02/2022                            |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Animal alterado! ");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");   
+    update_animal(cpf, search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -426,18 +405,7 @@ void delete_animal() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s de %s \n", search, cpf);
-    printf("    = = Animal 1 = = \n");
-    printf("    Nome: Choco \n");
-    printf("    Espécie: Cachorro \n");
-    printf("    Raça: Vira-lata \n");
-    printf("    Peso: 27,0 Kg \n");
-    printf("    Data de nasc.: 01/02/2022 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº do Animal: \n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Animal deletado!");
+    remove_animal(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
