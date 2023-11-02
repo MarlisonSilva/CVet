@@ -19,6 +19,7 @@
 #include "product.h"
 #include "service.h"
 #include "sale.h"
+#include "appointment.h"
 #include "worker.h"
 #include "about.h"
 #include "aux_functions.h"
@@ -149,7 +150,24 @@ int main() {
                 }
             }
             break;
-        case 6: // FUNCIONÁRIOS 
+        case 6: // CONSULTAS
+            inMenu = true;
+            while(inMenu) { 
+                sub_op = appointment_menu();
+                if (sub_op == 0) { // Sair consultas
+                    inMenu = false;
+                } else if (sub_op == 1) { // Cadastrar consultas
+                    create_appointment();
+                } else if (sub_op == 2) { // Pesquisar consultas
+                    search_appointment();
+                } else if (sub_op == 3) { // Remover consultas
+                    delete_appointment();
+                } else {
+                    no_operation("Menu Consultas");
+                }
+            }
+            break;
+        case 7: // FUNCIONÁRIOS 
             inMenu = true;
             while(inMenu) { 
                 sub_op = worker_menu();
@@ -171,10 +189,10 @@ int main() {
             }
             break;
         
-        case 7:
+        case 8:
             about_soft();
             break;
-        case 8:
+        case 9:
             about_dev();
             break;
         default:
@@ -203,9 +221,10 @@ char main_menu() {
     printf("|||            3. Módulo Produtos                                           |||\n");
     printf("|||            4. Módulo Serviços                                           |||\n");
     printf("|||            5. Módulo Vendas                                             |||\n");
-    printf("|||            6. Módulo Funcionários                                       |||\n");
-    printf("|||            7. Sobre o software                                          |||\n");
-    printf("|||            8. Sobre o desenvolvedor                                     |||\n");
+    printf("|||            6. Módulo Consultas                                          |||\n");
+    printf("|||            7. Módulo Funcionários                                       |||\n");
+    printf("|||            8. Sobre o software                                          |||\n");
+    printf("|||            9. Sobre o desenvolvedor                                     |||\n");
     printf("|||            0. Sair                                                      |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -218,7 +237,3 @@ char main_menu() {
     getchar(); getchar();
     return op;
 }
-
-
-
-

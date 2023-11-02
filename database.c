@@ -1388,6 +1388,15 @@ struct sale {
     int activated;
 };
 
+typedef struct appointment Appointment;
+
+struct appointment {
+    int item_id;
+    int worker_id;
+    int animal_id;
+    int activated;
+};
+
 typedef struct worker Worker;
 
 struct worker {
