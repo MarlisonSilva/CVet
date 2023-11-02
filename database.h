@@ -28,6 +28,16 @@ void find_product(char search[]);
 void update_product(char search[]); 
 void remove_product(char search[]);
 
+typedef struct service Service;
+struct service;
+int save_service(Service* sr);
+void insert_service(char description[], char type[], float price);
+void print_service(Service* sr);
+void list_services(void);
+void find_service(char search[]);
+void update_service(char search[]); 
+void remove_service(char search[]);
+
 typedef struct worker Worker;
 struct worker;
 int save_worker(Worker* wk);
