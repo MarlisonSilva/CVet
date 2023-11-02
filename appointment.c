@@ -39,7 +39,7 @@ char appointment_menu() {
 
 void create_appointment() {
     char caractere; 
-    char cpf[12], product[255], animal[100];
+    char cpf[12], service[255], animal[100];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -47,12 +47,12 @@ void create_appointment() {
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
-    printf("|||            = = = = = = = = Cadastrar Consulta = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Cadastrar Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     do
     {
-    printf("|||            CPF do cliente (apenas números): ");
+    printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -84,23 +84,23 @@ void create_appointment() {
     
     do
     {
-        printf("|||            Produto: ");
-        scanf("%[^\n]%*c", product);
+        printf("|||            Serviço: ");
+        scanf("%[^\n]%*c", service);
 
         while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(product);
+        is_valid = validate_name(service);
         if (is_valid){
-            printf("|||            Produto digitado: %s\n", product);
+            printf("|||            Serviço digitado: %s\n", service);
             printf("|||                                                                         |||\n");
         } else {
-            printf("|||            Produto digitado inválido.                                   |||\n");
+            printf("|||            Serviço digitado inválido.                                   |||\n");
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
 
     do
     {
-        printf("|||            Animal (opcional): ");
+        printf("|||            Animal: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", animal);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
         is_valid = validate_name(animal);
@@ -133,7 +133,7 @@ void search_appointment() {
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
-    printf("|||            = = = = = = = = Pesquisar Consulta = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     do
@@ -187,10 +187,10 @@ void delete_appointment() {
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("|||                                                                         |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
-    printf("|||            = = = = = = = =  Excluir Consulta  = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = =  Excluir Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-   do
+    do
     {
     printf("|||            CPF do cliente ou funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
