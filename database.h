@@ -1,10 +1,10 @@
 
 /*
-Cliente:
-    cpf [primaria]
+OK Cliente:
+    cpf [primaria] 
     dados comuns
 
-Animal:
+OK Animal:
     id [primaria]
     cpf cliente [estrangeira]
     dados comuns

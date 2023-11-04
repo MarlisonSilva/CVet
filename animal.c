@@ -64,7 +64,7 @@ void create_animal() {
 
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_client(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -85,11 +85,15 @@ void create_animal() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
+        } else if (!has_client(cpf))
+        {
+            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+            printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_client(cpf)));
 
     do
     {
