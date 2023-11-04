@@ -13,7 +13,7 @@ OK Produto:
     id [primaria]
     dados comuns
 
-Serviço:
+OK Serviço:
     id [primaria]
     dados comuns
 

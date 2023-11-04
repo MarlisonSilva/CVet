@@ -1108,6 +1108,7 @@ void remove_product(char search[]) {
 typedef struct service Service;
 
 struct service {
+    int id_service;
     char description[100];
     char type[100];
     float price;
@@ -1123,9 +1124,19 @@ int save_service(Service* sr) {
         printf("Erro na abertura do arquivo!");
         return 1;
     }
+    int found = 0;
+    Service* aux_sr = (Service*)malloc(sizeof(Service));
+    while(fread(aux_sr, sizeof(Service), 1, p_file)) {
+        found++;
+    }
+    free(aux_sr);
+
+    sr->id_service = found + 1;
+
     fwrite(sr, sizeof(Service), 1, p_file);
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
+    printf("CADASTRADO COM SUCESSO!!\n");
     return 0;
 }
 
