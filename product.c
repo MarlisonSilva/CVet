@@ -132,7 +132,6 @@ void create_product() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     insert_product(description, type, price, day, month, year);
-    printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 

@@ -9,7 +9,7 @@ OK Animal:
     cpf cliente [estrangeira]
     dados comuns
 
-Produto:
+OK Produto:
     id [primaria]
     dados comuns
 

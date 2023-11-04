@@ -732,6 +732,7 @@ void remove_animal(char cpf[]) {
 typedef struct product Product;
 
 struct product {
+    int id_product;
     char description[100];
     char type[100];
     float price;
@@ -753,13 +754,20 @@ int save_product(Product* pr) {
         printf("Erro na abertura do arquivo!");
         return 1;
     }
+    int found = 0;
+    Product* aux_pr = (Product*)malloc(sizeof(Product));
+    while(fread(aux_pr, sizeof(Product), 1, p_file)) {
+        found++;
+    }
+    free(aux_pr);
 
+    pr->id_product = found + 1;
     fwrite(pr, sizeof(Product), 1, p_file);
 
     //usando fclose para fechar o arquivo
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
-
+    printf("CADASTRADO COM SUCESSO!!\n");
     return 0;
 }
 
