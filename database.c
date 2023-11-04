@@ -11,7 +11,7 @@
 typedef struct client Client;
 
 struct client {
-    char cpf[12];
+    char cpf[12]; // "primária"
     char name[100];
     char email[255];
     char phone[12];
@@ -20,6 +20,29 @@ struct client {
     int year_born;
     int activated;
 };
+
+int has_client(char cpf[]) {
+    FILE* p_file;
+    Client* cl;
+
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "r+b");
+    if (p_file == NULL) {
+        return false;
+    }
+
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if ((strcmp(cl->cpf, cpf) == 0)) {
+            fclose(p_file);
+            free(cl);
+            return true;
+        }
+    }
+
+    fclose(p_file);
+    free(cl);
+    return false;
+}
 
 // salva o cliente em um arquivo
 int save_client(Client* cl) {
@@ -34,12 +57,16 @@ int save_client(Client* cl) {
         return 1;
     }
 
-    fwrite(cl, sizeof(Client), 1, p_file);
+    if (has_client(cl->cpf)) {
+        fclose(p_file);
+        printf("Erro! Cliente já cadastrado! \n");
+        return 1;
+    }
 
-    //usando fclose para fechar o arquivo
+    fwrite(cl, sizeof(Client), 1, p_file);
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
-
+    printf("CADASTRADO COM SUCESSO!!\n");
     return 0;
 }
 
@@ -316,6 +343,7 @@ void remove_client(char cpf[]) {
 typedef struct animal Animal;
 
 struct animal {
+    int id_animal;
     char cpf[12];
     char name[100];
     char species[100];
@@ -339,6 +367,15 @@ int save_animal(Animal* an) {
         printf("Erro na abertura do arquivo!");
         return 1;
     }
+    
+    int found = 0;
+    Animal* aux_an = (Animal*)malloc(sizeof(Animal));
+    while(fread(aux_an, sizeof(Animal), 1, p_file)) {
+        found++;
+    }
+    free(aux_an);
+
+    an->id_animal = found + 1;
 
     fwrite(an, sizeof(Animal), 1, p_file);
 
@@ -1410,6 +1447,28 @@ struct worker {
     int activated;
 };
 
+int has_worker(char cpf[]) {
+    FILE* p_file;
+    Worker* wk;
+
+    wk = (Worker*) malloc(sizeof(Worker));
+    p_file = fopen("db_workers.dat", "r+b");
+    if (p_file == NULL) {
+        return false;
+    }
+
+    while(fread(wk, sizeof(Worker), 1, p_file)) {
+        if ((strcmp(wk->cpf, cpf) == 0)) {
+            fclose(p_file);
+            free(wk);
+            return true;
+        }
+    }
+
+    fclose(p_file);
+    free(wk);
+    return false;
+}
 
 // salva o funcionário em um arquivo
 int save_worker(Worker* wk) {
@@ -1424,11 +1483,18 @@ int save_worker(Worker* wk) {
         return 1;
     }
 
+    if (has_worker(wk->cpf)) {
+        fclose(p_file);
+        printf("Erro! Funcionário já cadastrado! \n");
+        return 1;
+    }
+
     fwrite(wk, sizeof(Worker), 1, p_file);
 
     //usando fclose para fechar o arquivo
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
+    printf("CADASTRADO COM SUCESSO!!\n");
 
     return 0;
 }

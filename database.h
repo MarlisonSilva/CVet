@@ -1,3 +1,43 @@
+
+/*
+Cliente:
+    cpf [primaria]
+    dados comuns
+
+Animal:
+    id [primaria]
+    cpf cliente [estrangeira]
+    dados comuns
+
+Produto:
+    id [primaria]
+    dados comuns
+
+Serviço:
+    id [primaria]
+    dados comuns
+
+Funcionário:
+    cpf [primaria]
+    dados comuns
+
+Vendas:
+    id [primaria]
+    cpf cliente [estrangeira]
+    cpf funcionário [estrangeira]
+    id produto [estrangeira]
+    dados comuns
+
+Consultas:
+    id [primaria]
+    cpf funcionário [estrangeira]
+    id animal [estrangeira]
+    id serviço [estrangeira]
+    dados comuns
+
+*/
+
+
 typedef struct client Client;
 struct client;
 int save_client(Client* cl);
@@ -7,6 +47,7 @@ void list_clients(void);
 void find_client(char cpf[]);
 void update_client(char cpf[]); 
 void remove_client(char cpf[]);
+int has_client(char cpf[]);
 
 typedef struct animal Animal;
 struct animal;
@@ -47,3 +88,4 @@ void list_workers(void);
 void find_worker(char cpf[]);
 void update_worker(char cpf[]); 
 void remove_worker(char cpf[]);
+int has_worker(char cpf[]);

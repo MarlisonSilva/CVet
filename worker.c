@@ -60,7 +60,7 @@ void create_worker() {
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && !has_worker(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -80,11 +80,14 @@ void create_worker() {
             } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
+        } else if(has_worker(cpf)){
+            printf("|||            CPF já registrado. Tente outro!                              |||\n");
+            printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid) || (has_worker(cpf)));
     
     do
     {
@@ -167,7 +170,6 @@ void create_worker() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     insert_worker(cpf, name, email, phone, day, month, year);
-    printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
