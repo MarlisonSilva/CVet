@@ -160,9 +160,11 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar consultas
                     create_appointment();
-                } else if (sub_op == 2) { // Pesquisar consultas
+                } else if (sub_op == 2) { // Listar consultas
+                    all_appointments();
+                } else if (sub_op == 3) { // Pesquisar consultas
                     search_appointment();
-                } else if (sub_op == 3) { // Remover consultas
+                } else if (sub_op == 4) { // Remover consultas
                     delete_appointment();
                 } else {
                     no_operation("Menu Consultas");

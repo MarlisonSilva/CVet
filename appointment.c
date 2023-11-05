@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "appointment.h"
+#include "database.h"
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -21,8 +22,9 @@ char appointment_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar uma nova consulta                               |||\n");
-    printf("|||            2. Pesquisar os dados de uma consulta                        |||\n");
-    printf("|||            3. Excluir uma consulta do sistema                           |||\n");
+    printf("|||            2. Listar todas as consultas                                 |||\n");
+    printf("|||            3. Pesquisar os dados de uma consulta                        |||\n");
+    printf("|||            4. Excluir uma consulta do sistema                           |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -39,7 +41,7 @@ char appointment_menu() {
 
 void create_appointment() {
     char caractere; 
-    char cpf[12], service[255], animal[100];
+    char cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -81,47 +83,44 @@ void create_appointment() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    int animal_id = choose_animal();
+    int service_id = choose_service();
+    if (animal_id && service_id)
+    {
+        insert_appointment(cpf, animal_id, service_id);
+    } else {
+        printf("|||            Informações ausentes! Tente novamente!                       |||\n");
+        printf("|||                                                                         |||\n");
+    }
     
-    do
-    {
-        printf("|||            Serviço: ");
-        scanf("%[^\n]%*c", service);
-
-        while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(service);
-        if (is_valid){
-            printf("|||            Serviço digitado: %s\n", service);
-            printf("|||                                                                         |||\n");
-        } else {
-            printf("|||            Serviço digitado inválido.                                   |||\n");
-            printf("|||                                                                         |||\n");
-        }
-    } while (!is_valid);
-
-    do
-    {
-        printf("|||            Animal: ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", animal);
-        while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(animal);
-        if (is_valid){
-            printf("|||            Animal digitado: %s\n", animal);
-            printf("|||                                                                         |||\n");
-        } else {
-            printf("|||            Animal digitado inválido. Digite apenas letras e espaços.    |||\n");
-            printf("|||                                                                         |||\n");
-        }
-    } while (!is_valid);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
-    printf("CADASTRADO COM SUCESSO!!\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
 }
 
+void all_appointments() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Lista de Consultas = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todas consultas realizadas:                                  |||\n");
+    list_appointments();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void search_appointment() {
     char caractere; 
@@ -167,10 +166,10 @@ void search_appointment() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_appointment(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("buscado: %s", cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -224,20 +223,7 @@ void delete_appointment() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s", cpf);
-    printf("    = = Consulta 1 = = \n");
-    printf("    Cliente: Marlison \n");
-    printf("    Funcionário: Juan Vitório \n");
-    printf("    Produto: Dipirona 500g - Medicamento \n");
-    printf("    Valor: R$ 27,00 \n");
-    printf("    Data da venda: 29/11/2023 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº da venda: \n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Consulta desfeita! ");
+    remove_appointment(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

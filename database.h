@@ -1,43 +1,3 @@
-
-/*
-OK Cliente:
-    cpf [primaria] 
-    dados comuns
-
-OK Animal:
-    id [primaria]
-    cpf cliente [estrangeira]
-    dados comuns
-
-OK Produto:
-    id [primaria]
-    dados comuns
-
-OK Serviço:
-    id [primaria]
-    dados comuns
-
-OK Funcionário:
-    cpf [primaria]
-    dados comuns
-
-Vendas:
-    id [primaria]
-    cpf cliente [estrangeira]
-    cpf funcionário [estrangeira]
-    id produto [estrangeira]
-    dados comuns
-
-Consultas:
-    id [primaria]
-    cpf funcionário [estrangeira]
-    id animal [estrangeira]
-    id serviço [estrangeira]
-    dados comuns
-
-*/
-
-
 typedef struct client Client;
 struct client;
 int save_client(Client* cl);
@@ -79,16 +39,6 @@ void find_service(char search[]);
 void update_service(char search[]); 
 void remove_service(char search[]);
 
-typedef struct sale Sale;
-struct sale;
-int choose_product();
-int save_sale(Sale* sl);
-void insert_sale(char client_cpf[], char worker_cpf[], int product_id);
-void print_sale(Sale* sl);
-void list_sales(void);
-void find_sale(char search[]);
-void remove_sale(char search[]);
-
 typedef struct worker Worker;
 struct worker;
 int save_worker(Worker* wk);
@@ -99,3 +49,24 @@ void find_worker(char cpf[]);
 void update_worker(char cpf[]); 
 void remove_worker(char cpf[]);
 int has_worker(char cpf[]);
+
+typedef struct sale Sale;
+struct sale;
+int choose_product();
+int save_sale(Sale* sl);
+void insert_sale(char client_cpf[], char worker_cpf[], int product_id);
+void print_sale(Sale* sl);
+void list_sales(void);
+void find_sale(char search[]);
+void remove_sale(char search[]);
+
+typedef struct appointment Appointment;
+struct appointment;
+int choose_service();
+int choose_animal();
+int save_appointment(Appointment* sl);
+void insert_appointment(char client_cpf[], int animal_id, int service_id);
+void print_appointment(Appointment* sl);
+void list_appointments(void);
+void find_appointment(char search[]);
+void remove_appointment(char search[]);
