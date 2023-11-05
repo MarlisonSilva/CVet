@@ -17,7 +17,7 @@ OK Serviço:
     id [primaria]
     dados comuns
 
-Funcionário:
+OK Funcionário:
     cpf [primaria]
     dados comuns
 
@@ -78,6 +78,16 @@ void list_services(void);
 void find_service(char search[]);
 void update_service(char search[]); 
 void remove_service(char search[]);
+
+typedef struct sale Sale;
+struct sale;
+int choose_product();
+int save_sale(Sale* sl);
+void insert_sale(char client_cpf[], char worker_cpf[], int product_id);
+void print_sale(Sale* sl);
+void list_sales(void);
+void find_sale(char search[]);
+void remove_sale(char search[]);
 
 typedef struct worker Worker;
 struct worker;

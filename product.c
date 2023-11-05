@@ -185,10 +185,10 @@ void search_product() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_product(search);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    find_product(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

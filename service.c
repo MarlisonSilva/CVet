@@ -157,10 +157,10 @@ void search_service() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_service(search);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    find_service(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

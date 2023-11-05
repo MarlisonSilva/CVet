@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
+#include "database.h"
 #include "sale.h"
 #include "utils.h"
 #include "aux_functions.h"
@@ -21,8 +22,9 @@ char sale_menu() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            1. Cadastrar um novo venda                                   |||\n");
-    printf("|||            2. Pesquisar os dados de um venda                            |||\n");
-    printf("|||            3. Excluir um venda do sistema                               |||\n");
+    printf("|||            2. Listar todas as vendas                                    |||\n");
+    printf("|||            3. Pesquisar os dados de um venda                            |||\n");
+    printf("|||            4. Excluir um venda do sistema                               |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -39,7 +41,7 @@ char sale_menu() {
 
 void create_sale() {
     char caractere; 
-    char cpf[12], product[255], animal[100];
+    char client_cpf[12], worker_cpf[12];
     int is_valid = 0;
     system("clear||cls");
     printf("\n");
@@ -52,18 +54,19 @@ void create_sale() {
     printf("|||                                                                         |||\n");
     do
     {
-    printf("|||            CPF do cliente (apenas números): ");
-        scanf("%[0-9]", cpf);
+        printf("|||            CPF do cliente (apenas números): ");
+        scanf("%[0-9]", client_cpf);
+
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
-        is_valid = validate_cpf(cpf);
-        if (is_valid){
+        is_valid = validate_cpf(client_cpf);
+        if (is_valid && has_client(client_cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
             {
-                if (isalnum(cpf[i]))
+                if (isalnum(client_cpf[i]))
                 {
-                    printf("%c",cpf[i]);
+                    printf("%c",client_cpf[i]);
                     if (i==2 || i==5)
                     {
                         printf(".");
@@ -73,45 +76,59 @@ void create_sale() {
                     }   
                 }
                 i++;
-            } while (cpf[i] != '\0');
+            } while (client_cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_client(client_cpf))
+        {
+            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    
-    do
-    {
-        printf("|||            Produto: ");
-        scanf("%[^\n]%*c", product);
-
-        while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(product);
-        if (is_valid){
-            printf("|||            Produto digitado: %s\n", product);
-            printf("|||                                                                         |||\n");
-        } else {
-            printf("|||            Produto digitado inválido.                                   |||\n");
-            printf("|||                                                                         |||\n");
-        }
-    } while (!is_valid);
+    } while (!(is_valid && has_client(client_cpf)));
 
     do
     {
-        printf("|||            Animal (opcional): ");
-        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", animal);
-        while ((caractere = getchar()) != '\n' && caractere != EOF);
-        is_valid = validate_name(animal);
-        if (is_valid){
-            printf("|||            Animal digitado: %s\n", animal);
+        printf("|||            CPF do funcionário (apenas números): ");
+        scanf("%[0-9]", worker_cpf);
+
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        is_valid = validate_cpf(worker_cpf);
+        if (is_valid && has_worker(worker_cpf)){
+            printf("|||            CPF digitado: ");
+            int i = 0;
+            do
+            {
+                if (isalnum(worker_cpf[i]))
+                {
+                    printf("%c",worker_cpf[i]);
+                    if (i==2 || i==5)
+                    {
+                        printf(".");
+                    } else if (i==8)
+                    {
+                        printf("-");
+                    }   
+                }
+                i++;
+            } while (worker_cpf[i] != '\0');
+
+            printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_worker(worker_cpf))
+        {
+            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
             printf("|||                                                                         |||\n");
         } else {
-            printf("|||            Animal digitado inválido. Digite apenas letras e espaços.    |||\n");
+            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_worker(worker_cpf)));
+
+    insert_sale(client_cpf, worker_cpf, choose_product());
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -167,15 +184,34 @@ void search_sale() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_sale(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("buscado: %s", cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
 
+void all_sales() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = Lista de Vendas = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Todos as vendas cadastradas:                                 |||\n");
+    list_sales();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
 
 void delete_sale() {    
     char caractere; 
@@ -224,20 +260,8 @@ void delete_sale() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s", cpf);
-    printf("    = = Venda 1 = = \n");
-    printf("    Cliente: Marlison \n");
-    printf("    Funcionário: Juan Vitório \n");
-    printf("    Produto: Dipirona 500g - Medicamento \n");
-    printf("    Valor: R$ 27,00 \n");
-    printf("    Data da venda: 29/11/2023 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº da venda: \n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Venda desfeita! ");
+    remove_sale(cpf);
+
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

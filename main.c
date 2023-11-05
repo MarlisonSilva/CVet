@@ -141,9 +141,11 @@ int main() {
                     inMenu = false;
                 } else if (sub_op == 1) { // Cadastrar vendas
                     create_sale();
-                } else if (sub_op == 2) { // Pesquisar vendas
+                } else if (sub_op == 2) { // Listar vendas
+                    all_sales();
+                } else if (sub_op == 3) { // Pesquisar vendas
                     search_sale();
-                } else if (sub_op == 3) { // Remover vendas
+                } else if (sub_op == 4) { // Remover vendas
                     delete_sale();
                 } else {
                     no_operation("Menu Vendas");

@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <string.h>
 #include <ctype.h> 
+#include <time.h>
 #include "utils.h"
 
 #define true 1
@@ -92,7 +93,7 @@ void print_client(Client* cl) {
     if ((cl == NULL)) {
         printf("\n= = = CLIENTE INEXISTENTE = = =\n");
     } else {
-        printf("Cliente: \n");
+        printf(" = = = CLIENTE = = = \n");
         printf("CPF: %s\n", cl->cpf);
         printf("Nome: %s\n", cl->name);
         printf("E-mail: %s\n", cl->email);
@@ -117,7 +118,7 @@ void list_clients(void) {
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há clientes cadastrados!\n");
         return;
     }
 
@@ -130,7 +131,7 @@ void list_clients(void) {
     }
     if (found == 0)
     {
-        printf("Sem clientes! \n");
+        printf("Nenhum cliente cadastrado! \n");
     }
     
     free(cl);
@@ -141,20 +142,27 @@ void list_clients(void) {
 void find_client(char cpf[]) {
     FILE* p_file;
     Client* cl;
+    int found = 0;
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há clientes cadastrados!\n");
         return;
     }
 
     while(fread(cl, sizeof(Client), 1, p_file)) {
         if ((strcmp(cl->cpf, cpf) == 0) && (cl->activated)) {
             print_client(cl);
+            found++;
             printf("\n");
         }
     }
+    if (found == 0)
+    {
+        printf("Nenhum cliente cadastrado! \n");
+    }
+    
     fclose(p_file);
     free(cl);
 }
@@ -410,7 +418,7 @@ void print_animal(Animal* an) {
     if ((an == NULL)) {
         printf("\n= = = ANIMAL INEXISTENTE = = =\n");
     } else {
-        printf("Animal: \n");
+        printf(" = = = ANIMAL = = = \n");
         printf("CPF do tutor: %s\n", an->cpf);
         printf("Nome: %s\n", an->name);
         printf("Espécie: %s\n", an->species);
@@ -436,7 +444,7 @@ void list_animals(void) {
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há animais cadastrados!\n");
         return;
     }
 
@@ -449,7 +457,7 @@ void list_animals(void) {
     }
     if (found == 0)
     {
-        printf("Sem animais cadastrados! \n");
+        printf("Nenhum animal encontrado! \n");
     }
     
     free(an);
@@ -465,7 +473,7 @@ void find_animal(char cpf[], char search[]) {
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há animais cadastrados!\n");
         return;
     }
 
@@ -747,9 +755,9 @@ int save_product(Product* pr) {
     FILE *p_file; // cria variável ponteiro para o arquivo
 
     //abrindo o arquivo com tipo de abertura w
-    p_file = fopen("db_products.dat", "ab");
 
     //testando se o arquivo foi realmente criado
+    p_file = fopen("db_products.dat", "rb");
     if(p_file == NULL) {
         printf("Erro na abertura do arquivo!");
         return 1;
@@ -760,7 +768,13 @@ int save_product(Product* pr) {
         found++;
     }
     free(aux_pr);
+    fclose(p_file);
 
+    p_file = fopen("db_products.dat", "ab");
+    if(p_file == NULL) {
+        printf("Erro na abertura do arquivo!");
+        return 1;
+    }
     pr->id_product = found + 1;
     fwrite(pr, sizeof(Product), 1, p_file);
 
@@ -792,11 +806,11 @@ void print_product(Product* pr) {
     if ((pr == NULL)) {
         printf("\n= = = PRODUTO INEXISTENTE = = =\n");
     } else {
-        printf("Produto: \n");
-        printf("CPF: %s\n", pr->description);
-        printf("Nome: %s\n", pr->type);
-        printf("E-mail: %.2f\n", pr->price);
-        printf("Data de nascimento: %02d/%02d/%d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
+        printf(" = = = PRODUTO = = = \n");
+        printf("Descrição: %s\n", pr->description);
+        printf("Tipo: %s\n", pr->type);
+        printf("Preço: %.2f\n", pr->price);
+        printf("Data de validade: %02d/%02d/%d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
 
         if (pr->activated) {
             printf("Situação do produto: Ativo \n");
@@ -816,7 +830,7 @@ void list_products(void) {
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há produtos cadastrados!\n");
         return;
     }
 
@@ -829,7 +843,7 @@ void list_products(void) {
     }
     if (found == 0)
     {
-        printf("Sem produtos! \n");
+        printf("Nenhum produto encontrado! \n");
     }
     
     free(pr);
@@ -841,11 +855,12 @@ void find_product(char search[]) {
     FILE* p_file;
     Product* pr;
     char aux[100] = "";
+    int found = 0;
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há produtos cadastrados!\n");
         return;
     }
 
@@ -853,8 +868,13 @@ void find_product(char search[]) {
         strcpy(aux, pr->description);
         if ((strncmp(str_to_lower(aux), str_to_lower(search), strlen(search)) == 0) && (pr->activated)) {
             print_product(pr);
+            found++;
             printf("\n");
         }
+    }
+    if (found == 0)
+    {
+        printf("Nenhum produto encontrado! \n");
     }
     fclose(p_file);
     free(pr);
@@ -1157,7 +1177,7 @@ void print_service(Service* sr) {
     if ((sr == NULL)) {
         printf("\n= = = SERVIÇO INEXISTENTE = = =\n");
     } else {
-        printf("Serviço: \n");
+        printf(" = = = SERVIÇO = = = \n");
         printf("Descrição: %s\n", sr->description);
         printf("Tipo: %s\n", sr->type);
         printf("Preço: %.2f\n", sr->price);
@@ -1180,7 +1200,7 @@ void list_services(void) {
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há serviços cadastrados!\n");
         return;
     }
 
@@ -1193,7 +1213,7 @@ void list_services(void) {
     }
     if (found == 0)
     {
-        printf("Sem serviços! \n");
+        printf("Nenhum serviço encontrado! \n");
     }
     
     free(sr);
@@ -1204,12 +1224,13 @@ void list_services(void) {
 void find_service(char search[]) {
     FILE* p_file;
     Service* sr;
+    int found = 0;
     char aux[100] = "";
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há serviços cadastrados!\n");
         return;
     }
 
@@ -1217,8 +1238,13 @@ void find_service(char search[]) {
         strcpy(aux, sr->description);
         if ((strncmp(str_to_lower(aux), str_to_lower(search), strlen(search)) == 0) && (sr->activated)) {
             print_service(sr);
+            found++;
             printf("\n");
         }
+    }
+    if (found == 0)
+    {
+        printf("Nenhum serviço encontrado! \n");
     }
     fclose(p_file);
     free(sr);
@@ -1435,14 +1461,6 @@ void remove_service(char search[]) {
     free(sr);
 }
 
-typedef struct sale Sale;
-
-struct sale {
-    int item_id;
-    int worker_id;
-    int client_id;
-    int activated;
-};
 
 typedef struct appointment Appointment;
 
@@ -1541,7 +1559,7 @@ void print_worker(Worker* wk) {
     if ((wk == NULL)) {
         printf("\n= = = FUNCIONÁRIO INEXISTENTE = = =\n");
     } else {
-        printf("Funcionário: \n");
+        printf(" = = = FUNCIONÁRIO = = = \n");
         printf("CPF: %s\n", wk->cpf);
         printf("Nome: %s\n", wk->name);
         printf("E-mail: %s\n", wk->email);
@@ -1566,7 +1584,7 @@ void list_workers(void) {
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há funcionários cadastrados!\n");
         return;
     }
 
@@ -1579,7 +1597,7 @@ void list_workers(void) {
     }
     if (found == 0)
     {
-        printf("Sem funcionários! \n");
+        printf("Nenhum funcionário encontrado! \n");
     }
     
     free(wk);
@@ -1590,19 +1608,25 @@ void list_workers(void) {
 void find_worker(char cpf[]) {
     FILE* p_file;
     Worker* wk;
+    int found = 0;
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("Verifique se há funcionários cadastrados!\n");
         return;
     }
 
     while(fread(wk, sizeof(Worker), 1, p_file)) {
         if ((strcmp(wk->cpf, cpf) == 0) && (wk->activated)) {
             print_worker(wk);
+            found++;
             printf("\n");
         }
+    }
+    if (found == 0)
+    {
+        printf("Nenhum funcionário encontrado! \n");
     }
     fclose(p_file);
     free(wk);
@@ -1786,4 +1810,301 @@ void remove_worker(char cpf[]) {
 
     fclose(p_file);
     free(wk);
+}
+
+typedef struct sale Sale;
+
+struct sale {
+    int id_sale;
+    char client_cpf[12];
+    char worker_cpf[12];    
+    int product_id;
+    struct tm date;
+    int activated;
+};
+
+int choose_product() {
+    FILE* p_file;
+    Product* pr;
+    int found = 0;
+    char aux[100] = "";
+    char search[255] = "";
+    int is_valid = 0;
+    char caractere;
+    int aux_return = 0;
+    pr = (Product*) malloc(sizeof(Product));
+    p_file = fopen("db_products.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro abertura do arquivo!\n");
+        printf("Não é possível continuar...\n");
+        return 0;
+    }
+    do
+    {
+        printf("|||            Nome do produto: ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
+
+        while ((caractere = getchar()) != '\n' && caractere != EOF);
+        is_valid = validate_name(search);
+        if (is_valid){
+            printf("|||            Nome digitado: %s\n", search);
+            printf("|||                                                                         |||\n");
+            while(fread(pr, sizeof(Product), 1, p_file)) {
+                strcpy(aux, pr->description);
+                if ((strncmp(str_to_lower(aux), str_to_lower(search), strlen(search)) == 0) && (pr->activated)) {
+                    found++;
+                    printf(">> ID [%d] \n", found);
+                    print_product(pr);
+                    printf("\n");
+                }
+            }
+            fclose(p_file);
+            p_file = fopen("db_products.dat", "rb");
+            if (found) {  
+                printf("Qual produto está sendo comprado (ID)? (Digite 0 para buscar novamente) ");
+                int id = 0;
+                scanf("%d", &id);
+                if ((id > 0) & (id <= found)) {
+                    getchar();
+                    found = 0;
+                    while(fread(pr, sizeof(Product), 1, p_file)) {
+                        strcpy(aux, pr->description);
+                        if ((strncmp(str_to_lower(aux), str_to_lower(search), strlen(search)) == 0) && (pr->activated)) {
+                            found++;
+                            if (found == id)
+                            {
+                                print_product(pr);
+                                aux_return = pr->id_product;
+                            }
+                        }
+                    }
+                } else {
+                    printf("|||                                                                         |||\n");
+                    printf("|||            >> Opção não encontrada!                                     |||\n");
+                }
+                
+            } else {
+                printf("|||                                                                         |||\n");
+                printf("|||            >> Produto não encontrado!                                    |||\n");
+            }
+
+        } else {
+            printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
+            printf("|||                                                                         |||\n");
+        }
+    } while (!is_valid);
+    fclose(p_file);
+    free(pr);
+    return aux_return;
+}
+
+// salva a venda em um arquivo
+int save_sale(Sale* sl) {
+    FILE *p_file; // cria variável ponteiro para o arquivo
+
+    p_file = fopen("db_sales.dat", "rb");
+    if(p_file == NULL) {
+        printf("Erro na abertura do arquivo!");
+        return 1;
+    }
+    int found = 0;
+    Sale* aux_sl = (Sale*)malloc(sizeof(Sale));
+    while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
+        found++;
+    }
+    free(aux_sl);
+    fclose(p_file);
+
+
+    p_file = fopen("db_sales.dat", "ab");
+    if(p_file == NULL) {
+        printf("Erro na abertura do arquivo!");
+        return 1;
+    }
+    
+    
+    sl->id_sale = found + 1;
+
+    fwrite(sl, sizeof(Sale), 1, p_file);
+
+    //usando fclose para fechar o arquivo
+    fclose(p_file);
+    printf("Dados gravados com sucesso! \n");
+
+    return 0;
+}
+
+
+// Trata os dados para salvar na venda
+void insert_sale(char client_cpf[], char worker_cpf[], int product_id) {
+    Sale* new_sale = (Sale*)malloc(sizeof(Sale));
+
+    strcpy(new_sale->client_cpf, client_cpf);
+    strcpy(new_sale->worker_cpf, worker_cpf);
+    new_sale->product_id = product_id;
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);    
+    new_sale->date = tm;
+    new_sale->activated = 1;
+
+    save_sale(new_sale);
+    free(new_sale);
+}
+
+// Função para imprimir uma venda
+void print_sale(Sale* sl) {
+    if ((sl == NULL)) {
+        printf("\n= = = VENDA INEXISTENTE = = =\n");
+    } else {
+        printf(" = = = VENDA = = = \n");
+        printf("CPF do Funcionário: %s\n", sl->worker_cpf);
+        printf("CPF do Cliente: %s\n", sl->client_cpf);
+        FILE* p_file;
+        Product* pr;
+        pr = (Product*) malloc(sizeof(Product));
+        p_file = fopen("db_products.dat", "rb");
+        if (p_file == NULL) {
+            printf("Ops! Erro na abertura do arquivo!\n");
+            printf("Não é possível continuar...\n");
+            return;
+        }
+
+        while(fread(pr, sizeof(Product), 1, p_file)) {
+            if ((sl->product_id == pr->id_product) && (pr->activated)) {
+                print_product(pr);
+            }
+        }
+        fclose(p_file);
+        free(pr);
+
+        printf("Criado em: %02d/%02d/%d - %02d:%02d:%02d\n", sl->date.tm_mday, sl->date.tm_mon, (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+
+        if (sl->activated) {
+            printf("Situação da venda: Ativo \n");
+        } else {
+            printf("Situação da venda: Inativo \n");
+        }        
+        printf(" = = = = = = = = = \n");
+    }
+}
+
+// Função para listar todos os funcionários
+void list_sales(void) {
+    FILE* p_file;
+    Sale* sl;
+    int found = 0;
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return;
+    }
+
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        if (sl->activated) {
+            print_sale(sl);
+            found++;
+            printf("\n");
+        }
+    }
+    if (found == 0)
+    {
+        printf("Nenhuma venda encontrada! \n");
+    }
+    
+    free(sl);
+    fclose(p_file);
+}
+
+
+void find_sale(char cpf[]) {
+    Sale* sl;
+    int found = 0;
+    sl = (Sale*) malloc(sizeof(Sale));
+    FILE* p_file;
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return;
+    }
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+            print_sale(sl);
+            found++;
+            printf("\n");
+        }
+    }
+    if (found == 0)
+    {
+        printf("Nenhuma venda encontrada! \n");
+    }
+    fclose(p_file);
+    free(sl);
+}
+
+void remove_sale(char cpf[]) {
+    FILE* p_file;
+    Sale* sl;
+    int found = 0;
+
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "r+b");
+    if (p_file == NULL) {
+        printf("Ops! Erro abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return;
+    }
+    
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+            found++;
+            printf(">> ID [%d] \n", found);
+            print_sale(sl);
+            printf("\n");
+        }
+    }
+    fclose(p_file);
+    p_file = fopen("db_sales.dat", "r+b");
+    if (found) {  
+        printf("Qual venda gostaria de remover (ID)? ");
+        int id = 0;
+        scanf("%d", &id);
+        getchar();
+        if ((id > 0) & (id <= found)) 
+        {
+            found = 0;
+            while(fread(sl, sizeof(Sale), 1, p_file)) {
+                if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+                    found++;
+                    if (found == id)
+                    {
+                        printf(">> Confirma remoção? (s/n)");
+                        char finish = 'n';
+                        scanf(" %c", &finish);
+                        getchar();
+                        
+                        if (tolower(finish) == 's'){
+                            sl->activated = 0;
+                            fseek(p_file, -1*sizeof(Sale), SEEK_CUR);
+                            fwrite(sl, sizeof(Sale), 1, p_file);
+                            printf("\nVenda excluída!\n");
+                        } else {
+                            printf("\nOperação cancelada!\n");
+
+                        }
+                    }
+                }
+            }
+        } else {
+            printf("Opção inválida! \n");
+        }
+    } else {
+        printf("|||                                                                         |||\n");
+        printf("|||            >> Venda não encontrada!                                     |||\n");
+    }
+
+    fclose(p_file);
+    free(sl);
 }
