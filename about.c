@@ -38,7 +38,7 @@ void about_dev() {
     printf("|||            Marlison Soares da Silva                                     |||\n");
     printf("|||            E-mail: marlison.silva@ufrn.edu.br                           |||\n");
     printf("|||            Redes sociais: @iamrlison                                    |||\n");
-    printf("|||            Git: https://github.com/kanashi-br/CVet.git                  |||\n");
+    printf("|||            Git: https://github.com/MarlisonSilva/CVet.git               |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");

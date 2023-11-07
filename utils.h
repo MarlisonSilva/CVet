@@ -14,3 +14,4 @@ int validate_price(float price);
 int validate_weight(float weight);
 char* str_to_lower(char* str);
 int has_space(char* str);
+int has_one_at_sign(char* str);

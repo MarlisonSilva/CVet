@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "service.h"
+#include "database.h"
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -103,9 +104,7 @@ void create_service() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    // 
-    // saveData();
-    printf("CADASTRADO COM SUCESSO!!\n");
+    insert_service(description, type, price);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -122,7 +121,7 @@ void all_services() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Todos os serviços cadastrados:                               |||\n");
-    // list_services();
+    list_services();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -158,10 +157,10 @@ void search_service() {
             printf("|||                                                                         |||\n");
         }
     } while (!is_valid);
+    find_service(search);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("buscado: %s", search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -198,26 +197,7 @@ void edit_service() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s\n", search);
-    printf("    = = Serviço 1 = = \n");
-    printf("    Descrição: Dipirona 500g \n");
-    printf("    Tipo: Medicamento \n");
-    printf("    Preço: R$ 27,00 \n");
-    printf("    Data de validade: 29/11/2023 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº do Serviço: \n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||            Escolha a informação que deseja alterar:                     |||\n");
-    printf("|||            1- Descrição: Dipirona 500g                                  |||\n");
-    printf("|||            2- Tipo: Medicamento                                         |||\n");
-    printf("|||            3- Preço: R$ 27,00                                           |||\n");
-    printf("|||            4- Data de nascimento: 01/02/2022                            |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Serviço alterado! ");
+    update_service(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -254,19 +234,7 @@ void delete_service() {
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("|||                                                                         |||\n");
-    printf("    buscado: %s\n", search);
-    printf("    = = Serviço 1 = = \n");
-    printf("    Descrição: Dipirona 500g \n");
-    printf("    Tipo: Medicamento \n");
-    printf("    Preço: R$ 27,00 \n");
-    printf("    Data de validade: 29/11/2023 \n");
-    printf("|||                                                                         |||\n");
-    printf("    >> Insira o nº do Serviço: \n");
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    printf("Serviço deletado! ");
+    remove_service(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
