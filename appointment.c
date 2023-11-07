@@ -58,7 +58,7 @@ void create_appointment() {
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_worker(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -76,13 +76,18 @@ void create_appointment() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_worker(cpf))
+        {
+            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_worker(cpf)));
     int animal_id = choose_animal();
     int service_id = choose_service();
     if (animal_id && service_id)
@@ -137,11 +142,11 @@ void search_appointment() {
     printf("|||                                                                         |||\n");
     do
     {
-    printf("|||            CPF do cliente ou funcionário (apenas números): ");
+    printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_worker(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -159,13 +164,18 @@ void search_appointment() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_worker(cpf))
+        {
+            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_worker(cpf)));
     find_appointment(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
@@ -191,11 +201,11 @@ void delete_appointment() {
     printf("|||                                                                         |||\n");
     do
     {
-    printf("|||            CPF do cliente ou funcionário (apenas números): ");
+    printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_worker(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -213,13 +223,18 @@ void delete_appointment() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_worker(cpf))
+        {
+            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_worker(cpf)));
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

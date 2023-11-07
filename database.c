@@ -757,7 +757,7 @@ int save_product(Product* pr) {
     //abrindo o arquivo com tipo de abertura w
 
     //testando se o arquivo foi realmente criado
-    p_file = fopen("db_products.dat", "rb");
+    p_file = fopen("db_products.dat", "ab");
     if(p_file == NULL) {
         printf("Erro na abertura do arquivo!");
         return 1;
@@ -768,13 +768,7 @@ int save_product(Product* pr) {
         found++;
     }
     free(aux_pr);
-    fclose(p_file);
 
-    p_file = fopen("db_products.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
     pr->id_product = found + 1;
     fwrite(pr, sizeof(Product), 1, p_file);
 
@@ -1892,7 +1886,7 @@ int choose_product() {
 int save_sale(Sale* sl) {
     FILE *p_file; // cria variável ponteiro para o arquivo
 
-    p_file = fopen("db_sales.dat", "rb");
+    p_file = fopen("db_sales.dat", "ab");
     if(p_file == NULL) {
         printf("Erro na abertura do arquivo!");
         return 1;
@@ -1903,15 +1897,6 @@ int save_sale(Sale* sl) {
         found++;
     }
     free(aux_sl);
-    fclose(p_file);
-
-
-    p_file = fopen("db_sales.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
-    
     
     sl->id_sale = found + 1;
 
@@ -1967,7 +1952,7 @@ void print_sale(Sale* sl) {
         fclose(p_file);
         free(pr);
 
-        printf("Criado em: %02d/%02d/%d - %02d:%02d:%02d\n", sl->date.tm_mday, sl->date.tm_mon, (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+        printf("Vendido(a) em: %02d/%02d/%d - %02d:%02d:%02d\n", sl->date.tm_mday, sl->date.tm_mon, (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
 
         if (sl->activated) {
             printf("Situação da venda: Ativo \n");
@@ -2020,7 +2005,7 @@ void find_sale(char cpf[]) {
         return;
     }
     while(fread(sl, sizeof(Sale), 1, p_file)) {
-        if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+        if ((strcmp(sl->worker_cpf, cpf) == 0) && (sl->activated)) {
             print_sale(sl);
             found++;
             printf("\n");
@@ -2048,7 +2033,7 @@ void remove_sale(char cpf[]) {
     }
     
     while(fread(sl, sizeof(Sale), 1, p_file)) {
-        if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+        if ((strcmp(sl->worker_cpf, cpf) == 0) && (sl->activated)) {
             found++;
             printf(">> ID [%d] \n", found);
             print_sale(sl);
@@ -2066,7 +2051,7 @@ void remove_sale(char cpf[]) {
         {
             found = 0;
             while(fread(sl, sizeof(Sale), 1, p_file)) {
-                if (((strcmp(sl->client_cpf, cpf) == 0) || (strcmp(sl->worker_cpf, cpf) == 0)) && (sl->activated)) {
+                if ((strcmp(sl->worker_cpf, cpf) == 0) && (sl->activated)) {
                     found++;
                     if (found == id)
                     {
@@ -2328,24 +2313,17 @@ int choose_animal() {
 int save_appointment(Appointment* sl) {
     FILE *p_file; // cria variável ponteiro para o arquivo
 
-    p_file = fopen("db_appointments.dat", "rb");
-        
-    int found = 0;
-    if(p_file != NULL) {
-        Appointment* aux_sl = (Appointment*)malloc(sizeof(Appointment));
-        while(fread(aux_sl, sizeof(Appointment), 1, p_file)) {
-            found++;
-        }
-        free(aux_sl);
-        fclose(p_file);
-    }
-
     p_file = fopen("db_appointments.dat", "ab");
     if(p_file == NULL) {
         printf("Erro na abertura do arquivo!");
         return 1;
+    } 
+    int found = 0;
+    Appointment* aux_sl = (Appointment*)malloc(sizeof(Appointment));
+    while(fread(aux_sl, sizeof(Appointment), 1, p_file)) {
+        found++;
     }
-    
+    free(aux_sl);
     
     sl->id_appointment = found + 1;
 
@@ -2354,10 +2332,9 @@ int save_appointment(Appointment* sl) {
     //usando fclose para fechar o arquivo
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
-
+    printf("CADASTRADO COM SUCESSO!!\n");
     return 0;
 }
-
 
 // Trata os dados para salvar na venda
 void insert_appointment(char worker_cpf[], int animal_id, int service_id) {
@@ -2417,7 +2394,7 @@ void print_appointment(Appointment* ap) {
         fclose(p_file);
         free(sr);
 
-        printf("Criado em: %02d/%02d/%d - %02d:%02d:%02d\n", ap->date.tm_mday, ap->date.tm_mon, (ap->date.tm_year + 1900), ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
+        printf("Realizado em: %02d/%02d/%d - %02d:%02d:%02d\n", ap->date.tm_mday, ap->date.tm_mon, (ap->date.tm_year + 1900), ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
 
         if (ap->activated) {
             printf("Situação da consulta: Ativo \n");

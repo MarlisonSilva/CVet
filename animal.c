@@ -225,7 +225,7 @@ void search_animal() {
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_client(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -243,13 +243,18 @@ void search_animal() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_client(cpf))
+        {
+            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_client(cpf)));
 
     do
     {
@@ -295,7 +300,7 @@ void edit_animal() {
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_client(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -313,13 +318,18 @@ void edit_animal() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_client(cpf))
+        {
+            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_client(cpf)));
 
     do
     {
@@ -366,7 +376,7 @@ void delete_animal() {
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
-        if (is_valid){
+        if (is_valid && has_client(cpf)){
             printf("|||            CPF digitado: ");
             int i = 0;
             do
@@ -384,13 +394,18 @@ void delete_animal() {
                 }
                 i++;
             } while (cpf[i] != '\0');
+
             printf("                                 |||\n");
+            printf("|||                                                                         |||\n");
+        } else if (!has_client(cpf))
+        {
+            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
             printf("|||                                                                         |||\n");
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!(is_valid && has_client(cpf)));
 
     do
     {
