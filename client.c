@@ -187,6 +187,7 @@ void all_clients() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Todos clientes cadastrados:                                  |||\n");
+    printf("|||                                                                         |||\n");
     list_clients();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
