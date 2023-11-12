@@ -208,7 +208,7 @@ void all_sales() {
     printf("|||            = = = = = = = = Lista de Vendas = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos as vendas cadastradas:                                 |||\n");
+    printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
     list_sales();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

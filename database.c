@@ -804,7 +804,7 @@ void print_product(Product* pr) {
         printf("Descrição: %s\n", pr->description);
         printf("Tipo: %s\n", pr->type);
         printf("Preço: %.2f\n", pr->price);
-        printf("Data de validade: %02d/%02d/%d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
+        printf("Data de validade: %02d/%02d/%04d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
 
         if (pr->activated) {
             printf("Situação do produto: Ativo \n");
@@ -1953,7 +1953,7 @@ void print_sale(Sale* sl) {
         fclose(p_file);
         free(pr);
 
-        printf("Vendido(a) em: %02d/%02d/%d - %02d:%02d:%02d\n", sl->date.tm_mday, sl->date.tm_mon, (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+        printf("Vendido(a) em: %02d/%02d/%04d - %02d:%02d:%02d\n", sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
 
         if (sl->activated) {
             printf("Situação da venda: Ativo \n");
@@ -1972,21 +1972,38 @@ void list_sales(void) {
     sl = (Sale*) malloc(sizeof(Sale));
     p_file = fopen("db_sales.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há vendas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        ---------- VERIFIQUE SE HÁ VENDAS CADASTRADOS! ----------        |||\n");
         return;
     }
 
     while(fread(sl, sizeof(Sale), 1, p_file)) {
         if (sl->activated) {
-            print_sale(sl);
+            FILE* p_file;
+            Product* pr;
+            pr = (Product*) malloc(sizeof(Product));
+            p_file = fopen("db_products.dat", "rb");
+            if (p_file == NULL) {
+                printf("Ops! Erro na abertura do arquivo!\n");
+                printf("Não é possível continuar...\n");
+                return;
+            }
+
+            while(fread(pr, sizeof(Product), 1, p_file)) {
+                if ((sl->product_id == pr->id_product) && (pr->activated)) {
+                    printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, pr->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
+                }
+            }
+            fclose(p_file);
+            free(pr);
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhuma venda encontrada! \n");
+        printf("|||        ---------------- NENHUM VENDA CADASTRADA ----------------        |||\n");
+
     }
     
     free(sl);
