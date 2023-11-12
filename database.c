@@ -823,21 +823,21 @@ void list_products(void) {
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há produtos cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ PRODUTOS CADASTRADOS! ---------        |||\n");
         return;
     }
 
     while(fread(pr, sizeof(Product), 1, p_file)) {
         if (pr->activated) {
-            print_product(pr);
+            printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", pr->description, pr->type, pr->price);
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhum produto encontrado! \n");
+        printf("|||        --------------- NENHUM PRODUTO CADASTRADO ---------------        |||\n");
     }
     
     free(pr);

@@ -147,7 +147,7 @@ void all_products() {
     printf("|||            = = = = = = =  Lista de Produtos  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os produtos cadastrados:                               |||\n");
+    printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
     list_products();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
