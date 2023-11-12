@@ -186,8 +186,7 @@ void all_clients() {
     printf("|||            = = = = = = =  Lista de Clientes  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos clientes cadastrados:                                  |||\n");
-    printf("|||                                                                         |||\n");
+    printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
     list_clients();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

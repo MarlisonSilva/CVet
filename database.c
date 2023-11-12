@@ -117,8 +117,8 @@ void list_clients(void) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há clientes cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ CLIENTES CADASTRADOS! ---------        |||\n");
         return;
     }
 
@@ -131,7 +131,7 @@ void list_clients(void) {
     }
     if (found == 0)
     {
-        printf("Nenhum cliente cadastrado! \n");
+        printf("|||        --------------- NENHUM CLIENTE CADASTRADO ---------------        |||\n");
     }
     
     free(cl);
