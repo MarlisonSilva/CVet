@@ -1193,21 +1193,22 @@ void list_services(void) {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há serviços cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ SERVIÇOS CADASTRADOS! ---------        |||\n");
         return;
     }
 
     while(fread(sr, sizeof(Service), 1, p_file)) {
         if (sr->activated) {
-            print_service(sr);
+            printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", sr->description, sr->type, sr->price);
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhum serviço encontrado! \n");
+        printf("|||        --------------- NENHUM SERVIÇO CADASTRADO ---------------        |||\n");
+
     }
     
     free(sr);

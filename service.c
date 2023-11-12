@@ -120,7 +120,7 @@ void all_services() {
     printf("|||            = = = = = = =  Lista de Serviços  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os serviços cadastrados:                               |||\n");
+    printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
     list_services();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
