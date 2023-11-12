@@ -443,21 +443,21 @@ void list_animals(void) {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há animais cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ ANIMAIS CADASTRADOS! ----------        |||\n");
         return;
     }
 
     while(fread(an, sizeof(Animal), 1, p_file)) {
         if (an->activated) {
-            print_animal(an);
+            printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->species, an->day_born, an->month_born, an->year_born);
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhum animal encontrado! \n");
+        printf("|||        --------------- NENHUM ANIMAL CADASTRADO ----------------        |||\n");
     }
     
     free(an);

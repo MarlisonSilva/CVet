@@ -194,7 +194,7 @@ void all_animals() {
     printf("|||            = = = = = = =  Lista de Animais = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos animais cadastrados:                                   |||\n");
+    printf("|||         CPF tutor  | ---- Nome ---- | -- Espécie -- | Data Nasc.        |||\n");
     list_animals();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
