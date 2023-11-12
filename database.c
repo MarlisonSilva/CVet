@@ -124,7 +124,7 @@ void list_clients(void) {
 
     while(fread(cl, sizeof(Client), 1, p_file)) {
         if (cl->activated) {
-            printf("|||        %s | %-30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
+            printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
             found++;
             printf("\n");
         }
