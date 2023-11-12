@@ -2431,21 +2431,60 @@ void list_appointments(void) {
     ap = (Appointment*) malloc(sizeof(Appointment));
     p_file = fopen("db_appointments.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- VERIFIQUE SE HÁ CONSULTAS CADASTRADOS! ---------        |||\n");
         return;
     }
 
     while(fread(ap, sizeof(Appointment), 1, p_file)) {
         if (ap->activated) {
-            print_appointment(ap);
+            char* animal_name = NULL;
+            char* service_desc = NULL;
+            FILE* p_file;
+            Service* sr;
+            sr = (Service*) malloc(sizeof(Service));
+            p_file = fopen("db_services.dat", "rb");
+            if (p_file == NULL) {
+                printf("Ops! Erro na abertura do arquivo!\n");
+                printf("Não é possível continuar...\n");
+                return;
+            }
+
+            while(fread(sr, sizeof(Service), 1, p_file)) {
+                if ((ap->service_id == sr->id_service) && (sr->activated)) {
+                    service_desc = (char*) malloc(sizeof(sr->description));
+                    strcpy(service_desc, sr->description);
+                }
+            }
+            fclose(p_file);
+            free(sr);
+            
+
+            Animal* an;
+            an = (Animal*) malloc(sizeof(Animal));
+            p_file = fopen("db_animals.dat", "rb");
+            if (p_file == NULL) {
+                printf("Ops! Erro na abertura do arquivo!\n");
+                printf("Não é possível continuar...\n");
+                return;
+            }
+            while(fread(an, sizeof(Animal), 1, p_file)) {
+                if ((ap->animal_id == an->id_animal) && (an->activated)) {
+                    animal_name = (char*) malloc(sizeof(an->name));
+                    strcpy(animal_name, an->name);
+                }
+            }
+            fclose(p_file);
+            free(an);
+            printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", ap->worker_cpf, animal_name, service_desc, ap->date.tm_mday, (ap->date.tm_mon + 1), (ap->date.tm_year + 1900));
+            
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhuma consulta encontrada! \n");
+        printf("|||        -------------- NENHUM CONSULTA CADASTRADA ---------------        |||\n");
     }
     
     free(ap);

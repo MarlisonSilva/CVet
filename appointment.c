@@ -117,7 +117,7 @@ void all_appointments() {
     printf("|||            = = = = = = =  Lista de Consultas = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todas consultas realizadas:                                  |||\n");
+    printf("|||        Funcionário | --- Animal --- | -- Serviço -- | Data Cons.        |||\n");
     list_appointments();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
