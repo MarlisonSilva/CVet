@@ -1568,21 +1568,21 @@ void list_workers(void) {
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há funcionários cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        ------- VERIFIQUE SE HÁ FUNCIONÁRIOS CADASTRADOS! -------        |||\n");
         return;
     }
 
     while(fread(wk, sizeof(Worker), 1, p_file)) {
         if (wk->activated) {
-            print_worker(wk);
+            printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", wk->cpf, wk->name, wk->day_born, wk->month_born, wk->year_born);
             found++;
             printf("\n");
         }
     }
     if (found == 0)
     {
-        printf("Nenhum funcionário encontrado! \n");
+        printf("|||        ------------- NENHUM FUNCIONÁRIO CADASTRADO -------------        |||\n");
     }
     
     free(wk);

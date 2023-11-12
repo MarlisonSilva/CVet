@@ -185,7 +185,7 @@ void all_workers() {
     printf("|||            = = = = = =  Lista de Funcionários  = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os funcionários cadastrados:                           |||\n");
+    printf("|||        --- CPF --- | ---- Nome do Funcionário ----- | Data Nasc.        |||\n");
     list_workers();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
