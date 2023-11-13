@@ -50,8 +50,12 @@ int save_animal(Animal* an) {
 
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
@@ -335,7 +339,7 @@ void update_animal(char cpf[], char search[]) {
     free(an);
 }
 
-void remove_animal(char cpf[]) {
+void remove_animal(char cpf[], char search[]) {
     FILE* p_file;
     Animal* an;
     int found = 0;
@@ -350,10 +354,12 @@ void remove_animal(char cpf[]) {
     
     while(fread(an, sizeof(Animal), 1, p_file)) {
         if ((strcmp(an->cpf, cpf) == 0) && (an->activated)) {
-            found++;
-            printf(">> ID [%d] \n", found);
-            print_animal(an);
-            printf("\n");
+            if (strncmp(str_to_lower(an->name), str_to_lower(search), strlen(search)) == 0) {
+                found++;
+                printf(">> ID [%d] \n", found);
+                print_animal(an);
+                printf("\n");
+            }
         }
     }
     fclose(p_file);
@@ -381,9 +387,11 @@ void remove_animal(char cpf[]) {
                             fseek(p_file, -1*sizeof(Animal), SEEK_CUR);
                             fwrite(an, sizeof(Animal), 1, p_file);
                             printf("\nAnimal excluído!\n");
+                            printf("|||                                                                         |||\n");
+                            printf("|||            >> Animal excluído!                                          |||\n");
                         } else {
-                            printf("\nOperação cancelada!\n");
-
+                            printf("|||                                                                         |||\n");
+                            printf("|||            >> nOperação cancelada!                                      |||\n");
                         }
                     }
                 }

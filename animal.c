@@ -44,12 +44,11 @@ char animal_menu() {
 
 void create_animal() {
     char caractere;
-
     char cpf[12], name[100], species[100],race[100];
     float weight;
     int day, month, year;
     int is_valid = 0;
-
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -59,8 +58,7 @@ void create_animal() {
     printf("|||            = = = = = = =   Cadastrar Animal  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_client(cpf))) {
         printf("|||            CPF do tutor (apenas números): ");
         scanf("%[0-9]", cpf);
 
@@ -87,18 +85,28 @@ void create_animal() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_client(cpf))
-        {
-            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_client(cpf)) {
+                printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_client(cpf)));
+        } 
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Nome do animal: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", name);
 
@@ -110,11 +118,20 @@ void create_animal() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Espécie: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", species);
 
@@ -126,11 +143,20 @@ void create_animal() {
         } else {
             printf("|||            Espécie digitada inválida. Digite apenas letras e espaços.   |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Raça: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", race);
 
@@ -142,11 +168,20 @@ void create_animal() {
         } else {
             printf("|||            Raça digitada inválida. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Peso: ");
         scanf("%f", &weight);
 
@@ -158,11 +193,20 @@ void create_animal() {
         } else {
             printf("|||            Peso digitado inválido. Verifique se é maior que 0.          |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Data de Nascimento (dd/mm/aaaa): ");
         scanf("%d%*c%d%*c%d", &day, &month, &year);
 
@@ -174,13 +218,26 @@ void create_animal() {
         } else {
             printf("|||            Data digitada inválida.                                      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    insert_animal(cpf, name, species, race, weight, day, month, year);
-    printf("CADASTRADO COM SUCESSO!!\n");
+    if (!exit) {
+        insert_animal(cpf, name, species, race, weight, day, month, year);
+    } else {
+        printf("SAINDO!\n");
+    }
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -212,6 +269,7 @@ void search_animal() {
     char search[100];
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -221,8 +279,7 @@ void search_animal() {
     printf("|||            = = = = = = =  Pesquisar Animal = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_client(cpf))){
         printf("|||            CPF do tutor (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -248,18 +305,28 @@ void search_animal() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_client(cpf))
-        {
-            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_client(cpf)) {
+                printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_client(cpf)));
+        } 
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid){
         printf("|||            Informe o nome do animal: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -270,9 +337,24 @@ void search_animal() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    find_animal(cpf, search);
+    }
+    if (!exit) {
+        find_animal(cpf, search);
+    } else {
+        printf("|||            >> Falta dados! Impossível buscar!                           |||\n");
+
+    }
+    
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -287,6 +369,7 @@ void edit_animal() {
     char cpf[12];
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -296,8 +379,7 @@ void edit_animal() {
     printf("|||            = = = = = = =   Alterar Animal  = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_client(cpf))){
         printf("|||            CPF do tutor (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -323,18 +405,28 @@ void edit_animal() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_client(cpf))
-        {
-            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_client(cpf)) {
+                printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_client(cpf)));
+        } 
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid){
         printf("|||            Informe o nome do animal: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -345,14 +437,25 @@ void edit_animal() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");   
-    update_animal(cpf, search);
-    printf("\n");
+    if (!exit) {
+        update_animal(cpf, search);
+    } else {
+        printf("SAINDO!\n");
+    }
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
@@ -361,6 +464,7 @@ void edit_animal() {
 void delete_animal() {
     char caractere;
     int is_valid = 0;
+    int exit = 0;
     char cpf[12];
     char search[100];
     system("clear||cls");
@@ -372,8 +476,7 @@ void delete_animal() {
     printf("|||            = = = = = = = =  Excluir Animal = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_client(cpf))){
         printf("|||            CPF do tutor (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -399,18 +502,28 @@ void delete_animal() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_client(cpf))
-        {
-            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_client(cpf)) {
+                printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_client(cpf)));
+        } 
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid){
         printf("|||            Informe o nome do animal: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -421,12 +534,25 @@ void delete_animal() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
+    if (!exit) {
+        remove_animal(cpf, search);
+    } else {
+        printf("|||            >> Falta dados! Impossível remover!                           |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_animal(cpf);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
