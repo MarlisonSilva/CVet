@@ -45,6 +45,7 @@ void create_client() {
     char cpf[12] = "", name[100] = "", email[255] = "", phone[12] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -55,8 +56,7 @@ void create_client() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     
-    do
-    {
+    while (!exit && (!(is_valid) || (has_client(cpf)))) {
         printf("|||            CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -81,17 +81,29 @@ void create_client() {
             } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if(has_client(cpf)){
-            printf("|||            CPF já registrado. Tente outro!                              |||\n");
+        } else{
+            if(has_client(cpf)){
+                printf("|||            CPF já registrado. Tente outro!                              |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                
+            }
             printf("|||                                                                         |||\n");
-        } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid) || (has_client(cpf)));
+            
+        } 
+    }
         
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Nome completo: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", name);
         // fgets(name, 100, stdin);
@@ -103,11 +115,20 @@ void create_client() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
         
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            E-mail: ");
         scanf("%[-._@A-Za-z0-9]", email);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -118,11 +139,20 @@ void create_client() {
         } else {
             printf("|||            E-mail digitado inválido.                                    |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Data de Nascimento (dd/mm/aaaa): ");
         scanf("%d%*c%d%*c%d", &day, &month, &year);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -133,11 +163,20 @@ void create_client() {
         } else {
             printf("|||            Data digitada inválida.                                      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-
-    do
-    {
+    }
+    
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Celular (apenas números | ex.: 84999776655): ");
         scanf("%[0-9]", phone);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -164,13 +203,27 @@ void create_client() {
         } else {
             printf("|||            Telefone digitado inválido. Lembre do DDD do estado e o 9.   |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    insert_client(cpf, name, email, phone, day, month, year);
+    if (!exit) {
+        insert_client(cpf, name, email, phone, day, month, year);
+    } else {
+        printf("SAINDO!\n");
+    }
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -200,6 +253,7 @@ void search_client() {
     char caractere;
     int is_valid = 0;
     char cpf[12];
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -209,9 +263,8 @@ void search_client() {
     printf("|||            = = = = = = =  Pesquisar Cliente  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            Informe o CPF (apenas números): ");
+    while (!exit && !is_valid) {
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -238,8 +291,17 @@ void search_client() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     find_client(cpf);
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
@@ -255,6 +317,7 @@ void edit_client() {
     char caractere;
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -264,8 +327,7 @@ void edit_client() {
     printf("|||            = = = = = = =  Alterar Cliente  = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
     printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -293,11 +355,25 @@ void edit_client() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-
-    update_client(cpf);
+    if (!exit)
+    {
+        update_client(cpf);
+    } else {
+        printf("SAINDO!\n");
+    }
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -307,6 +383,7 @@ void edit_client() {
 void delete_client() {
     char caractere;
     int is_valid = 0;
+    int exit = 0;
     char cpf[12];
     system("clear||cls");
     printf("\n");
@@ -317,8 +394,7 @@ void delete_client() {
     printf("|||            = = = = = = = = Excluir Cliente = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
     printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -346,12 +422,26 @@ void delete_client() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_client(cpf);
+    if (!exit) {
+        remove_client(cpf);
+    } else {
+        printf("SAINDO! \n");
+    }
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
