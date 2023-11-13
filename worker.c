@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "worker.h"
-#include "database.h"
+#include "database/ctrl_worker.h"
+
 #include "aux_functions.h"
 #include "utils.h"
 

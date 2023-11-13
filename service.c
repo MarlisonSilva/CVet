@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "service.h"
-#include "database.h"
+#include "database/ctrl_service.h"
+
 #include "utils.h"
 #include "aux_functions.h"
 

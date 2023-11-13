@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "appointment.h"
-#include "database.h"
+#include "database/ctrl_appointment.h"
+#include "database/ctrl_worker.h"
+
+
 #include "utils.h"
 #include "aux_functions.h"
 

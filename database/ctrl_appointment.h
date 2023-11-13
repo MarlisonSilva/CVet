@@ -1,0 +1,10 @@
+typedef struct appointment Appointment;
+struct appointment;
+int choose_service();
+int choose_animal();
+int save_appointment(Appointment* sl);
+void insert_appointment(char client_cpf[], int animal_id, int service_id);
+void print_appointment(Appointment* sl);
+void list_appointments(void);
+void find_appointment(char search[]);
+void remove_appointment(char search[]);

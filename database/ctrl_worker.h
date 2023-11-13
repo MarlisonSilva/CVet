@@ -1,0 +1,10 @@
+typedef struct worker Worker;
+struct worker;
+int save_worker(Worker* wk);
+void insert_worker(char cpf[], char name[], char email[], char phone[], int day_born, int month_born, int year_born);
+void print_worker(Worker* wk);
+void list_workers(void);
+void find_worker(char cpf[]);
+void update_worker(char cpf[]); 
+void remove_worker(char cpf[]);
+int has_worker(char cpf[]);

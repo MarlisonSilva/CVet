@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h> 
 #include "client.h"
-#include "database.h"
+#include "database/ctrl_client.h"
 #include "aux_functions.h"
 #include "utils.h"
 

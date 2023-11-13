@@ -3,7 +3,9 @@
 #include <string.h>
 #include <ctype.h> 
 #include "animal.h"
-#include "database.h"
+#include "database/ctrl_client.h"
+#include "database/ctrl_animal.h"
+
 #include "utils.h"
 #include "aux_functions.h"
 
