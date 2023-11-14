@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "service.h"
-#include "database.h"
+#include "database/ctrl_service.h"
+
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -120,7 +120,7 @@ void all_services() {
     printf("|||            = = = = = = =  Lista de Serviços  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os serviços cadastrados:                               |||\n");
+    printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
     list_services();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

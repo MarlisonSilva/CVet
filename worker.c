@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "worker.h"
-#include "database.h"
+#include "database/ctrl_worker.h"
+
 #include "aux_functions.h"
 #include "utils.h"
 
@@ -185,7 +185,7 @@ void all_workers() {
     printf("|||            = = = = = =  Lista de Funcionários  = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os funcionários cadastrados:                           |||\n");
+    printf("|||        --- CPF --- | ---- Nome do Funcionário ----- | Data Nasc.        |||\n");
     list_workers();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

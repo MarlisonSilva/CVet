@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "product.h"
-#include "database.h"
+#include "database/ctrl_product.h"
+
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -147,7 +147,7 @@ void all_products() {
     printf("|||            = = = = = = =  Lista de Produtos  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos os produtos cadastrados:                               |||\n");
+    printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
     list_products();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

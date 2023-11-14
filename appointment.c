@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "appointment.h"
-#include "database.h"
+#include "database/ctrl_appointment.h"
+#include "database/ctrl_worker.h"
+
+
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -117,7 +119,7 @@ void all_appointments() {
     printf("|||            = = = = = = =  Lista de Consultas = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todas consultas realizadas:                                  |||\n");
+    printf("|||        Funcionário | --- Animal --- | -- Serviço -- | Data Cons.        |||\n");
     list_appointments();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");

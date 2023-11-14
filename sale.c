@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h> 
-#include "database.h"
-#include "sale.h"
+#include "database/ctrl_client.h"
+#include "database/ctrl_worker.h"
+#include "database/ctrl_sale.h"
+
 #include "utils.h"
 #include "aux_functions.h"
 
@@ -208,7 +210,7 @@ void all_sales() {
     printf("|||            = = = = = = = = Lista de Vendas = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    printf("|||            Todos as vendas cadastradas:                                 |||\n");
+    printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
     list_sales();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
