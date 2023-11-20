@@ -63,6 +63,8 @@ int main() {
                     edit_client();
                 } else if (sub_op == 5) { // Remover clientes
                     delete_client();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_clients();
                 } else {
                     no_operation("Menu Clientes");
                 }

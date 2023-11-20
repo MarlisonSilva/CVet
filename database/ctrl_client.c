@@ -347,3 +347,55 @@ void remove_client(char cpf[]) {
     fclose(p_file);
     free(cl);
 }
+
+
+void find_clients_by(char search[], int opc) {
+    FILE* p_file;
+    Client* cl;
+    int found = 0;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há clientes cadastrados!\n");
+        return;
+    }
+
+    printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(cl->name, search, strlen(search)) == 0) && (cl->activated)) {
+                printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if ((strncmp(cl->email, search, strlen(search)) == 0) && (cl->activated)) {
+                printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(cl->activated)) {
+                printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUM CLIENTE ENCONTRADO                        |||\n");
+
+    }
+    
+    fclose(p_file);
+    free(cl);
+}
