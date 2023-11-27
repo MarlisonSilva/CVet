@@ -8,3 +8,4 @@ void find_client(char cpf[]);
 void update_client(char cpf[]); 
 void remove_client(char cpf[]);
 int has_client(char cpf[]);
+void find_clients_by(char search[], int opc);
