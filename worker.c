@@ -26,6 +26,7 @@ char worker_menu() {
     printf("|||            3. Pesquisar os dados de um funcionário                      |||\n");
     printf("|||            4. Atualizar o cadastro de um funcionário                    |||\n");
     printf("|||            5. Excluir um funcionário do sistema                         |||\n");
+    printf("|||            6. Listagem filtrada                                         |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -348,6 +349,77 @@ void delete_worker() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     remove_worker(cpf);
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void filtered_workers() {
+    char caractere;
+    int is_valid = 0;
+    char search[255];
+    int exit = 0;
+    int op = -1;
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = =  Pesquisar Funcionário  = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    
+    while (!exit && !is_valid) {
+        printf("|||            Escolha um filtro para a listagem:                           |||\n");
+        printf("|||            1- Nome do funcionário                                       |||\n");
+        printf("|||            2- E-mail do Funcionário                                     |||\n");
+        printf("|||            3- Funcionário desativados                                   |||\n");
+        printf("|||            4- Funcionários que fazem aniversário este mês               |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            >> Insira: ");
+        scanf("%d", &op);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        if (op < 1 || op > 4) {
+            printf("|||                                                                         |||\n");
+            printf("|||            >> Opção inválida/inexistente!                               |||\n");
+            printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
+        } else {
+            is_valid = 1;
+        }
+        
+    }
+    is_valid = 0;
+    while (!exit && !is_valid && op != 3 && op != 4) {
+        printf("|||            Informe o termo buscado: ");
+        scanf("%s", search);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+
+        printf("|||                                                                         |||\n");
+        printf("|||            Está certo disto? (s/n) ");
+        char opc = 'n';
+        scanf(" %c", &opc);
+        getchar();
+        if (opc == 's')
+        {
+            is_valid = 1;
+        }
+        printf("|||                                                                         |||\n");
+    }
+    find_workers_by(search, op);
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

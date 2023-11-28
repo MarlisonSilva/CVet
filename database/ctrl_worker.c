@@ -343,6 +343,10 @@ void remove_worker(char cpf[]) {
     free(wk);
 }
 
+void find_workers_by(char search[], int opc){
+    
+}
+
 Worker* get_worker(char worker_cpf[]) {
     FILE* p_file;
     Worker* wk;

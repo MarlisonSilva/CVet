@@ -199,6 +199,8 @@ int main() {
                     edit_worker();
                 } else if (sub_op == 5) { // Remover funcionários
                     delete_worker();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_workers();
                 } else {
                     no_operation("Menu Funcionários");
                 }
