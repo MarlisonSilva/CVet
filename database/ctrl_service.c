@@ -346,3 +346,18 @@ void remove_service(char search[]) {
     fclose(p_file);
     free(sr);
 }
+
+Service* get_service(int service_id) {
+    FILE* p_file;
+    Service* sr;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há serviços cadastrados!\n");
+        return NULL;
+    }
+    while(fread(sr, sizeof(Service), 1, p_file) && (sr->id_service != service_id));
+    fclose(p_file);
+    return sr;
+}
