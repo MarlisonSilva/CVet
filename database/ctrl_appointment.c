@@ -489,3 +489,18 @@ void remove_appointment(char cpf[]) {
     fclose(p_file);
     free(ap);
 }
+
+Appointment* get_appointment(int appointment_id) {
+    FILE* p_file;
+    Appointment* ap;
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há consultas cadastradas!\n");
+        return NULL;
+    }
+    while(fread(ap, sizeof(Appointment), 1, p_file) && (ap->id_appointment != appointment_id));
+    fclose(p_file);
+    return ap; 
+}

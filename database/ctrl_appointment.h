@@ -16,3 +16,4 @@ void print_appointment(Appointment* ap);
 void list_appointments(void);
 void find_appointment(char search[]);
 void remove_appointment(char search[]);
+Appointment* get_appointment(int appointment_id);
