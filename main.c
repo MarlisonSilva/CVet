@@ -110,6 +110,8 @@ int main() {
                     edit_product();
                 } else if (sub_op == 5) { // Remover produtos
                     delete_product();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_products();
                 } else {
                     no_operation("Menu Produtos");
                 }

@@ -398,6 +398,10 @@ void remove_product(char search[]) {
     free(pr);
 }
 
+void find_products_by(char search[], int opc){
+    
+}
+
 Product* get_product(int product_id) {
     FILE* p_file;
     Product* pr;
