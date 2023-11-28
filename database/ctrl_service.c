@@ -5,44 +5,43 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_service.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
 
 #define true 1
 #define false 0
 
-typedef struct service Service;
-
-struct service {
-    int id_service;
-    char description[100];
-    char type[100];
-    float price;
-    int activated;
-};
-
-
 // salva o serviço em um arquivo
 int save_service(Service* sr) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-    p_file = fopen("db_services.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
+    FILE *p_file; 
+    p_file = fopen("db_services.dat", "rb");
     int found = 0;
-    Service* aux_sr = (Service*)malloc(sizeof(Service));
-    while(fread(aux_sr, sizeof(Service), 1, p_file)) {
-        found++;
+    if(p_file == NULL) {
+        found = 1;
+    } else {
+        Service* aux_sr;
+        aux_sr = (Service*)malloc(sizeof(Service));
+        while(fread(aux_sr, sizeof(Service), 1, p_file)) {
+            found++;
+        }
+        free(aux_sr);
+        fclose(p_file);
     }
-    free(aux_sr);
 
+    p_file = fopen("db_services.dat", "ab");    
+    
     sr->id_service = found + 1;
-
     fwrite(sr, sizeof(Service), 1, p_file);
+    
+    //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
