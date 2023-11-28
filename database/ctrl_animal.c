@@ -402,5 +402,5 @@ Animal* get_animal(int animal_id) {
     }
     while(fread(an, sizeof(Animal), 1, p_file) && (an->id_animal != animal_id));
     fclose(p_file);
-    return an;
+    return an; 
 }
