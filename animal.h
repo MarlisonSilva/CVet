@@ -5,3 +5,4 @@ void all_animals();
 void search_animal();
 void edit_animal();
 void delete_animal();
+void filtered_animals();

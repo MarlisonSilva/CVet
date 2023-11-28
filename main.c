@@ -86,6 +86,8 @@ int main() {
                     edit_animal();
                 } else if (sub_op == 5) { // Remover animais
                     delete_animal();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_animals();
                 } else {
                     no_operation("Menu Animais");
                 }

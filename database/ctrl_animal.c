@@ -390,6 +390,10 @@ void remove_animal(char cpf[], char search[]) {
     free(an);
 }
 
+void find_animals_by(char search[], int opc){
+    
+}
+
 Animal* get_animal(int animal_id) {
     FILE* p_file;
     Animal* an;
