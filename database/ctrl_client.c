@@ -56,8 +56,12 @@ int save_client(Client* cl) {
 
     fwrite(cl, sizeof(Client), 1, p_file);
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 

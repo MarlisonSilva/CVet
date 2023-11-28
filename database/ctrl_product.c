@@ -48,8 +48,12 @@ int save_product(Product* pr) {
     
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
