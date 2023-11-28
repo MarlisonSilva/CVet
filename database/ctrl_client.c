@@ -12,19 +12,6 @@
 #define true 1
 #define false 0
 
-typedef struct client Client;
-
-struct client {
-    char cpf[12]; // "primária"
-    char name[100];
-    char email[255];
-    char phone[12];
-    int day_born;
-    int month_born;
-    int year_born;
-    int activated;
-};
-
 int has_client(char cpf[]) {
     FILE* p_file;
     Client* cl;
@@ -468,4 +455,19 @@ void find_clients_by(char search[], int opc) {
     
     fclose(p_file);
     free(cl);
+}
+
+Client* get_client(char client_cpf[]) {
+    FILE* p_file;
+    Client* cl;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há consultas cadastradas!\n");
+        return NULL;
+    }
+    while(fread(cl, sizeof(Client), 1, p_file) && (cl->cpf != client_cpf));
+    fclose(p_file);
+    return cl; 
 }
