@@ -5,22 +5,12 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_sale.h"
 #include "ctrl_product.h"
 
 #define true 1
 #define false 0
 
-
-typedef struct sale Sale;
-
-struct sale {
-    int id_sale;
-    char client_cpf[12];
-    char worker_cpf[12];    
-    int product_id;
-    struct tm date;
-    int activated;
-};
 
 int choose_product() {
     FILE* p_file;

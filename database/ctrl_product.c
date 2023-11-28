@@ -26,26 +26,26 @@ struct product {
 
 // salva o produto em um arquivo
 int save_product(Product* pr) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    //abrindo o arquivo com tipo de abertura w
-
-    //testando se o arquivo foi realmente criado
-    p_file = fopen("db_products.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
+    FILE *p_file; 
+    p_file = fopen("db_products.dat", "rb");
     int found = 0;
-    Product* aux_pr = (Product*)malloc(sizeof(Product));
-    while(fread(aux_pr, sizeof(Product), 1, p_file)) {
-        found++;
+    if(p_file == NULL) {
+        found = 1;
+    } else {
+        Product* aux_pr;
+        aux_pr = (Product*)malloc(sizeof(Product));
+        while(fread(aux_pr, sizeof(Product), 1, p_file)) {
+            found++;
+        }
+        free(aux_pr);
+        fclose(p_file);
     }
-    free(aux_pr);
 
+    p_file = fopen("db_products.dat", "ab");    
+    
     pr->id_product = found + 1;
     fwrite(pr, sizeof(Product), 1, p_file);
-
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
     printf("Dados gravados com sucesso! \n");
@@ -75,6 +75,7 @@ void print_product(Product* pr) {
         printf("\n= = = PRODUTO INEXISTENTE = = =\n");
     } else {
         printf(" = = = PRODUTO = = = \n");
+        printf("ID: %d\n", pr->id_product);
         printf("Descrição: %s\n", pr->description);
         printf("Tipo: %s\n", pr->type);
         printf("Preço: %.2f\n", pr->price);
@@ -391,4 +392,19 @@ void remove_product(char search[]) {
 
     fclose(p_file);
     free(pr);
+}
+
+Product* get_product(int product_id) {
+    FILE* p_file;
+    Product* pr;
+    pr = (Product*) malloc(sizeof(Product));
+    p_file = fopen("db_products.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há produtos cadastrados!\n");
+        return NULL;
+    }
+    while(fread(pr, sizeof(Product), 1, p_file) && (pr->id_product != product_id));
+    fclose(p_file);
+    return pr;
 }

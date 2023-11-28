@@ -469,11 +469,12 @@ void filtered_clients() {
         printf("|||            1- Nome do cliente                                           |||\n");
         printf("|||            2- E-mail do cliente                                         |||\n");
         printf("|||            3- Clientes desativados                                      |||\n");
+        printf("|||            4- Clientes que compraram este mês                           |||\n");
         printf("|||                                                                         |||\n");
         printf("|||            >> Insira: ");
         scanf("%d", &op);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
-        if (op < 1 || op > 3) {
+        if (op < 1 || op > 4) {
             printf("|||                                                                         |||\n");
             printf("|||            >> Opção inválida/inexistente!                               |||\n");
             printf("|||                                                                         |||\n");
@@ -492,7 +493,7 @@ void filtered_clients() {
         
     }
     is_valid = 0;
-    while ((!exit && !is_valid) && op != 3) {
+    while (!exit && !is_valid && op != 3 && op != 4) {
         printf("|||            Informe o termo buscado: ");
         scanf("%s", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  

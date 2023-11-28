@@ -16,3 +16,4 @@ void list_products(void);
 void find_product(char search[]);
 void update_product(char search[]); 
 void remove_product(char search[]);
+Product* get_product(int product_id);
