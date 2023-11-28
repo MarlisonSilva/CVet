@@ -5,6 +5,7 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_appointment.h"
 #include "ctrl_service.h"
 #include "ctrl_animal.h"
 #include "ctrl_client.h"
@@ -12,16 +13,6 @@
 #define true 1
 #define false 0
 
-typedef struct appointment Appointment;
-
-struct appointment {
-    int id_appointment;
-    int animal_id;
-    char worker_cpf[12];    
-    int service_id;
-    struct tm date;
-    int activated;
-};
 
 int choose_service() {
     FILE* p_file;
@@ -238,29 +229,35 @@ int choose_animal() {
 }
 
 // salva a consulta em um arquivo
-int save_appointment(Appointment* sl) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    p_file = fopen("db_appointments.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    } 
+int save_appointment(Appointment* ap) {
+    FILE *p_file; 
+    p_file = fopen("db_appointments.dat", "rb");
     int found = 0;
-    Appointment* aux_sl = (Appointment*)malloc(sizeof(Appointment));
-    while(fread(aux_sl, sizeof(Appointment), 1, p_file)) {
-        found++;
+    if(p_file == NULL) {
+        found = 1;
+    } else {
+        Appointment* aux_ap;
+        aux_ap = (Appointment*)malloc(sizeof(Appointment));
+        while(fread(aux_ap, sizeof(Appointment), 1, p_file)) {
+            found++;
+        }
+        free(aux_ap);
+        fclose(p_file);
     }
-    free(aux_sl);
+
+    p_file = fopen("db_appointments.dat", "ab");    
     
-    sl->id_appointment = found + 1;
-
-    fwrite(sl, sizeof(Appointment), 1, p_file);
-
+    ap->id_appointment = found + 1;
+    fwrite(ap, sizeof(Appointment), 1, p_file);
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
