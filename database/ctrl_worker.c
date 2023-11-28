@@ -5,24 +5,12 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_worker.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
 
 #define true 1
 #define false 0
-
-typedef struct worker Worker;
-
-struct worker {
-    char cpf[12];
-    char name[100];
-    char email[255];
-    char phone[13];
-    int day_born;
-    int month_born;
-    int year_born;
-    int activated;
-};
 
 int has_worker(char cpf[]) {
     FILE* p_file;
@@ -350,4 +338,19 @@ void remove_worker(char cpf[]) {
 
     fclose(p_file);
     free(wk);
+}
+
+Worker* get_worker(char worker_cpf[]) {
+    FILE* p_file;
+    Worker* wk;
+    wk = (Worker*) malloc(sizeof(Worker));
+    p_file = fopen("db_workers.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há funcionários cadastrados!\n");
+        return NULL;
+    }
+    while(fread(wk, sizeof(Worker), 1, p_file) && (wk->cpf != worker_cpf));
+    fclose(p_file);
+    return wk; 
 }
