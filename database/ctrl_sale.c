@@ -89,28 +89,34 @@ int choose_product() {
 
 // salva a venda em um arquivo
 int save_sale(Sale* sl) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    p_file = fopen("db_sales.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
+    FILE *p_file; 
+    p_file = fopen("db_sales.dat", "rb");
     int found = 0;
-    Sale* aux_sl = (Sale*)malloc(sizeof(Sale));
-    while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
-        found++;
+    if(p_file == NULL) {
+        found = 1;
+    } else {
+        Sale* aux_sl;
+        aux_sl = (Sale*)malloc(sizeof(Sale));
+        while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
+            found++;
+        }
+        free(aux_sl);
+        fclose(p_file);
     }
-    free(aux_sl);
+
+    p_file = fopen("db_sales.dat", "ab");    
     
     sl->id_sale = found + 1;
-
     fwrite(sl, sizeof(Sale), 1, p_file);
-
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
