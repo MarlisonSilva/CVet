@@ -347,6 +347,10 @@ void remove_service(char search[]) {
     free(sr);
 }
 
+void find_services_by(char search[], int opc){
+    
+}
+
 Service* get_service(int service_id) {
     FILE* p_file;
     Service* sr;

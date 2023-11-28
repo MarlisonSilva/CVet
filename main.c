@@ -133,6 +133,8 @@ int main() {
                     edit_service();
                 } else if (sub_op == 5) { // Remover serviços
                     delete_service();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_services();
                 } else {
                     no_operation("Menu Serviços");
                 }
