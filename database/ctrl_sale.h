@@ -15,3 +15,4 @@ void print_sale(Sale* sl);
 void list_sales(void);
 void find_sale(char search[]);
 void remove_sale(char search[]);
+Sale* get_sale(int sale_id);

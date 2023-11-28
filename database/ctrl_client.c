@@ -464,7 +464,7 @@ Client* get_client(char client_cpf[]) {
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("Verifique se há clientes cadastrados!\n");
         return NULL;
     }
     while(fread(cl, sizeof(Client), 1, p_file) && (cl->cpf != client_cpf));

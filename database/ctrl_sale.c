@@ -305,3 +305,18 @@ void remove_sale(char cpf[]) {
     fclose(p_file);
     free(sl);
 }
+
+Sale* get_sale(int sale_id) {
+    FILE* p_file;
+    Sale* sl;
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return NULL;
+    }
+    while(fread(sl, sizeof(Sale), 1, p_file) && (sl->id_sale != sale_id));
+    fclose(p_file);
+    return sl; 
+}
