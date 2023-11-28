@@ -27,6 +27,7 @@ char appointment_menu() {
     printf("|||            2. Listar todas as consultas                                 |||\n");
     printf("|||            3. Pesquisar os dados de uma consulta                        |||\n");
     printf("|||            4. Excluir uma consulta do sistema                           |||\n");
+    printf("|||            5. Listagem filtrada                                         |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -241,6 +242,77 @@ void delete_appointment() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     remove_appointment(cpf);
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void filtered_appointments() {
+    char caractere;
+    int is_valid = 0;
+    char search[255];
+    int exit = 0;
+    int op = -1;
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Consulta = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    
+    while (!exit && !is_valid) {
+        printf("|||            Escolha um filtro para a listagem:                           |||\n");
+        printf("|||            1- Consultas de hoje                                         |||\n");
+        printf("|||            2- Consultas deste mês                                       |||\n");
+        printf("|||            3- Consultas desativadas                                     |||\n");
+        printf("|||            4- Por nome do animal                                        |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            >> Insira: ");
+        scanf("%d", &op);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        if (op < 1 || op > 4) {
+            printf("|||                                                                         |||\n");
+            printf("|||            >> Opção inválida/inexistente!                               |||\n");
+            printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
+        } else {
+            is_valid = 1;
+        }
+        
+    }
+    is_valid = 0;
+    while (!exit && !is_valid && op != 1 && op != 2 && op != 3) {
+        printf("|||            Informe o termo buscado: ");
+        scanf("%s", search);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+
+        printf("|||                                                                         |||\n");
+        printf("|||            Está certo disto? (s/n) ");
+        char opc = 'n';
+        scanf(" %c", &opc);
+        getchar();
+        if (opc == 's')
+        {
+            is_valid = 1;
+        }
+        printf("|||                                                                         |||\n");
+    }
+    find_appointments_by(search, op);
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

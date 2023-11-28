@@ -490,6 +490,10 @@ void remove_appointment(char cpf[]) {
     free(ap);
 }
 
+void find_appointments_by(char search[], int opc){
+    
+}
+
 Appointment* get_appointment(int appointment_id) {
     FILE* p_file;
     Appointment* ap;

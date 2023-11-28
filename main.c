@@ -176,6 +176,8 @@ int main() {
                     search_appointment();
                 } else if (sub_op == 4) { // Remover consultas
                     delete_appointment();
+                } else if (sub_op == 5) { // Listagem filtrada
+                    filtered_appointments();
                 } else {
                     no_operation("Menu Consultas");
                 }
