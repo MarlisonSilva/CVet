@@ -18,3 +18,4 @@ void list_animals(void);
 void find_animal(char cpf[], char search[]);
 void update_animal(char cpf[], char search[]); 
 void remove_animal(char cpf[], char search[]); 
+Animal* get_animal(int animal_id);

@@ -4,50 +4,34 @@
 #include <string.h>
 #include <ctype.h> 
 #include <time.h>
+#include "ctrl_animal.h"
 #include "../utils.h"
 
 #define true 1
 #define false 0
 
-typedef struct animal Animal;
-
-struct animal {
-    int id_animal;
-    char cpf[12];
-    char name[100];
-    char species[100];
-    char race[100];
-    float weight;
-    int day_born;
-    int month_born;
-    int year_born;
-    int activated;
-};
-
 // salva o animal em um arquivo
 int save_animal(Animal* an) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    //abrindo o arquivo com tipo de abertura w
-    p_file = fopen("db_animals.dat", "ab");
-
-    //testando se o arquivo foi realmente criado
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
-    
+    FILE *p_file; 
+    p_file = fopen("db_animals.dat", "rb");
     int found = 0;
-    Animal* aux_an = (Animal*)malloc(sizeof(Animal));
-    while(fread(aux_an, sizeof(Animal), 1, p_file)) {
-        found++;
+    if(p_file == NULL) {
+        found = 1;
+    } else {
+        Animal* aux_an;
+        aux_an = (Animal*)malloc(sizeof(Animal));
+        while(fread(aux_an, sizeof(Animal), 1, p_file)) {
+            found++;
+        }
+        free(aux_an);
+        fclose(p_file);
     }
-    free(aux_an);
 
+    p_file = fopen("db_animals.dat", "ab");    
+    
     an->id_animal = found + 1;
-
     fwrite(an, sizeof(Animal), 1, p_file);
-
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -404,4 +388,19 @@ void remove_animal(char cpf[], char search[]) {
 
     fclose(p_file);
     free(an);
+}
+
+Animal* get_animal(int animal_id) {
+    FILE* p_file;
+    Animal* an;
+    an = (Animal*) malloc(sizeof(Animal));
+    p_file = fopen("db_animals.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há animais cadastrados!\n");
+        return NULL;
+    }
+    while(fread(an, sizeof(Animal), 1, p_file) && (an->id_animal != animal_id));
+    fclose(p_file);
+    return an;
 }
