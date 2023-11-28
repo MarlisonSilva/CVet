@@ -312,6 +312,10 @@ void remove_sale(char cpf[]) {
     free(sl);
 }
 
+void find_sales_by(char search[], int opc){
+    
+}
+
 Sale* get_sale(int sale_id) {
     FILE* p_file;
     Sale* sl;

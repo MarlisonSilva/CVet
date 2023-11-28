@@ -155,6 +155,8 @@ int main() {
                     search_sale();
                 } else if (sub_op == 4) { // Remover vendas
                     delete_sale();
+                } else if (sub_op == 5) { // Listagem filtrada
+                    filtered_sales();
                 } else {
                     no_operation("Menu Vendas");
                 }
