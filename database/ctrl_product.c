@@ -456,15 +456,18 @@ void find_products_by(char search[], int opc){
                     return;
                 }
                 while(fread(sl, sizeof(Sale), 1, p_file_sl)){
-                    if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated)) {
+                    if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated) && (sl->product_id == pr->id_product)) {
                         count++;
                     }
                 }
                 fclose(p_file_sl);
-                printf("|||        %-23.23s | %-14.14s |    %11d        |||", pr->description, pr->type, count);
-                found++;
-                printf("\n");
                 free(sl);
+                if (count > 0)
+                {
+                    printf("|||        %-23.23s | %-14.14s |    %11d        |||", pr->description, pr->type, count);
+                    found++;
+                    printf("\n");
+                }
             }
         default:
             break;
