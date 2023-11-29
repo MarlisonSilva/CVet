@@ -435,7 +435,7 @@ void find_clients_by(char search[], int opc) {
                 while(fread(sl, sizeof(Sale), 1, p_file_sl)){
                     if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon))
                     {
-                        printf("|||        %s | %-13.13s | %-13.13s | %02d/%02d-%02d:%02d        |||", cl->cpf, cl->name, get_product(sl->product_id)->description, sl->date.tm_mday, sl->date.tm_mon, sl->date.tm_hour, sl->date.tm_min);
+                        printf("|||        %s | %-13.13s | %-13.13s | %02d/%02d-%02d:%02d        |||", cl->cpf, cl->name, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
                         found++;
                         printf("\n");
                     }

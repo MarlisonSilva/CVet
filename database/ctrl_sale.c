@@ -7,6 +7,7 @@
 #include "../utils.h"
 #include "ctrl_sale.h"
 #include "ctrl_product.h"
+#include "ctrl_worker.h"
 
 #define true 1
 #define false 0
@@ -189,23 +190,7 @@ void list_sales(void) {
 
     while(fread(sl, sizeof(Sale), 1, p_file)) {
         if (sl->activated) {
-            FILE* p_file;
-            Product* pr;
-            pr = (Product*) malloc(sizeof(Product));
-            p_file = fopen("db_products.dat", "rb");
-            if (p_file == NULL) {
-                printf("Ops! Erro na abertura do arquivo!\n");
-                printf("Não é possível continuar...\n");
-                return;
-            }
-
-            while(fread(pr, sizeof(Product), 1, p_file)) {
-                if ((sl->product_id == pr->id_product) && (pr->activated)) {
-                    printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, pr->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
-                }
-            }
-            fclose(p_file);
-            free(pr);
+            printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
             found++;
             printf("\n");
         }
@@ -313,7 +298,69 @@ void remove_sale(char cpf[]) {
 }
 
 void find_sales_by(char search[], int opc){
+    FILE* p_file;
+    Sale* sl;
+    int found = 0;
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return;
+    }
+
+    if (opc == 4)
+    {
+        printf("|||        --- CPF - Funcionário --- | --- Produto ---- | -- Data --        |||\n");
+    } else {
+        printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
+
+    }
     
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->date.tm_mday == tm.tm_mday) && (sl->activated)) {
+                printf("|||        %s | %s | %-16.16s |  %02d:%02d:%02d         |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d-%02d:%02d       |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(sl->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+            if ((strncmp(get_worker(sl->worker_cpf)->name, search, strlen(search)) == 0) && (sl->activated)) {
+                printf("|||        %-11.11s - %-11.11s | %-16.16s | %02d/%02d-%02d:%02d       |||", sl->worker_cpf, get_worker(sl->worker_cpf)->name, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
+                found++;
+                printf("\n");
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUMA VENDA ENCONTRADA                        |||\n");
+    }
+    
+    fclose(p_file);
+    free(sl);
 }
 
 Sale* get_sale(int sale_id) {

@@ -476,7 +476,7 @@ void find_products_by(char search[], int opc){
     }
     if (found == 0)
     {
-        printf("|||                        NENHUM ANIMAL ENCONTRADO                         |||\n");
+        printf("|||                        NENHUM PRODUTO ENCONTRADO                        |||\n");
     }
     
     fclose(p_file);
