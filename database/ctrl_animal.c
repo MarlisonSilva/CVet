@@ -6,6 +6,7 @@
 #include <time.h>
 #include "ctrl_animal.h"
 #include "../utils.h"
+#include "ctrl_client.h"
 
 #define true 1
 #define false 0
@@ -391,7 +392,84 @@ void remove_animal(char cpf[], char search[]) {
 }
 
 void find_animals_by(char search[], int opc){
+    FILE* p_file;
+    Animal* an;
+    int found = 0;
+    an = (Animal*) malloc(sizeof(Animal));
+    p_file = fopen("db_animals.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há animais cadastrados!\n");
+        return;
+    }
+
+    if (opc == 2)
+    {
+        printf("|||         CPF tutor  | --- Animal --- | --- Raça ---- | Data Nasc.        |||\n");
+    } else if (opc == 4) {
+        printf("|||         CPF tutor  | --- Animal --- | --- Tutor --- | Data Nasc.        |||\n");
+    } else {
+        printf("|||         CPF tutor  | --- Animal --- | -- Espécie -- | Data Nasc.        |||\n");
+    }
     
+    while(fread(an, sizeof(Animal), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(an->species, search, strlen(search)) == 0) && (an->activated)) {
+                printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->species, an->day_born, an->month_born, an->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if ((strncmp(an->race, search, strlen(search)) == 0) && (an->activated)) {
+                printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->race, an->day_born, an->month_born, an->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(an->activated)) {
+                printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->species, an->day_born, an->month_born, an->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+           if (an->activated) {
+                FILE* p_file_cl;
+                Client* cl;
+                cl = (Client*) malloc(sizeof(Client));
+                p_file_cl = fopen("db_clients.dat", "rb");
+                if (p_file_cl == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há clientes cadastrados!\n");
+                    return;
+                }
+                while(fread(cl, sizeof(Client), 1, p_file_cl)){
+                    if (!(cl->activated))
+                    {
+                        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, get_client(an->cpf)->name, an->day_born, an->month_born, an->year_born);
+                        found++;
+                        printf("\n");
+                    }
+                    
+                }
+                fclose(p_file_cl);
+                free(cl);
+            }
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUM ANIMAL ENCONTRADO                         |||\n");
+    }
+    
+    fclose(p_file);
+    free(an);
 }
 
 Animal* get_animal(int animal_id) {
