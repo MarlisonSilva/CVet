@@ -7,6 +7,7 @@
 #include "../utils.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
+#include "ctrl_sale.h"
 
 #define true 1
 #define false 0
@@ -399,7 +400,84 @@ void remove_product(char search[]) {
 }
 
 void find_products_by(char search[], int opc){
+    FILE* p_file;
+    Product* pr;
+    int found = 0;
+    pr = (Product*) malloc(sizeof(Product));
+    p_file = fopen("db_products.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há produtos cadastrados!\n");
+        return;
+    }
+
+    if (opc == 4)
+    {
+        printf("|||        ------ Descrição ------ | ---- Tipo ---- |  Nº de Vendas         |||\n");
+    } else {
+        printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
+    }
     
+    while(fread(pr, sizeof(Product), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(pr->type, search, strlen(search)) == 0) && (pr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", pr->description, pr->type, pr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if ((pr->day_expiration == 0 && pr->month_expiration == 0 && pr->year_expiration == 0) && (pr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", pr->description, pr->type, pr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(pr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", pr->description, pr->type, pr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+           if (pr->activated) {
+                int count = 0;
+                FILE* p_file_sl;
+                Sale* sl;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                sl = (Sale*) malloc(sizeof(Sale));
+                p_file_sl = fopen("db_sales.dat", "rb");
+                if (p_file_sl == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há vendas cadastradas!\n");
+                    return;
+                }
+                while(fread(sl, sizeof(Sale), 1, p_file_sl)){
+                    if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated)) {
+                        count++;
+                    }
+                }
+                fclose(p_file_sl);
+                printf("|||        %-23.23s | %-14.14s |    %11d        |||", pr->description, pr->type, count);
+                found++;
+                printf("\n");
+                free(sl);
+            }
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUM ANIMAL ENCONTRADO                         |||\n");
+    }
+    
+    fclose(p_file);
+    free(pr);
 }
 
 Product* get_product(int product_id) {
