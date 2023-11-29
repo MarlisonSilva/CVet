@@ -491,7 +491,70 @@ void remove_appointment(char cpf[]) {
 }
 
 void find_appointments_by(char search[], int opc){
+    FILE* p_file;
+    Appointment* ap;
+    int found = 0;
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há consultas cadastradas!\n");
+        return;
+    }
+
+    if (opc == 4)
+    {
+        // printf("|||        --- CPF - Funcionário --- | --- Serviço ---- | -- Data --        |||\n");
+        printf("|||        - Cliente - | -- Animal -- | --- Serviço --- | -- Data --        |||\n");
+    } else {
+        printf("|||        - Cliente - | Funcionário | --- Serviço ---- | -- Data --        |||\n");
+
+    }
     
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    while(fread(ap, sizeof(Appointment), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->date.tm_mday == tm.tm_mday) && (ap->activated)) {
+                printf("|||        %s | %s | %-16.16s |  %02d:%02d:%02d         |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d-%02d:%02d       |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), ap->date.tm_hour, ap->date.tm_min);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(ap->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), (ap->date.tm_year + 1900));
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+            if ((strncmp(get_animal(ap->animal_id)->name, search, strlen(search)) == 0) && (ap->activated)) {
+                printf("|||        %s | %-12.12s | %-15.15s | %02d/%02d-%02d:%02d       |||", ap->worker_cpf, get_animal(ap->animal_id)->name, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), ap->date.tm_hour, ap->date.tm_min);
+                found++;
+                printf("\n");
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                       NENHUMA CONSULTA ENCONTRADA                      |||\n");
+    }
+    
+    fclose(p_file);
+    free(ap);
 }
 
 Appointment* get_appointment(int appointment_id) {
