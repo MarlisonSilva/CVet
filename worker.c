@@ -375,7 +375,7 @@ void filtered_workers() {
         printf("|||            1- Nome do funcionário                                       |||\n");
         printf("|||            2- E-mail do Funcionário                                     |||\n");
         printf("|||            3- Funcionário desativados                                   |||\n");
-        printf("|||            4- Funcionários que fazem aniversário este mês               |||\n");
+        printf("|||            4- Funcionários e número de vendas este mês                  |||\n");
         printf("|||                                                                         |||\n");
         printf("|||            >> Insira: ");
         scanf("%d", &op);

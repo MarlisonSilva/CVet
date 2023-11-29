@@ -442,7 +442,7 @@ void find_products_by(char search[], int opc){
             } 
             break;
         case 4:
-           if (pr->activated) {
+            if (pr->activated) {
                 int count = 0;
                 FILE* p_file_sl;
                 Sale* sl;

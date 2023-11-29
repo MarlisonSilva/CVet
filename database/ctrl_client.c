@@ -387,38 +387,6 @@ void find_clients_by(char search[], int opc) {
             } 
             break;
         case 4:
-            /*
-            if ((strncmp(cl->name, search, strlen(search)) == 0) && (cl->activated)) {
-                FILE* p_file_sl;
-                Sale* sl;
-                time_t t = time(NULL);
-                struct tm tm = *localtime(&t);
-
-                sl = (Sale*) malloc(sizeof(Sale));
-                p_file_sl = fopen("db_sales.dat", "rb");
-                if (p_file_sl == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há vendas cadastradas!\n");
-                    return;
-                }
-                while(fread(sl, sizeof(Sale), 1, p_file)){
-                    printf("Ano hoje: %d", (tm.tm_year + 1900));
-                    printf("Ano compra: %d", (sl->date.tm_year + 1900));
-                    printf("Mês hoje: %d", tm.tm_mon);
-                    printf("Mês compra: %d", sl->date.tm_mon);
-                    if ((strcmp(cl->cpf, sl->client_cpf) == 0) && ((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon))
-                    {
-                        printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", cl->cpf, cl->name, cl->day_born, cl->month_born, cl->year_born);
-                        found++;
-                        printf("\n");
-                    }
-                    
-                }
-                fclose(p_file_sl);
-                free(sl);
-                
-            }
-            */
            if (cl->activated) {
                 FILE* p_file_sl;
                 Sale* sl;

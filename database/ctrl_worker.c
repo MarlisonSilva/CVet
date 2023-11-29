@@ -8,6 +8,7 @@
 #include "ctrl_worker.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
+#include "ctrl_sale.h"
 
 #define true 1
 #define false 0
@@ -344,7 +345,88 @@ void remove_worker(char cpf[]) {
 }
 
 void find_workers_by(char search[], int opc){
+    FILE* p_file;
+    Worker* wk;
+    int found = 0;
+    wk = (Worker*) malloc(sizeof(Worker));
+    p_file = fopen("db_workers.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há clientes cadastrados!\n");
+        return;
+    }
+
+    if (opc == 4) {
+        printf("|||        --- CPF --- | - Funcionário -- | -- E-mail -- | Nº vendas        |||\n");
+    }  else {
+        printf("|||        --- CPF --- | - Funcionário - | -- E-mail -- | Data Nasc.        |||\n");
+
+    }
     
+    while(fread(wk, sizeof(Worker), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(wk->name, search, strlen(search)) == 0) && (wk->activated)) {
+                printf("|||        %s | %-15.15s | %-12.12s | %02d/%02d/%04d        |||", wk->cpf, wk->name, wk->email, wk->day_born, wk->month_born, wk->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if ((strncmp(wk->email, search, strlen(search)) == 0) && (wk->activated)) {
+                printf("|||        %s | %-15.15s | %-12.12s | %02d/%02d/%04d        |||", wk->cpf, wk->name, wk->email, wk->day_born, wk->month_born, wk->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(wk->activated)) {
+                printf("|||        %s | %-15.15s | %-12.12s | %02d/%02d/%04d        |||", wk->cpf, wk->name, wk->email, wk->day_born, wk->month_born, wk->year_born);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+           if (wk->activated) {
+                int count = 0;
+                FILE* p_file_sl;
+                Sale* sl;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                sl = (Sale*) malloc(sizeof(Sale));
+                p_file_sl = fopen("db_sales.dat", "rb");
+                if (p_file_sl == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há vendas cadastradas!\n");
+                    return;
+                }
+                while(fread(sl, sizeof(Sale), 1, p_file_sl)){
+                    if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated) && (strcmp(sl->worker_cpf, wk->cpf) == 0)) {
+                        count++;
+                    }
+                }
+                fclose(p_file_sl);
+                free(sl);
+                if (count > 0)
+                {
+                    printf("|||        %s | %-16.16s | %-12.12s | %9d        |||", wk->cpf, wk->name, wk->email, count);
+                    found++;
+                    printf("\n");
+                }
+            }
+
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                      NENHUM FUNCIONÁRIO ENCONTRADO                      |||\n");
+    }
+    
+    fclose(p_file);
+    free(wk);
 }
 
 Worker* get_worker(char worker_cpf[]) {
