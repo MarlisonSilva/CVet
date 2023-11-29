@@ -8,6 +8,7 @@
 #include "ctrl_service.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
+#include "ctrl_appointment.h"
 
 #define true 1
 #define false 0
@@ -348,7 +349,106 @@ void remove_service(char search[]) {
 }
 
 void find_services_by(char search[], int opc){
+    FILE* p_file;
+    Service* sr;
+    int found = 0;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há produtos cadastrados!\n");
+        return;
+    }
+
+    if (opc == 3) {
+        printf("|||        ------- Serviço ------- | ---- Tipo ---- | Nº de Consult.        |||\n");
+    } else if (opc == 4) {
+        printf("|||        ------- Serviço ------- | --- Animal --- | Data Consulta         |||\n");
+    } else {
+        printf("|||        ------- Serviço ------- | ---- Tipo ---- | - Preço Uni. -        |||\n");
+    }
     
+    while(fread(sr, sizeof(Service), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(sr->type, search, strlen(search)) == 0) && (sr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", sr->description, sr->type, sr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (!(sr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", sr->description, sr->type, sr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+           if (sr->activated) {
+                int count = 0;
+                FILE* p_file_ap;
+                Appointment* ap;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                ap = (Appointment*) malloc(sizeof(Appointment));
+                p_file_ap = fopen("db_appointments.dat", "rb");
+                if (p_file_ap == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há consultas cadastradas!\n");
+                    return;
+                }
+                while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
+                    if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated) && (ap->service_id == sr->id_service)) {
+                        count++;
+                    }
+                }
+                fclose(p_file_ap);
+                if (count > 0)
+                {
+                    printf("|||        %-23.23s | %-14.14s |    %11d        |||", sr->description, sr->type, count);
+                    found++;
+                    printf("\n");
+                }
+                free(ap);
+            }
+            break;
+        case 4:
+           if (sr->activated) {
+                FILE* p_file_ap;
+                Appointment* ap;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                ap = (Appointment*) malloc(sizeof(Appointment));
+                p_file_ap = fopen("db_appointments.dat", "rb");
+                if (p_file_ap == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há consultas cadastradas!\n");
+                    return;
+                }
+                while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
+                    if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated) && (ap->service_id == sr->id_service)) {
+                        printf("|||        %-23.23s | %-14.14s |    %02d/%02d/%04d         |||", sr->description, get_animal(ap->animal_id)->name, ap->date.tm_mday, (ap->date.tm_mon + 1), (ap->date.tm_year + 1900));
+                        found++;
+                        printf("\n");
+                    }
+                }
+                fclose(p_file_ap);
+                free(ap);
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUM SERVIÇO ENCONTRADO                        |||\n");
+    }
+    
+    fclose(p_file);
+    free(sr);
 }
 
 Service* get_service(int service_id) {
