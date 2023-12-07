@@ -29,7 +29,7 @@ char animal_menu() {
     printf("|||            4. Atualizar o cadastro de um animal                         |||\n");
     printf("|||            5. Excluir um animal do sistema                              |||\n");
     printf("|||            6. Listagem filtrada                                         |||\n");
-    printf("|||            7. Listagem ordenada                                         |||\n");
+    printf("|||            7. Listagem ordenada por nome                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");

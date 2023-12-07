@@ -489,27 +489,30 @@ void list_az_animals(void) {
 
     while(fread(an, sizeof(Animal), 1, p_file)) {
         if (an->activated) {
-            if (animals == NULL) {
+            if ((animals == NULL) || (strcmp(an->name, animals->name) < 0)) {
+                // substitui o topo da lista
+                an->next = animals;
                 animals = an;
             } else {
-                // aux_an = animals;
-                // while (aux_an->next != NULL && strcmp(aux_an->name, an->name) < 0) {       
-                //     aux_an = aux_an->next;
-                // }
-                // if (strcmp(aux_an->name, an->name) < 0)
-                // {
-                //     aux_an->next = an;
-                // } else {
-                //     an->next = aux_an;
-                // }
+                Animal* prev = animals;
+                Animal* curr = animals->next;
+                while ((curr != NULL) && (strcmp(curr->name, an->name) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = an;
+                an->next = curr;
             }
+            an = (Animal *) malloc(sizeof(Animal));
             found++;
         }
     }
 
+    free(an);
+
     aux_an = animals;
     do {
-        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->species, an->day_born, an->month_born, an->year_born);
+        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", aux_an->cpf, aux_an->name, aux_an->species, aux_an->day_born, aux_an->month_born, aux_an->year_born);
         printf("\n");
         aux_an = aux_an->next;
     } while (aux_an != NULL);
@@ -518,8 +521,18 @@ void list_az_animals(void) {
         printf("|||        --------------- NENHUM ANIMAL CADASTRADO ----------------        |||\n");
     }
     
-    free(animals);
+    clear_animal(animals);
     fclose(p_file);
+}
+
+void clear_animal(Animal* an){
+    Animal* aux_an;
+  
+    while (an != NULL) {
+        aux_an = an;
+        an = an->next;
+        free(aux_an);
+    }  
 }
 
 Animal* get_animal(int animal_id) {

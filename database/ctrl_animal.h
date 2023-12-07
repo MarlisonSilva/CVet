@@ -22,4 +22,5 @@ void remove_animal(char cpf[], char search[]);
 void find_animals_by(char search[], int opc);
 void filtered_animals();
 void list_az_animals();
+void clear_animal(Animal* an);
 Animal* get_animal(int animal_id); 
