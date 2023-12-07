@@ -6,3 +6,4 @@ void search_product();
 void edit_product();
 void delete_product();
 void filtered_products();
+void all_products_az();
