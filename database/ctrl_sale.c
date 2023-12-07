@@ -108,6 +108,7 @@ int save_sale(Sale* sl) {
     p_file = fopen("db_sales.dat", "ab");    
     
     sl->id_sale = found + 1;
+    sl->next = NULL;
     fwrite(sl, sizeof(Sale), 1, p_file);
     
     //usando fclose para fechar o arquivo

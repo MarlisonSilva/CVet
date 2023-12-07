@@ -10,6 +10,7 @@ struct animal {
     int month_born;
     int year_born;
     int activated;
+    Animal* next;
 };
 int save_animal(Animal* an);
 void insert_animal(char cpf[], char name[], char species[], char race[], float weight, int day_born, int month_born, int year_born);

@@ -5,6 +5,7 @@ struct service {
     char type[100];
     float price;
     int activated;
+    Service* next;
 };
 int save_service(Service* sr);
 void insert_service(char description[], char type[], float price);

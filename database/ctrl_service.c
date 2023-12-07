@@ -33,6 +33,7 @@ int save_service(Service* sr) {
     p_file = fopen("db_services.dat", "ab");    
     
     sr->id_service = found + 1;
+    sr->next = NULL;
     fwrite(sr, sizeof(Service), 1, p_file);
     
     //usando fclose para fechar o arquivo

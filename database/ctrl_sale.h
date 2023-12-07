@@ -7,6 +7,7 @@ struct sale {
     int product_id;
     struct tm date;
     int activated;
+    Sale* next;
 };
 int choose_product();
 int save_sale(Sale* sl);

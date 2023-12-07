@@ -5,25 +5,13 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_product.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
 #include "ctrl_sale.h"
 
 #define true 1
 #define false 0
-
-typedef struct product Product;
-
-struct product {
-    int id_product;
-    char description[100];
-    char type[100];
-    float price;
-    int day_expiration;
-    int month_expiration;
-    int year_expiration;
-    int activated;
-};
 
 // salva o produto em um arquivo
 int save_product(Product* pr) {
@@ -45,6 +33,7 @@ int save_product(Product* pr) {
     p_file = fopen("db_products.dat", "ab");    
     
     pr->id_product = found + 1;
+    pr->next = NULL;
     fwrite(pr, sizeof(Product), 1, p_file);
     
     //usando fclose para fechar o arquivo

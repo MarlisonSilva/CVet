@@ -55,6 +55,7 @@ int save_worker(Worker* wk) {
         return 1;
     }
 
+    wk->next = NULL;
     fwrite(wk, sizeof(Worker), 1, p_file);
 
     //usando fclose para fechar o arquivo

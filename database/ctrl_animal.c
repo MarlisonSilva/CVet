@@ -31,6 +31,7 @@ int save_animal(Animal* an) {
     p_file = fopen("db_animals.dat", "ab");    
     
     an->id_animal = found + 1;
+    an->next = NULL;
     fwrite(an, sizeof(Animal), 1, p_file);
     
     //usando fclose para fechar o arquivo

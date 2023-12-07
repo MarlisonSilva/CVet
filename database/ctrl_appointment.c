@@ -248,6 +248,7 @@ int save_appointment(Appointment* ap) {
     p_file = fopen("db_appointments.dat", "ab");    
     
     ap->id_appointment = found + 1;
+    ap->next = NULL;
     fwrite(ap, sizeof(Appointment), 1, p_file);
     
     //usando fclose para fechar o arquivo

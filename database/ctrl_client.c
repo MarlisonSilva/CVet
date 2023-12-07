@@ -54,6 +54,7 @@ int save_client(Client* cl) {
         return 1;
     }
 
+    cl->next = NULL;
     fwrite(cl, sizeof(Client), 1, p_file);
     fclose(p_file);
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

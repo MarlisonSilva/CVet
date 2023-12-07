@@ -8,6 +8,7 @@ struct product {
     int month_expiration;
     int year_expiration;
     int activated;
+    Product* next;
 };
 int save_product(Product* pr);
 void insert_product(char description[], char type[], float price, int day_expiration, int month_expiration, int year_expiration);

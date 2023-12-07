@@ -8,6 +8,7 @@ struct worker {
     int month_born;
     int year_born;
     int activated;
+    Worker* next;
 };
 int save_worker(Worker* wk);
 void insert_worker(char cpf[], char name[], char email[], char phone[], int day_born, int month_born, int year_born);

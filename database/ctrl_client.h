@@ -8,6 +8,7 @@ struct client {
     int month_born;
     int year_born;
     int activated;
+    Client* next;
 };
 int save_client(Client* cl);
 void insert_client(char cpf[], char name[], char email[], char phone[], int day_born, int month_born, int year_born);

@@ -7,6 +7,7 @@ struct appointment {
     int service_id;
     struct tm date;
     int activated;
+    Appointment* next;
 };
 int choose_service();
 int choose_animal();
