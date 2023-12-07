@@ -165,6 +165,8 @@ int main() {
                     delete_sale();
                 } else if (sub_op == 5) { // Listagem filtrada
                     filtered_sales();
+                } else if (sub_op == 6) { // Listagem ordenada
+                    all_sales_date();
                 } else {
                     no_operation("Menu Vendas");
                 }

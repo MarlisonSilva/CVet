@@ -28,6 +28,7 @@ char sale_menu() {
     printf("|||            3. Pesquisar os dados de um venda                            |||\n");
     printf("|||            4. Excluir um venda do sistema                               |||\n");
     printf("|||            5. Listagem filtrada                                         |||\n");
+    printf("|||            6. Listagem ordenada por data                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -346,6 +347,26 @@ void filtered_sales() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_sales_date() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = =  Lista de Vendas por Data = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
+    list_sales();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
