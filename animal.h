@@ -6,3 +6,4 @@ void search_animal();
 void edit_animal();
 void delete_animal();
 void filtered_animals();
+void all_animals_az();

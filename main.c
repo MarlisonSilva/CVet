@@ -88,6 +88,8 @@ int main() {
                     delete_animal();
                 } else if (sub_op == 6) { // Listagem filtrada
                     filtered_animals();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_animals_az();
                 } else {
                     no_operation("Menu Animais");
                 }

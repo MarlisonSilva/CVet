@@ -473,6 +473,55 @@ void find_animals_by(char search[], int opc){
     free(an);
 }
 
+void list_az_animals(void) {
+    FILE* p_file;
+    Animal* an;
+    Animal* animals = NULL;
+    Animal* aux_an;
+    int found = 0;
+    an = (Animal*) malloc(sizeof(Animal));
+    p_file = fopen("db_animals.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ ANIMAIS CADASTRADOS! ----------        |||\n");
+        return;
+    }
+
+    while(fread(an, sizeof(Animal), 1, p_file)) {
+        if (an->activated) {
+            if (animals == NULL) {
+                animals = an;
+            } else {
+                // aux_an = animals;
+                // while (aux_an->next != NULL && strcmp(aux_an->name, an->name) < 0) {       
+                //     aux_an = aux_an->next;
+                // }
+                // if (strcmp(aux_an->name, an->name) < 0)
+                // {
+                //     aux_an->next = an;
+                // } else {
+                //     an->next = aux_an;
+                // }
+            }
+            found++;
+        }
+    }
+
+    aux_an = animals;
+    do {
+        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", an->cpf, an->name, an->species, an->day_born, an->month_born, an->year_born);
+        printf("\n");
+        aux_an = aux_an->next;
+    } while (aux_an != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM ANIMAL CADASTRADO ----------------        |||\n");
+    }
+    
+    free(animals);
+    fclose(p_file);
+}
+
 Animal* get_animal(int animal_id) {
     FILE* p_file;
     Animal* an;
