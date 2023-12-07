@@ -28,6 +28,7 @@ char appointment_menu() {
     printf("|||            3. Pesquisar os dados de uma consulta                        |||\n");
     printf("|||            4. Excluir uma consulta do sistema                           |||\n");
     printf("|||            5. Listagem filtrada                                         |||\n");
+    printf("|||            6. Listagem ordenada por data                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -313,6 +314,26 @@ void filtered_appointments() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_appointments_data() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = Lista de Consultas por Data = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||        Funcionário | --- Animal --- | -- Serviço -- | Data Cons.        |||\n");
+    list_appointments();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

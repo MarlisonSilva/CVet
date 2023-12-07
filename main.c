@@ -188,6 +188,8 @@ int main() {
                     delete_appointment();
                 } else if (sub_op == 5) { // Listagem filtrada
                     filtered_appointments();
+                } else if (sub_op == 6) { // Listagem ordenada
+                    all_appointments_data();
                 } else {
                     no_operation("Menu Consultas");
                 }
