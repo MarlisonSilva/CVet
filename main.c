@@ -65,6 +65,8 @@ int main() {
                     delete_client();
                 } else if (sub_op == 6) { // Listagem filtrada
                     filtered_clients();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_clients_az();
                 } else {
                     no_operation("Menu Clientes");
                 }
