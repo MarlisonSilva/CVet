@@ -430,6 +430,66 @@ void find_clients_by(char search[], int opc) {
     free(cl);
 }
 
+void list_clients_az(void) {
+    FILE* p_file;
+    Client* cl;
+    Client* clients = NULL;
+    Client* aux_cl;
+    int found = 0;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ CLIENTES CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if (cl->activated) {
+            if ((clients == NULL) || (strcmp(cl->name, clients->name) < 0)) {
+                // substitui o topo da lista
+                cl->next = clients;
+                clients = cl;
+            } else {
+                Client* prev = clients;
+                Client* curr = clients->next;
+                while ((curr != NULL) && (strcmp(curr->name, cl->name) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = cl;
+                cl->next = curr;
+            }
+            cl = (Client *) malloc(sizeof(Client));
+            found++;
+        }
+    }
+
+    free(cl);
+    fclose(p_file);
+    aux_cl = clients;
+    do {
+        printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", aux_cl->cpf, aux_cl->name, aux_cl->day_born, aux_cl->month_born, aux_cl->year_born);
+        printf("\n");
+        aux_cl = aux_cl->next;
+    } while (aux_cl != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM CLIENTE CADASTRADO ---------------        |||\n");
+    }
+    clear_client(clients);
+}
+
+void clear_client(Client* cl){
+    Client* aux_cl;
+  
+    while (cl != NULL) {
+        aux_cl = cl;
+        cl = cl->next;
+        free(aux_cl);
+    }  
+}
+
 Client* get_client(char client_cpf[]) {
     FILE* p_file;
     Client* cl;

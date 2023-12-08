@@ -531,7 +531,7 @@ void all_clients_az() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
-    list_clients();
+    list_clients_az();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

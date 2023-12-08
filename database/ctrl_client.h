@@ -19,4 +19,6 @@ void update_client(char cpf[]);
 void remove_client(char cpf[]);
 int has_client(char cpf[]);
 void find_clients_by(char search[], int opc);
+void list_clients_az();
+void clear_client(Client* cl);
 Client* get_client(char client_cpf[]);
