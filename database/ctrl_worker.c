@@ -6,7 +6,6 @@
 #include <time.h>
 #include "../utils.h"
 #include "ctrl_worker.h"
-#include "ctrl_client.h"
 #include "ctrl_animal.h"
 #include "ctrl_sale.h"
 
@@ -353,7 +352,7 @@ void find_workers_by(char search[], int opc){
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
         printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há clientes cadastrados!\n");
+        printf("Verifique se há workeres cadastrados!\n");
         return;
     }
 
@@ -428,6 +427,66 @@ void find_workers_by(char search[], int opc){
     
     fclose(p_file);
     free(wk);
+}
+
+void list_workers_az(void) {
+    FILE* p_file;
+    Worker* wk;
+    Worker* workers = NULL;
+    Worker* aux_wk;
+    int found = 0;
+    wk = (Worker*) malloc(sizeof(Worker));
+    p_file = fopen("db_workers.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        ------- VERIFIQUE SE HÁ FUNCIONÁRIOS CADASTRADOS! -------        |||\n");
+        return;
+    }
+
+    while(fread(wk, sizeof(Worker), 1, p_file)) {
+        if (wk->activated) {
+            if ((workers == NULL) || (strcmp(wk->name, workers->name) < 0)) {
+                // substitui o topo da lista
+                wk->next = workers;
+                workers = wk;
+            } else {
+                Worker* prev = workers;
+                Worker* curr = workers->next;
+                while ((curr != NULL) && (strcmp(curr->name, wk->name) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = wk;
+                wk->next = curr;
+            }
+            wk = (Worker *) malloc(sizeof(Worker));
+            found++;
+        }
+    }
+
+    free(wk);
+    fclose(p_file);
+    aux_wk = workers;
+    do {
+        printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", aux_wk->cpf, aux_wk->name, aux_wk->day_born, aux_wk->month_born, aux_wk->year_born);
+        printf("\n");
+        aux_wk = aux_wk->next;
+    } while (aux_wk != NULL);
+    
+    if (found == 0) {
+        printf("|||        ------------- NENHUM FUNCIONÁRIO CADASTRADO -------------        |||\n");
+    }
+    clear_worker(workers);
+}
+
+void clear_worker(Worker* wk){
+    Worker* aux_wk;
+  
+    while (wk != NULL) {
+        aux_wk = wk;
+        wk = wk->next;
+        free(aux_wk);
+    }  
 }
 
 Worker* get_worker(char worker_cpf[]) {

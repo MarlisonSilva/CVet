@@ -19,4 +19,6 @@ void update_worker(char cpf[]);
 void remove_worker(char cpf[]);
 int has_worker(char cpf[]);
 void find_workers_by(char search[], int opc);
+void list_workers_az();
+void clear_worker(Worker* cl);
 Worker* get_worker(char worker_cpf[]);

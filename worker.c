@@ -437,7 +437,7 @@ void all_workers_az() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        --- CPF --- | ---- Nome do Funcionário ----- | Data Nasc.        |||\n");
-    list_workers();
+    list_workers_az();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
