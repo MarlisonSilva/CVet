@@ -363,7 +363,7 @@ void all_sales_date() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
-    list_sales();
+    list_sales_date();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

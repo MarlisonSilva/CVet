@@ -17,4 +17,6 @@ void list_sales(void);
 void find_sale(char search[]);
 void remove_sale(char search[]);
 void find_sales_by(char search[], int opc);
+void list_sales_date();
+void clear_sale(Sale* sl);
 Sale* get_sale(int sale_id);

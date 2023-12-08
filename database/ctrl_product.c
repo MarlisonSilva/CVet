@@ -24,7 +24,7 @@ int save_product(Product* pr) {
         Product* aux_pr;
         aux_pr = (Product*)malloc(sizeof(Product));
         while(fread(aux_pr, sizeof(Product), 1, p_file)) {
-            found++;
+            found = aux_pr->id_product;
         }
         free(aux_pr);
         fclose(p_file);

@@ -364,6 +364,67 @@ void find_sales_by(char search[], int opc){
     free(sl);
 }
 
+void list_sales_date(void) {
+    FILE* p_file;
+    Sale* sl;
+    Sale* sales = NULL;
+    Sale* aux_sl;
+    int found = 0;
+    time_t t = time(NULL);
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ SERVIÇOS CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        if (sl->activated) {
+            if ((sales == NULL) || (difftime(mktime(&sl->date), t) < 0)) {
+                // substitui o topo da lista
+                sl->next = sales;
+                sales = sl;
+            } else {
+                Sale* prev = sales;
+                Sale* curr = sales->next;
+                while ((curr != NULL) && (difftime(mktime(&sl->date), t) > 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = sl;
+                sl->next = curr;
+            }
+            sl = (Sale *) malloc(sizeof(Sale));
+            found++;
+        }
+    }
+
+    free(sl);
+    fclose(p_file);
+    aux_sl = sales;
+    do {
+        printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", aux_sl->client_cpf, aux_sl->worker_cpf, get_product(aux_sl->product_id)->description, aux_sl->date.tm_mday, (aux_sl->date.tm_mon + 1), (aux_sl->date.tm_year + 1900));
+        printf("\n");
+        aux_sl = aux_sl->next;
+    } while (aux_sl != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM SERVIÇO CADASTRADO ---------------        |||\n");
+    }
+    clear_sale(sales);
+}
+
+void clear_sale(Sale* sl){
+    Sale* aux_sl;
+
+    while (sl != NULL) {
+        aux_sl = sl;
+        sl = sl->next;
+        free(aux_sl);
+    }  
+}
+
 Sale* get_sale(int sale_id) {
     FILE* p_file;
     Sale* sl;
