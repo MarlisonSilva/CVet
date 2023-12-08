@@ -93,13 +93,11 @@ int save_sale(Sale* sl) {
     FILE *p_file; 
     p_file = fopen("db_sales.dat", "rb");
     int found = 0;
-    if(p_file == NULL) {
-        found = 1;
-    } else {
+    if(p_file != NULL) {
         Sale* aux_sl;
         aux_sl = (Sale*)malloc(sizeof(Sale));
         while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
-            found++;
+            found = aux_sl->id_sale;
         }
         free(aux_sl);
         fclose(p_file);

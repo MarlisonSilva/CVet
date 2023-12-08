@@ -16,13 +16,11 @@ int save_animal(Animal* an) {
     FILE *p_file; 
     p_file = fopen("db_animals.dat", "rb");
     int found = 0;
-    if(p_file == NULL) {
-        found = 1;
-    } else {
+    if(p_file != NULL) {
         Animal* aux_an;
         aux_an = (Animal*)malloc(sizeof(Animal));
         while(fread(aux_an, sizeof(Animal), 1, p_file)) {
-            found++;
+            found = aux_an->id_animal;
         }
         free(aux_an);
         fclose(p_file);

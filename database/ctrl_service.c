@@ -18,13 +18,11 @@ int save_service(Service* sr) {
     FILE *p_file; 
     p_file = fopen("db_services.dat", "rb");
     int found = 0;
-    if(p_file == NULL) {
-        found = 1;
-    } else {
+    if(p_file != NULL) {
         Service* aux_sr;
         aux_sr = (Service*)malloc(sizeof(Service));
         while(fread(aux_sr, sizeof(Service), 1, p_file)) {
-            found++;
+            found = aux_sr->id_service;
         }
         free(aux_sr);
         fclose(p_file);

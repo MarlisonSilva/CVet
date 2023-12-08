@@ -233,13 +233,11 @@ int save_appointment(Appointment* ap) {
     FILE *p_file; 
     p_file = fopen("db_appointments.dat", "rb");
     int found = 0;
-    if(p_file == NULL) {
-        found = 1;
-    } else {
+    if(p_file != NULL) {
         Appointment* aux_ap;
         aux_ap = (Appointment*)malloc(sizeof(Appointment));
         while(fread(aux_ap, sizeof(Appointment), 1, p_file)) {
-            found++;
+            found = aux_ap->id_appointment;
         }
         free(aux_ap);
         fclose(p_file);

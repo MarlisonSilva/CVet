@@ -18,9 +18,7 @@ int save_product(Product* pr) {
     FILE *p_file; 
     p_file = fopen("db_products.dat", "rb");
     int found = 0;
-    if(p_file == NULL) {
-        found = 1;
-    } else {
+    if(p_file != NULL) {
         Product* aux_pr;
         aux_pr = (Product*)malloc(sizeof(Product));
         while(fread(aux_pr, sizeof(Product), 1, p_file)) {
