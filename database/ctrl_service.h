@@ -15,4 +15,6 @@ void find_service(char search[]);
 void update_service(char search[]); 
 void remove_service(char search[]);
 void find_services_by(char search[], int opc);
+void list_services_az();
+void clear_service(Service* pr);
 Service* get_service(int service_id);

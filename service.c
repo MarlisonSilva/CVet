@@ -324,7 +324,7 @@ void all_services_az() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
-    list_services();
+    list_services_az();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

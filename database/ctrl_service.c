@@ -452,6 +452,66 @@ void find_services_by(char search[], int opc){
     free(sr);
 }
 
+void list_services_az(void) {
+    FILE* p_file;
+    Service* sr;
+    Service* services = NULL;
+    Service* aux_sr;
+    int found = 0;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ SERVIÇOS CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(sr, sizeof(Service), 1, p_file)) {
+        if (sr->activated) {
+            if ((services == NULL) || (strcmp(sr->description, services->description) < 0)) {
+                // substitui o topo da lista
+                sr->next = services;
+                services = sr;
+            } else {
+                Service* prev = services;
+                Service* curr = services->next;
+                while ((curr != NULL) && (strcmp(curr->description, sr->description) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = sr;
+                sr->next = curr;
+            }
+            sr = (Service *) malloc(sizeof(Service));
+            found++;
+        }
+    }
+
+    free(sr);
+    fclose(p_file);
+    aux_sr = services;
+    do {
+        printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", aux_sr->description, aux_sr->type, aux_sr->price);
+        printf("\n");
+        aux_sr = aux_sr->next;
+    } while (aux_sr != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM SERVIÇO CADASTRADO ---------------        |||\n");
+    }
+    clear_service(services);
+}
+
+void clear_service(Service* sr){
+    Service* aux_sr;
+
+    while (sr != NULL) {
+        aux_sr = sr;
+        sr = sr->next;
+        free(aux_sr);
+    }  
+}
+
 Service* get_service(int service_id) {
     FILE* p_file;
     Service* sr;
