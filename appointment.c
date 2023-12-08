@@ -330,7 +330,7 @@ void all_appointments_data() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        Funcionário | --- Animal --- | -- Serviço -- | Data Cons.        |||\n");
-    list_appointments();
+    list_appointments_date();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

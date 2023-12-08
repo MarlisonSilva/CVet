@@ -558,6 +558,67 @@ void find_appointments_by(char search[], int opc){
     free(ap);
 }
 
+void list_appointments_date(void) {
+    FILE* p_file;
+    Appointment* ap;
+    Appointment* appointments = NULL;
+    Appointment* aux_ap;
+    int found = 0;
+    time_t t = time(NULL);
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- VERIFIQUE SE HÁ CONSULTAS CADASTRADAS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(ap, sizeof(Appointment), 1, p_file)) {
+        if (ap->activated) {
+            if ((appointments == NULL) || (difftime(mktime(&ap->date), t) < 0)) {
+                // substitui o topo da lista
+                ap->next = appointments;
+                appointments = ap;
+            } else {
+                Appointment* prev = appointments;
+                Appointment* curr = appointments->next;
+                while ((curr != NULL) && (difftime(mktime(&ap->date), t) > 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = ap;
+                ap->next = curr;
+            }
+            ap = (Appointment *) malloc(sizeof(Appointment));
+            found++;
+        }
+    }
+
+    free(ap);
+    fclose(p_file);
+    aux_ap = appointments;
+    do {
+        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", aux_ap->worker_cpf, get_animal(aux_ap->animal_id)->name, get_service(aux_ap->service_id)->description, aux_ap->date.tm_mday, (aux_ap->date.tm_mon + 1), (aux_ap->date.tm_year + 1900));
+        printf("\n");
+        aux_ap = aux_ap->next;
+    } while (aux_ap != NULL);
+    
+    if (found == 0) {
+        printf("|||        -------------- NENHUMA CONSULTA CADASTRADA --------------        |||\n");
+    }
+    clear_appointment(appointments);
+}
+
+void clear_appointment(Appointment* ap){
+    Appointment* aux_ap;
+
+    while (ap != NULL) {
+        aux_ap = ap;
+        ap = ap->next;
+        free(aux_ap);
+    }  
+}
+
 Appointment* get_appointment(int appointment_id) {
     FILE* p_file;
     Appointment* ap;
