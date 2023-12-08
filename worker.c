@@ -27,6 +27,7 @@ char worker_menu() {
     printf("|||            4. Atualizar o cadastro de um funcionário                    |||\n");
     printf("|||            5. Excluir um funcionário do sistema                         |||\n");
     printf("|||            6. Listagem filtrada                                         |||\n");
+    printf("|||            7. Listagem ordenada por nome                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -420,6 +421,26 @@ void filtered_workers() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_workers_az() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = =  Lista de Funcionários por Nome = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||        --- CPF --- | ---- Nome do Funcionário ----- | Data Nasc.        |||\n");
+    list_workers();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

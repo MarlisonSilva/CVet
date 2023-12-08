@@ -213,6 +213,8 @@ int main() {
                     delete_worker();
                 } else if (sub_op == 6) { // Listagem filtrada
                     filtered_workers();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_workers_az();
                 } else {
                     no_operation("Menu Funcionários");
                 }
