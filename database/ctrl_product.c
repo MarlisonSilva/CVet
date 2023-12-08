@@ -472,6 +472,66 @@ void find_products_by(char search[], int opc){
     free(pr);
 }
 
+void list_products_az(void) {
+    FILE* p_file;
+    Product* pr;
+    Product* products = NULL;
+    Product* aux_pr;
+    int found = 0;
+    pr = (Product*) malloc(sizeof(Product));
+    p_file = fopen("db_products.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ PRODUTOS CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(pr, sizeof(Product), 1, p_file)) {
+        if (pr->activated) {
+            if ((products == NULL) || (strcmp(pr->description, products->description) < 0)) {
+                // substitui o topo da lista
+                pr->next = products;
+                products = pr;
+            } else {
+                Product* prev = products;
+                Product* curr = products->next;
+                while ((curr != NULL) && (strcmp(curr->description, pr->description) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = pr;
+                pr->next = curr;
+            }
+            pr = (Product *) malloc(sizeof(Product));
+            found++;
+        }
+    }
+
+    free(pr);
+    fclose(p_file);
+    aux_pr = products;
+    do {
+        printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", aux_pr->description, aux_pr->type, aux_pr->price);
+        printf("\n");
+        aux_pr = aux_pr->next;
+    } while (aux_pr != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM PRODUTO CADASTRADO ---------------        |||\n");
+    }
+    clear_product(products);
+}
+
+void clear_product(Product* pr){
+    Product* aux_pr;
+
+    while (pr != NULL) {
+        aux_pr = pr;
+        pr = pr->next;
+        free(aux_pr);
+    }  
+}
+
 Product* get_product(int product_id) {
     FILE* p_file;
     Product* pr;

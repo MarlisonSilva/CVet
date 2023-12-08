@@ -355,7 +355,7 @@ void all_products_az() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
-    list_products();
+    list_products_az();
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

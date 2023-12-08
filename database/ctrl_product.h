@@ -18,4 +18,6 @@ void find_product(char search[]);
 void update_product(char search[]); 
 void remove_product(char search[]);
 void find_products_by(char search[], int opc);
+void list_products_az();
+void clear_product(Product* pr);
 Product* get_product(int product_id);
