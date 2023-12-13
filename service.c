@@ -254,13 +254,12 @@ void edit_service() {
     printf("|||                                                                         |||\n");
     if (!exit) {
         printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-        remove_product(search);
+        update_service(search);
     } else {
         printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
         printf("|||                                                                         |||\n");
         printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
-    update_service(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

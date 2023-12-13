@@ -47,6 +47,7 @@ void create_sale() {
     char caractere; 
     char client_cpf[12], worker_cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -56,8 +57,7 @@ void create_sale() {
     printf("|||            = = = = = = = = Cadastrar Venda = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_worker(worker_cpf))) {
         printf("|||            CPF do cliente (apenas números): ");
         scanf("%[0-9]", client_cpf);
 
@@ -84,18 +84,29 @@ void create_sale() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_client(client_cpf))
-        {
-            printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_client(client_cpf)) {
+                printf("|||            CPF digitado inválido. Cliente INEXISTENTE!                  |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
         }
-    } while (!(is_valid && has_client(client_cpf)));
+        
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !(is_valid && has_worker(worker_cpf))) {
         printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", worker_cpf);
 
@@ -122,22 +133,35 @@ void create_sale() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(worker_cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(worker_cpf)) {
+                printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_worker(worker_cpf)));
-
-    insert_sale(client_cpf, worker_cpf, choose_product());
+        } 
+        
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-
-    printf("CADASTRADO COM SUCESSO!!\n");
+    if (!exit) {
+        insert_sale(client_cpf, worker_cpf, choose_product());
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    } else {
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -148,6 +172,7 @@ void search_sale() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -157,8 +182,7 @@ void search_sale() {
     printf("|||            = = = = = = = = Pesquisar Venda = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !(is_valid && has_worker(cpf))){
     printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -184,16 +208,30 @@ void search_sale() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(cpf)){
+               printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
         }
-    } while (!(is_valid && has_worker(cpf)));
-    find_sale(cpf);
+    } 
+    if (!exit){
+        find_sale(cpf);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }   
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -226,6 +264,7 @@ void delete_sale() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -235,9 +274,8 @@ void delete_sale() {
     printf("|||            = = = = = = = =  Excluir Venda  = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-   do
-    {
-    printf("|||            CPF do funcionário (apenas números): ");
+    while (!exit && !(is_valid && has_worker(cpf))) {
+        printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -262,19 +300,34 @@ void delete_sale() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(cpf)){
+               printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_worker(cpf)));
+        } 
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_sale(cpf);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_sale(cpf);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
 
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
@@ -342,7 +395,11 @@ void filtered_sales() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_sales_by(search, op);
+    if (!exit){
+        find_sales_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
