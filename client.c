@@ -403,7 +403,7 @@ void delete_client() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     while (!exit && !is_valid) {
-    printf("|||            Informe o CPF (apenas números): ");
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);

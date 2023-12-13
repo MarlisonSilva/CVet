@@ -163,6 +163,7 @@ void search_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -185,9 +186,22 @@ void search_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    find_product(search);
+    } while (!exit && !is_valid);
+    if (!exit){
+        find_product(search);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -201,6 +215,7 @@ void edit_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -223,12 +238,26 @@ void edit_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!exit && !is_valid);
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    update_product(search);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_product(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -239,6 +268,7 @@ void delete_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -261,13 +291,27 @@ void delete_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } while (!exit && !is_valid);
     
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_product(search);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_product(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -334,8 +378,11 @@ void filtered_products() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_products_by(search, op);
-    printf("|||                                                                         |||\n");
+    if (!exit){
+        find_products_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     
