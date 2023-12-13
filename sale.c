@@ -57,7 +57,7 @@ void create_sale() {
     printf("|||            = = = = = = = = Cadastrar Venda = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    while (!exit && !(is_valid && has_worker(worker_cpf))) {
+    while (!exit && !(is_valid && has_client(client_cpf))) {
         printf("|||            CPF do cliente (apenas números): ");
         scanf("%[0-9]", client_cpf);
 
