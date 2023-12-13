@@ -83,6 +83,7 @@ void create_product() {
         }
     }
 
+    is_valid = 0;
     while (!exit && !is_valid) {
         printf("|||            Tipo/categoria: ");
         scanf("%[^\n]%*c", type);
@@ -108,6 +109,7 @@ void create_product() {
         }
     }
 
+    is_valid = 0;
     while (!exit && !is_valid) {
         printf("|||            Preço: ");
         scanf("%f", &price);
@@ -132,6 +134,7 @@ void create_product() {
         }
     }
 
+    is_valid = 0;
     while (!exit && !is_valid) {
         printf("|||            Validade (dd/mm/aaaa):                                       |||\n");
         printf("|||            (NOTA: insira 00/00/0000 para datas indeterminadas)          |||\n");
