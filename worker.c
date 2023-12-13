@@ -47,6 +47,7 @@ void create_worker() {
     char cpf[12] = "", name[100] = "", email[255] = "", phone[13] = "";
     int day = 0, month = 0, year = 0;
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -56,8 +57,7 @@ void create_worker() {
     printf("|||            = = = = = =  Cadastrar Funcionário  = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && (!(is_valid) || (has_worker(cpf)))) {
         printf("|||            CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -82,17 +82,29 @@ void create_worker() {
             } while (cpf[i] != '\0');
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if(has_worker(cpf)){
-            printf("|||            CPF já registrado. Tente outro!                              |||\n");
+        } else{
+            if(has_worker(cpf)){
+                printf("|||            CPF já registrado. Tente outro!                              |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                
+            }
             printf("|||                                                                         |||\n");
-        } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid) || (has_worker(cpf)));
+            
+        } 
+    }
     
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Nome completo: ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", name);
         // fgets(name, 100, stdin);
@@ -104,11 +116,20 @@ void create_worker() {
         } else {
             printf("|||            Nome digitado inválido. Digite apenas letras e espaços.      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    
-    do
-    {
+    }
+        
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            E-mail: ");
         scanf("%[-._@A-Za-z0-9]", email);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -119,11 +140,20 @@ void create_worker() {
         } else {
             printf("|||            E-mail digitado inválido.                                    |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Data de Nascimento (dd/mm/aaaa): ");
         scanf("%d%*c%d%*c%d", &day, &month, &year);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -134,11 +164,20 @@ void create_worker() {
         } else {
             printf("|||            Data digitada inválida.                                      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Celular (apenas números | ex.: 84999776655): ");
         scanf("%[0-9]", phone);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -165,13 +204,28 @@ void create_worker() {
         } else {
             printf("|||            Telefone digitado inválido. Lembre do DDD do estado e o 9.   |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
+    
+    printf("|||                                                                         |||\n");
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        insert_worker(cpf, name, email, phone, day, month, year);
+    } else {
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
 
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    insert_worker(cpf, name, email, phone, day, month, year);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -201,6 +255,7 @@ void search_worker() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -210,9 +265,8 @@ void search_worker() {
     printf("|||            = = = = = =  Pesquisar Funcionário  = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            Informe o CPF (apenas números): ");
+    while (!exit && !is_valid) {
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -239,9 +293,22 @@ void search_worker() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    find_worker(cpf);
+    }
+    if (!exit){
+        find_worker(cpf);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -255,6 +322,7 @@ void edit_worker() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -264,9 +332,8 @@ void edit_worker() {
     printf("|||            = = = = = =  Alterar Funcionário  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            Informe o CPF (apenas números): ");
+    while (!exit && !is_valid) {
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -293,9 +360,26 @@ void edit_worker() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    update_worker(cpf);
+    }
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        update_worker(cpf);
+    } else {
+        printf("|||                                                                         |||\n");
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -305,6 +389,7 @@ void edit_worker() {
 void delete_worker() {
     char caractere; 
     int is_valid = 0;
+    int exit = 0;
     char cpf[12];
     system("clear||cls");
     printf("\n");
@@ -315,9 +400,8 @@ void delete_worker() {
     printf("|||            = = = = = = = Excluir Funcionário = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            Informe o CPF (apenas números): ");
+    while (!exit && !is_valid) {
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -344,12 +428,26 @@ void delete_worker() {
         } else {
             printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_worker(cpf);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_worker(cpf);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -416,7 +514,11 @@ void filtered_workers() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_workers_by(search, op);
+    if(!exit){
+        find_workers_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }    
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
