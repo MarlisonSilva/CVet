@@ -65,21 +65,24 @@ void insert_animal(char cpf[], char name[], char species[], char race[], float w
 void print_animal(Animal* an) {
     
     if ((an == NULL)) {
-        printf("\n= = = ANIMAL INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = =  ANIMAL INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = ANIMAL = = = \n");
-        printf("CPF do tutor: %s\n", an->cpf);
-        printf("Nome: %s\n", an->name);
-        printf("Espécie: %s\n", an->species);
-        printf("Raça: %s\n", an->race);
-        printf("Peso: %f\n", an->weight);
-        printf("Data de nascimento: %02d/%02d/%d\n", an->day_born, an->month_born, an->year_born);
+        printf("||| = = = = = = = = = = = = = = = =  ANIMAL = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            CPF do tutor: %s\n", an->cpf);
+        printf("|||            Nome: %s\n", an->name);
+        printf("|||            Espécie: %s\n", an->species);
+        printf("|||            Raça: %s\n", an->race);
+        printf("|||            Peso: %f\n", an->weight);
+        printf("|||            Data de nascimento: %02d/%02d/%d\n", an->day_born, an->month_born, an->year_born);
 
         if (an->activated) {
-            printf("Situação do animal: Ativo \n");
+            printf("|||            Situação do animal: Ativo \n");
         } else {
-            printf("Situação do animal: Inativo \n");
+            printf("|||            Situação do animal: Inativo \n");
         }
+        printf("|||                                                                         |||\n");
+        printf("||| = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }
@@ -121,8 +124,8 @@ void find_animal(char cpf[], char search[]) {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há animais cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há animais cadastrados! ----------        |||\n");
         return;
     }
 
@@ -153,8 +156,8 @@ void update_animal(char cpf[], char search[]) {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     while(fread(an, sizeof(Animal), 1, p_file)) {
@@ -170,7 +173,7 @@ void update_animal(char cpf[], char search[]) {
     fclose(p_file);
     p_file = fopen("db_animals.dat", "r+b");
     if (found) {  
-        printf("Qual animal gostaria de editar (ID)? ");
+        printf("|||            Qual animal gostaria de editar (ID)?                         |||\n");
         int id = 0;
         scanf("%d", &id);
         if ((id > 0) & (id <= found)) {
@@ -331,8 +334,8 @@ void remove_animal(char cpf[], char search[]) {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -397,8 +400,8 @@ void find_animals_by(char search[], int opc){
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há animais cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há animais cadastrados! ----------        |||\n");
         return;
     }
 
@@ -441,8 +444,8 @@ void find_animals_by(char search[], int opc){
                 cl = (Client*) malloc(sizeof(Client));
                 p_file_cl = fopen("db_clients.dat", "rb");
                 if (p_file_cl == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há clientes cadastrados!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        --------- Verifique se há clientes cadastrados! ---------        |||\n");
                     return;
                 }
                 while(fread(cl, sizeof(Client), 1, p_file_cl)){
@@ -539,8 +542,8 @@ Animal* get_animal(int animal_id) {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há animais cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há animais cadastrados! ----------        |||\n");
         return NULL;
     }
     while(fread(an, sizeof(Animal), 1, p_file) && (an->id_animal != animal_id));

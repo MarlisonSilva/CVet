@@ -144,8 +144,8 @@ void find_worker(char cpf[]) {
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há funcionários cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        ------- Verifique se há funcionários cadastrados! -------        |||\n");
         return;
     }
 
@@ -173,8 +173,8 @@ void update_worker(char cpf[]) {
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -321,8 +321,8 @@ void remove_worker(char cpf[]) {
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -351,7 +351,7 @@ void find_workers_by(char search[], int opc){
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
         printf("Verifique se há workeres cadastrados!\n");
         return;
     }
@@ -396,8 +396,8 @@ void find_workers_by(char search[], int opc){
                 sl = (Sale*) malloc(sizeof(Sale));
                 p_file_sl = fopen("db_sales.dat", "rb");
                 if (p_file_sl == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há vendas cadastradas!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        ---------- Verifique se há vendas cadastrados! ----------        |||\n");
                     return;
                 }
                 while(fread(sl, sizeof(Sale), 1, p_file_sl)){
@@ -495,8 +495,8 @@ Worker* get_worker(char worker_cpf[]) {
     wk = (Worker*) malloc(sizeof(Worker));
     p_file = fopen("db_workers.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há funcionários cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        ------- Verifique se há funcionários cadastrados! -------        |||\n");
         return NULL;
     }
     while(fread(wk, sizeof(Worker), 1, p_file) && (wk->cpf != worker_cpf));

@@ -26,8 +26,8 @@ int choose_service() {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return 0;
     }
     do
@@ -151,8 +151,8 @@ int choose_animal() {
     an = (Animal*) malloc(sizeof(Animal));
     p_file = fopen("db_animals.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return 0;
     }
     do
@@ -288,8 +288,8 @@ void print_appointment(Appointment* ap) {
         an = (Animal*) malloc(sizeof(Animal));
         p_file = fopen("db_animals.dat", "rb");
         if (p_file == NULL) {
-            printf("Ops! Erro na abertura do arquivo!\n");
-            printf("Não é possível continuar...\n");
+            printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+            printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
             return;
         }
 
@@ -305,8 +305,8 @@ void print_appointment(Appointment* ap) {
         sr = (Service*) malloc(sizeof(Service));
         p_file = fopen("db_services.dat", "rb");
         if (p_file == NULL) {
-            printf("Ops! Erro na abertura do arquivo!\n");
-            printf("Não é possível continuar...\n");
+            printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+            printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
             return;
         }
 
@@ -351,8 +351,8 @@ void list_appointments(void) {
             sr = (Service*) malloc(sizeof(Service));
             p_file = fopen("db_services.dat", "rb");
             if (p_file == NULL) {
-                printf("Ops! Erro na abertura do arquivo!\n");
-                printf("Não é possível continuar...\n");
+                printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
                 return;
             }
 
@@ -370,8 +370,8 @@ void list_appointments(void) {
             an = (Animal*) malloc(sizeof(Animal));
             p_file = fopen("db_animals.dat", "rb");
             if (p_file == NULL) {
-                printf("Ops! Erro na abertura do arquivo!\n");
-                printf("Não é possível continuar...\n");
+                printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
                 return;
             }
             while(fread(an, sizeof(Animal), 1, p_file)) {
@@ -405,8 +405,8 @@ void find_appointment(char cpf[]) {
     FILE* p_file;
     p_file = fopen("db_appointments.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
         return;
     }
     while(fread(ap, sizeof(Appointment), 1, p_file)) {
@@ -432,8 +432,8 @@ void remove_appointment(char cpf[]) {
     ap = (Appointment*) malloc(sizeof(Appointment));
     p_file = fopen("db_appointments.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
         return;
     }
     
@@ -496,8 +496,8 @@ void find_appointments_by(char search[], int opc){
     ap = (Appointment*) malloc(sizeof(Appointment));
     p_file = fopen("db_appointments.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
         return;
     }
 
@@ -623,8 +623,8 @@ Appointment* get_appointment(int appointment_id) {
     ap = (Appointment*) malloc(sizeof(Appointment));
     p_file = fopen("db_appointments.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há consultas cadastradas!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
         return NULL;
     }
     while(fread(ap, sizeof(Appointment), 1, p_file) && (ap->id_appointment != appointment_id));

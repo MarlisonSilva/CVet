@@ -86,20 +86,23 @@ void insert_client(char cpf[], char name[], char email[], char phone[], int day_
 void print_client(Client* cl) {
     
     if ((cl == NULL)) {
-        printf("\n= = = CLIENTE INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = = CLIENTE INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = CLIENTE = = = \n");
-        printf("CPF: %s\n", cl->cpf);
-        printf("Nome: %s\n", cl->name);
-        printf("E-mail: %s\n", cl->email);
-        printf("Telefone: %s\n", cl->phone);
-        printf("Data de nascimento: %02d/%02d/%d\n", cl->day_born, cl->month_born, cl->year_born);
+        printf("||| = = = = = = = = = = = = = = = = CLIENTE = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            CPF: %s\n", cl->cpf);
+        printf("|||            Nome: %s\n", cl->name);
+        printf("|||            E-mail: %s\n", cl->email);
+        printf("|||            Telefone: %s\n", cl->phone);
+        printf("|||            Data de nascimento: %02d/%02d/%d\n", cl->day_born, cl->month_born, cl->year_born);
 
         if (cl->activated) {
-            printf("Situação do cliente: Ativo \n");
+            printf("|||            Situação do cliente: Ativo \n");
         } else {
-            printf("Situação do cliente: Inativo \n");
+            printf("|||            Situação do cliente: Inativo \n");
         }
+        printf("|||                                                                         |||\n");
+        printf("||| = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }
@@ -141,8 +144,8 @@ void find_client(char cpf[]) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há clientes cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há clientes cadastrados! ---------        |||\n");
         return;
     }
 
@@ -155,7 +158,7 @@ void find_client(char cpf[]) {
     }
     if (found == 0)
     {
-        printf("Nenhum cliente cadastrado! \n");
+        printf("|||        --------------- NENHUM CLIENTE CADASTRADO ---------------        |||\n");
     }
     
     fclose(p_file);
@@ -171,8 +174,8 @@ void update_client(char cpf[]) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -305,8 +308,6 @@ void update_client(char cpf[]) {
         printf("|||            >> Cliente não encontrado!                                   |||\n");
         
     }
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     fclose(p_file);
     free(cl);
 }
@@ -319,8 +320,8 @@ void remove_client(char cpf[]) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -331,12 +332,12 @@ void remove_client(char cpf[]) {
             cl->activated = 0;
             fseek(p_file, -1*sizeof(Client), SEEK_CUR);
             fwrite(cl, sizeof(Client), 1, p_file);
-            printf("\nCliente excluído!\n");
+            printf("|||            Cliente excluído!                                          |||\n");
         }
     }
 
     if (!found) {
-        printf("\nCliente não encontrado!\n");
+        printf("|||            Cliente não encontrado!                                    |||\n");
     }
 
     fclose(p_file);
@@ -351,8 +352,8 @@ void find_clients_by(char search[], int opc) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há clientes cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há clientes cadastrados! ---------        |||\n");
         return;
     }
 
@@ -397,8 +398,8 @@ void find_clients_by(char search[], int opc) {
                 sl = (Sale*) malloc(sizeof(Sale));
                 p_file_sl = fopen("db_sales.dat", "rb");
                 if (p_file_sl == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há vendas cadastradas!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        ---------- Verifique se há vendas cadastrados! ----------        |||\n");
                     return;
                 }
                 while(fread(sl, sizeof(Sale), 1, p_file_sl)){
@@ -496,8 +497,8 @@ Client* get_client(char client_cpf[]) {
     cl = (Client*) malloc(sizeof(Client));
     p_file = fopen("db_clients.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há clientes cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há clientes cadastrados! ---------        |||\n");
         return NULL;
     }
     while(fread(cl, sizeof(Client), 1, p_file) && (cl->cpf != client_cpf));
