@@ -5,6 +5,7 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_appointment.h"
 #include "ctrl_service.h"
 #include "ctrl_animal.h"
 #include "ctrl_client.h"
@@ -12,16 +13,6 @@
 #define true 1
 #define false 0
 
-typedef struct appointment Appointment;
-
-struct appointment {
-    int id_appointment;
-    int animal_id;
-    char worker_cpf[12];    
-    int service_id;
-    struct tm date;
-    int activated;
-};
 
 int choose_service() {
     FILE* p_file;
@@ -238,29 +229,34 @@ int choose_animal() {
 }
 
 // salva a consulta em um arquivo
-int save_appointment(Appointment* sl) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    p_file = fopen("db_appointments.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    } 
+int save_appointment(Appointment* ap) {
+    FILE *p_file; 
+    p_file = fopen("db_appointments.dat", "rb");
     int found = 0;
-    Appointment* aux_sl = (Appointment*)malloc(sizeof(Appointment));
-    while(fread(aux_sl, sizeof(Appointment), 1, p_file)) {
-        found++;
+    if(p_file != NULL) {
+        Appointment* aux_ap;
+        aux_ap = (Appointment*)malloc(sizeof(Appointment));
+        while(fread(aux_ap, sizeof(Appointment), 1, p_file)) {
+            found = aux_ap->id_appointment;
+        }
+        free(aux_ap);
+        fclose(p_file);
     }
-    free(aux_sl);
+
+    p_file = fopen("db_appointments.dat", "ab");    
     
-    sl->id_appointment = found + 1;
-
-    fwrite(sl, sizeof(Appointment), 1, p_file);
-
+    ap->id_appointment = found + 1;
+    ap->next = NULL;
+    fwrite(ap, sizeof(Appointment), 1, p_file);
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
@@ -491,4 +487,147 @@ void remove_appointment(char cpf[]) {
 
     fclose(p_file);
     free(ap);
+}
+
+void find_appointments_by(char search[], int opc){
+    FILE* p_file;
+    Appointment* ap;
+    int found = 0;
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há consultas cadastradas!\n");
+        return;
+    }
+
+    if (opc == 4)
+    {
+        // printf("|||        --- CPF - Funcionário --- | --- Serviço ---- | -- Data --        |||\n");
+        printf("|||        - Cliente - | -- Animal -- | --- Serviço --- | -- Data --        |||\n");
+    } else {
+        printf("|||        - Cliente - | Funcionário | --- Serviço ---- | -- Data --        |||\n");
+
+    }
+    
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    while(fread(ap, sizeof(Appointment), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->date.tm_mday == tm.tm_mday) && (ap->activated)) {
+                printf("|||        %s | %s | %-16.16s |  %02d:%02d:%02d         |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d-%02d:%02d       |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), ap->date.tm_hour, ap->date.tm_min);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(ap->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", ap->worker_cpf, ap->worker_cpf, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), (ap->date.tm_year + 1900));
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+            if ((strncmp(get_animal(ap->animal_id)->name, search, strlen(search)) == 0) && (ap->activated)) {
+                printf("|||        %s | %-12.12s | %-15.15s | %02d/%02d-%02d:%02d       |||", ap->worker_cpf, get_animal(ap->animal_id)->name, get_service(ap->service_id)->description, ap->date.tm_mday, (ap->date.tm_mon + 1), ap->date.tm_hour, ap->date.tm_min);
+                found++;
+                printf("\n");
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                       NENHUMA CONSULTA ENCONTRADA                      |||\n");
+    }
+    
+    fclose(p_file);
+    free(ap);
+}
+
+void list_appointments_date(void) {
+    FILE* p_file;
+    Appointment* ap;
+    Appointment* appointments = NULL;
+    Appointment* aux_ap;
+    int found = 0;
+    time_t t = time(NULL);
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        -------- VERIFIQUE SE HÁ CONSULTAS CADASTRADAS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(ap, sizeof(Appointment), 1, p_file)) {
+        if (ap->activated) {
+            if ((appointments == NULL) || (difftime(mktime(&ap->date), t) < 0)) {
+                // substitui o topo da lista
+                ap->next = appointments;
+                appointments = ap;
+            } else {
+                Appointment* prev = appointments;
+                Appointment* curr = appointments->next;
+                while ((curr != NULL) && (difftime(mktime(&ap->date), t) > 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = ap;
+                ap->next = curr;
+            }
+            ap = (Appointment *) malloc(sizeof(Appointment));
+            found++;
+        }
+    }
+
+    free(ap);
+    fclose(p_file);
+    aux_ap = appointments;
+    do {
+        printf("|||        %s | %-14.14s | %-13.13s | %02d/%02d/%04d        |||", aux_ap->worker_cpf, get_animal(aux_ap->animal_id)->name, get_service(aux_ap->service_id)->description, aux_ap->date.tm_mday, (aux_ap->date.tm_mon + 1), (aux_ap->date.tm_year + 1900));
+        printf("\n");
+        aux_ap = aux_ap->next;
+    } while (aux_ap != NULL);
+    
+    if (found == 0) {
+        printf("|||        -------------- NENHUMA CONSULTA CADASTRADA --------------        |||\n");
+    }
+    clear_appointment(appointments);
+}
+
+void clear_appointment(Appointment* ap){
+    Appointment* aux_ap;
+
+    while (ap != NULL) {
+        aux_ap = ap;
+        ap = ap->next;
+        free(aux_ap);
+    }  
+}
+
+Appointment* get_appointment(int appointment_id) {
+    FILE* p_file;
+    Appointment* ap;
+    ap = (Appointment*) malloc(sizeof(Appointment));
+    p_file = fopen("db_appointments.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há consultas cadastradas!\n");
+        return NULL;
+    }
+    while(fread(ap, sizeof(Appointment), 1, p_file) && (ap->id_appointment != appointment_id));
+    fclose(p_file);
+    return ap; 
 }

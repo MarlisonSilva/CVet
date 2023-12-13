@@ -10,11 +10,17 @@ struct animal {
     int month_born;
     int year_born;
     int activated;
+    Animal* next;
 };
 int save_animal(Animal* an);
 void insert_animal(char cpf[], char name[], char species[], char race[], float weight, int day_born, int month_born, int year_born);
 void print_animal(Animal* an);
-void list_animals(void);
+void list_animals();
 void find_animal(char cpf[], char search[]);
 void update_animal(char cpf[], char search[]); 
 void remove_animal(char cpf[], char search[]); 
+void find_animals_by(char search[], int opc);
+void filtered_animals();
+void list_az_animals();
+void clear_animal(Animal* an);
+Animal* get_animal(int animal_id); 

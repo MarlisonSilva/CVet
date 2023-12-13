@@ -5,22 +5,12 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_client.h"
+#include "ctrl_sale.h"
+#include "ctrl_product.h"
 
 #define true 1
 #define false 0
-
-typedef struct client Client;
-
-struct client {
-    char cpf[12]; // "primária"
-    char name[100];
-    char email[255];
-    char phone[12];
-    int day_born;
-    int month_born;
-    int year_born;
-    int activated;
-};
 
 int has_client(char cpf[]) {
     FILE* p_file;
@@ -64,10 +54,15 @@ int save_client(Client* cl) {
         return 1;
     }
 
+    cl->next = NULL;
     fwrite(cl, sizeof(Client), 1, p_file);
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
@@ -361,7 +356,14 @@ void find_clients_by(char search[], int opc) {
         return;
     }
 
-    printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
+    if (opc < 4)
+    {
+        printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
+    } else {
+        printf("|||        --- CPF --- | -- Cliente -- | -- Produto -- | Data Compra        |||\n");
+
+    }
+    
     while(fread(cl, sizeof(Client), 1, p_file)) {
         switch (opc) {
         case 1:
@@ -385,6 +387,34 @@ void find_clients_by(char search[], int opc) {
                 printf("\n");
             } 
             break;
+        case 4:
+           if (cl->activated) {
+                FILE* p_file_sl;
+                Sale* sl;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+
+                sl = (Sale*) malloc(sizeof(Sale));
+                p_file_sl = fopen("db_sales.dat", "rb");
+                if (p_file_sl == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há vendas cadastradas!\n");
+                    return;
+                }
+                while(fread(sl, sizeof(Sale), 1, p_file_sl)){
+                    if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon))
+                    {
+                        printf("|||        %s | %-13.13s | %-13.13s | %02d/%02d-%02d:%02d        |||", cl->cpf, cl->name, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
+                        found++;
+                        printf("\n");
+                    }
+                    
+                }
+                fclose(p_file_sl);
+                free(sl);
+                
+            }
+
         default:
             break;
         }
@@ -398,4 +428,79 @@ void find_clients_by(char search[], int opc) {
     
     fclose(p_file);
     free(cl);
+}
+
+void list_clients_az(void) {
+    FILE* p_file;
+    Client* cl;
+    Client* clients = NULL;
+    Client* aux_cl;
+    int found = 0;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ CLIENTES CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(cl, sizeof(Client), 1, p_file)) {
+        if (cl->activated) {
+            if ((clients == NULL) || (strcmp(cl->name, clients->name) < 0)) {
+                // substitui o topo da lista
+                cl->next = clients;
+                clients = cl;
+            } else {
+                Client* prev = clients;
+                Client* curr = clients->next;
+                while ((curr != NULL) && (strcmp(curr->name, cl->name) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = cl;
+                cl->next = curr;
+            }
+            cl = (Client *) malloc(sizeof(Client));
+            found++;
+        }
+    }
+
+    free(cl);
+    fclose(p_file);
+    aux_cl = clients;
+    do {
+        printf("|||        %s | %-30.30s | %02d/%02d/%04d        |||", aux_cl->cpf, aux_cl->name, aux_cl->day_born, aux_cl->month_born, aux_cl->year_born);
+        printf("\n");
+        aux_cl = aux_cl->next;
+    } while (aux_cl != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM CLIENTE CADASTRADO ---------------        |||\n");
+    }
+    clear_client(clients);
+}
+
+void clear_client(Client* cl){
+    Client* aux_cl;
+  
+    while (cl != NULL) {
+        aux_cl = cl;
+        cl = cl->next;
+        free(aux_cl);
+    }  
+}
+
+Client* get_client(char client_cpf[]) {
+    FILE* p_file;
+    Client* cl;
+    cl = (Client*) malloc(sizeof(Client));
+    p_file = fopen("db_clients.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há clientes cadastrados!\n");
+        return NULL;
+    }
+    while(fread(cl, sizeof(Client), 1, p_file) && (cl->cpf != client_cpf));
+    fclose(p_file);
+    return cl; 
 }

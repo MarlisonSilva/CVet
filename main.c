@@ -65,6 +65,8 @@ int main() {
                     delete_client();
                 } else if (sub_op == 6) { // Listagem filtrada
                     filtered_clients();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_clients_az();
                 } else {
                     no_operation("Menu Clientes");
                 }
@@ -86,6 +88,10 @@ int main() {
                     edit_animal();
                 } else if (sub_op == 5) { // Remover animais
                     delete_animal();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_animals();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_animals_az();
                 } else {
                     no_operation("Menu Animais");
                 }
@@ -108,6 +114,10 @@ int main() {
                     edit_product();
                 } else if (sub_op == 5) { // Remover produtos
                     delete_product();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_products();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_products_az();
                 } else {
                     no_operation("Menu Produtos");
                 }
@@ -129,6 +139,10 @@ int main() {
                     edit_service();
                 } else if (sub_op == 5) { // Remover serviços
                     delete_service();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_services();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_services_az();
                 } else {
                     no_operation("Menu Serviços");
                 }
@@ -149,6 +163,10 @@ int main() {
                     search_sale();
                 } else if (sub_op == 4) { // Remover vendas
                     delete_sale();
+                } else if (sub_op == 5) { // Listagem filtrada
+                    filtered_sales();
+                } else if (sub_op == 6) { // Listagem ordenada
+                    all_sales_date();
                 } else {
                     no_operation("Menu Vendas");
                 }
@@ -168,6 +186,10 @@ int main() {
                     search_appointment();
                 } else if (sub_op == 4) { // Remover consultas
                     delete_appointment();
+                } else if (sub_op == 5) { // Listagem filtrada
+                    filtered_appointments();
+                } else if (sub_op == 6) { // Listagem ordenada
+                    all_appointments_data();
                 } else {
                     no_operation("Menu Consultas");
                 }
@@ -189,6 +211,10 @@ int main() {
                     edit_worker();
                 } else if (sub_op == 5) { // Remover funcionários
                     delete_worker();
+                } else if (sub_op == 6) { // Listagem filtrada
+                    filtered_workers();
+                } else if (sub_op == 7) { // Listagem ordenada
+                    all_workers_az();
                 } else {
                     no_operation("Menu Funcionários");
                 }

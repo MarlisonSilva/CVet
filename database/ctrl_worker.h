@@ -1,5 +1,15 @@
 typedef struct worker Worker;
-struct worker;
+struct worker {
+    char cpf[12];
+    char name[100];
+    char email[255];
+    char phone[13];
+    int day_born;
+    int month_born;
+    int year_born;
+    int activated;
+    Worker* next;
+};
 int save_worker(Worker* wk);
 void insert_worker(char cpf[], char name[], char email[], char phone[], int day_born, int month_born, int year_born);
 void print_worker(Worker* wk);
@@ -8,3 +18,7 @@ void find_worker(char cpf[]);
 void update_worker(char cpf[]); 
 void remove_worker(char cpf[]);
 int has_worker(char cpf[]);
+void find_workers_by(char search[], int opc);
+void list_workers_az();
+void clear_worker(Worker* cl);
+Worker* get_worker(char worker_cpf[]);

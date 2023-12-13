@@ -25,6 +25,8 @@ char service_menu() {
     printf("|||            3. Pesquisar os dados de um serviço                          |||\n");
     printf("|||            4. Atualizar o cadastro de um serviço                        |||\n");
     printf("|||            5. Excluir um serviço do sistema                             |||\n");
+    printf("|||            6. Listagem filtrada                                         |||\n");
+    printf("|||            7. Listagem ordenada por nome                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -235,6 +237,97 @@ void delete_service() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     remove_service(search);
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void filtered_services() {
+    char caractere;
+    int is_valid = 0;
+    char search[255];
+    int exit = 0;
+    int op = -1;
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Serviço  = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    
+    while (!exit && !is_valid) {
+        printf("|||            Escolha um filtro para a listagem:                           |||\n");
+        printf("|||            1- Por categoria do serviço                                  |||\n");
+        printf("|||            2- Serviços desativados                                      |||\n");
+        printf("|||            3- Serviços e número de consultas este mês                   |||\n");
+        printf("|||            4- Serviços e animais consultados este mês                   |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            >> Insira: ");
+        scanf("%d", &op);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        if (op < 1 || op > 4) {
+            printf("|||                                                                         |||\n");
+            printf("|||            >> Opção inválida/inexistente!                               |||\n");
+            printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
+        } else {
+            is_valid = 1;
+        }
+        
+    }
+    is_valid = 0;
+    while (!exit && !is_valid && op != 2 && op != 3 && op != 4) {
+        printf("|||            Informe o termo buscado: ");
+        scanf("%s", search);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+
+        printf("|||                                                                         |||\n");
+        printf("|||            Está certo disto? (s/n) ");
+        char opc = 'n';
+        scanf(" %c", &opc);
+        getchar();
+        if (opc == 's')
+        {
+            is_valid = 1;
+        }
+        printf("|||                                                                         |||\n");
+    }
+    find_services_by(search, op);
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_services_az() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = =  Lista de Serviços por Nome = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||        ------ Descrição ------ | ---- Tipo ---- | - Preço Uni. -        |||\n");
+    list_services_az();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

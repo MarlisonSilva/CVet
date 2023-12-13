@@ -5,44 +5,43 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_service.h"
 #include "ctrl_client.h"
 #include "ctrl_animal.h"
+#include "ctrl_appointment.h"
 
 #define true 1
 #define false 0
 
-typedef struct service Service;
-
-struct service {
-    int id_service;
-    char description[100];
-    char type[100];
-    float price;
-    int activated;
-};
-
-
 // salva o serviço em um arquivo
 int save_service(Service* sr) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-    p_file = fopen("db_services.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
+    FILE *p_file; 
+    p_file = fopen("db_services.dat", "rb");
     int found = 0;
-    Service* aux_sr = (Service*)malloc(sizeof(Service));
-    while(fread(aux_sr, sizeof(Service), 1, p_file)) {
-        found++;
+    if(p_file != NULL) {
+        Service* aux_sr;
+        aux_sr = (Service*)malloc(sizeof(Service));
+        while(fread(aux_sr, sizeof(Service), 1, p_file)) {
+            found = aux_sr->id_service;
+        }
+        free(aux_sr);
+        fclose(p_file);
     }
-    free(aux_sr);
 
+    p_file = fopen("db_services.dat", "ab");    
+    
     sr->id_service = found + 1;
-
+    sr->next = NULL;
     fwrite(sr, sizeof(Service), 1, p_file);
+    
+    //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-    printf("CADASTRADO COM SUCESSO!!\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
@@ -346,4 +345,182 @@ void remove_service(char search[]) {
 
     fclose(p_file);
     free(sr);
+}
+
+void find_services_by(char search[], int opc){
+    FILE* p_file;
+    Service* sr;
+    int found = 0;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há produtos cadastrados!\n");
+        return;
+    }
+
+    if (opc == 3) {
+        printf("|||        ------- Serviço ------- | ---- Tipo ---- | Nº de Consult.        |||\n");
+    } else if (opc == 4) {
+        printf("|||        ------- Serviço ------- | --- Animal --- | Data Consulta         |||\n");
+    } else {
+        printf("|||        ------- Serviço ------- | ---- Tipo ---- | - Preço Uni. -        |||\n");
+    }
+    
+    while(fread(sr, sizeof(Service), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if ((strncmp(sr->type, search, strlen(search)) == 0) && (sr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", sr->description, sr->type, sr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (!(sr->activated)) {
+                printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", sr->description, sr->type, sr->price);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+           if (sr->activated) {
+                int count = 0;
+                FILE* p_file_ap;
+                Appointment* ap;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                ap = (Appointment*) malloc(sizeof(Appointment));
+                p_file_ap = fopen("db_appointments.dat", "rb");
+                if (p_file_ap == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há consultas cadastradas!\n");
+                    return;
+                }
+                while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
+                    if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated) && (ap->service_id == sr->id_service)) {
+                        count++;
+                    }
+                }
+                fclose(p_file_ap);
+                if (count > 0)
+                {
+                    printf("|||        %-23.23s | %-14.14s |    %11d        |||", sr->description, sr->type, count);
+                    found++;
+                    printf("\n");
+                }
+                free(ap);
+            }
+            break;
+        case 4:
+           if (sr->activated) {
+                FILE* p_file_ap;
+                Appointment* ap;
+                time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+                ap = (Appointment*) malloc(sizeof(Appointment));
+                p_file_ap = fopen("db_appointments.dat", "rb");
+                if (p_file_ap == NULL) {
+                    printf("Ops! Erro na abertura do arquivo!\n");
+                    printf("Verifique se há consultas cadastradas!\n");
+                    return;
+                }
+                while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
+                    if (((ap->date.tm_year + 1900) == (tm.tm_year + 1900)) && (ap->date.tm_mon == tm.tm_mon) && (ap->activated) && (ap->service_id == sr->id_service)) {
+                        printf("|||        %-23.23s | %-14.14s |    %02d/%02d/%04d         |||", sr->description, get_animal(ap->animal_id)->name, ap->date.tm_mday, (ap->date.tm_mon + 1), (ap->date.tm_year + 1900));
+                        found++;
+                        printf("\n");
+                    }
+                }
+                fclose(p_file_ap);
+                free(ap);
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUM SERVIÇO ENCONTRADO                        |||\n");
+    }
+    
+    fclose(p_file);
+    free(sr);
+}
+
+void list_services_az(void) {
+    FILE* p_file;
+    Service* sr;
+    Service* services = NULL;
+    Service* aux_sr;
+    int found = 0;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ SERVIÇOS CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(sr, sizeof(Service), 1, p_file)) {
+        if (sr->activated) {
+            if ((services == NULL) || (strcmp(sr->description, services->description) < 0)) {
+                // substitui o topo da lista
+                sr->next = services;
+                services = sr;
+            } else {
+                Service* prev = services;
+                Service* curr = services->next;
+                while ((curr != NULL) && (strcmp(curr->description, sr->description) < 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = sr;
+                sr->next = curr;
+            }
+            sr = (Service *) malloc(sizeof(Service));
+            found++;
+        }
+    }
+
+    free(sr);
+    fclose(p_file);
+    aux_sr = services;
+    do {
+        printf("|||        %-23.23s | %-14.14s | R$ %11.2f        |||", aux_sr->description, aux_sr->type, aux_sr->price);
+        printf("\n");
+        aux_sr = aux_sr->next;
+    } while (aux_sr != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM SERVIÇO CADASTRADO ---------------        |||\n");
+    }
+    clear_service(services);
+}
+
+void clear_service(Service* sr){
+    Service* aux_sr;
+
+    while (sr != NULL) {
+        aux_sr = sr;
+        sr = sr->next;
+        free(aux_sr);
+    }  
+}
+
+Service* get_service(int service_id) {
+    FILE* p_file;
+    Service* sr;
+    sr = (Service*) malloc(sizeof(Service));
+    p_file = fopen("db_services.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há serviços cadastrados!\n");
+        return NULL;
+    }
+    while(fread(sr, sizeof(Service), 1, p_file) && (sr->id_service != service_id));
+    fclose(p_file);
+    return sr;
 }

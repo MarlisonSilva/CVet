@@ -8,6 +8,7 @@ struct product {
     int month_expiration;
     int year_expiration;
     int activated;
+    Product* next;
 };
 int save_product(Product* pr);
 void insert_product(char description[], char type[], float price, int day_expiration, int month_expiration, int year_expiration);
@@ -16,3 +17,7 @@ void list_products(void);
 void find_product(char search[]);
 void update_product(char search[]); 
 void remove_product(char search[]);
+void find_products_by(char search[], int opc);
+void list_products_az();
+void clear_product(Product* pr);
+Product* get_product(int product_id);

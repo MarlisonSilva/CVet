@@ -27,6 +27,7 @@ char client_menu() {
     printf("|||            4. Atualizar o cadastro de um cliente                        |||\n");
     printf("|||            5. Excluir um cliente do sistema                             |||\n");
     printf("|||            6. Listagem filtrada                                         |||\n");
+    printf("|||            7. Listagem ordenada por nome                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -469,11 +470,12 @@ void filtered_clients() {
         printf("|||            1- Nome do cliente                                           |||\n");
         printf("|||            2- E-mail do cliente                                         |||\n");
         printf("|||            3- Clientes desativados                                      |||\n");
+        printf("|||            4- Clientes que compraram este mês                           |||\n");
         printf("|||                                                                         |||\n");
         printf("|||            >> Insira: ");
         scanf("%d", &op);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
-        if (op < 1 || op > 3) {
+        if (op < 1 || op > 4) {
             printf("|||                                                                         |||\n");
             printf("|||            >> Opção inválida/inexistente!                               |||\n");
             printf("|||                                                                         |||\n");
@@ -492,7 +494,7 @@ void filtered_clients() {
         
     }
     is_valid = 0;
-    while ((!exit && !is_valid) && op != 3) {
+    while (!exit && !is_valid && op != 3 && op != 4) {
         printf("|||            Informe o termo buscado: ");
         scanf("%s", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
@@ -513,6 +515,26 @@ void filtered_clients() {
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_clients_az() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = =  Lista de Clientes por Nome = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||        --- CPF --- | ------ Nome do Cliente ------- | Data Nasc.        |||\n");
+    list_clients_az();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();

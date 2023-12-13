@@ -6,3 +6,4 @@ void search_client();
 void edit_client();
 void delete_client();
 void filtered_clients();
+void all_clients_az();

@@ -5,22 +5,13 @@
 #include <ctype.h> 
 #include <time.h>
 #include "../utils.h"
+#include "ctrl_sale.h"
 #include "ctrl_product.h"
+#include "ctrl_worker.h"
 
 #define true 1
 #define false 0
 
-
-typedef struct sale Sale;
-
-struct sale {
-    int id_sale;
-    char client_cpf[12];
-    char worker_cpf[12];    
-    int product_id;
-    struct tm date;
-    int activated;
-};
 
 int choose_product() {
     FILE* p_file;
@@ -99,28 +90,33 @@ int choose_product() {
 
 // salva a venda em um arquivo
 int save_sale(Sale* sl) {
-    FILE *p_file; // cria variável ponteiro para o arquivo
-
-    p_file = fopen("db_sales.dat", "ab");
-    if(p_file == NULL) {
-        printf("Erro na abertura do arquivo!");
-        return 1;
-    }
+    FILE *p_file; 
+    p_file = fopen("db_sales.dat", "rb");
     int found = 0;
-    Sale* aux_sl = (Sale*)malloc(sizeof(Sale));
-    while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
-        found++;
+    if(p_file != NULL) {
+        Sale* aux_sl;
+        aux_sl = (Sale*)malloc(sizeof(Sale));
+        while(fread(aux_sl, sizeof(Sale), 1, p_file)) {
+            found = aux_sl->id_sale;
+        }
+        free(aux_sl);
+        fclose(p_file);
     }
-    free(aux_sl);
+
+    p_file = fopen("db_sales.dat", "ab");    
     
     sl->id_sale = found + 1;
-
+    sl->next = NULL;
     fwrite(sl, sizeof(Sale), 1, p_file);
-
+    
     //usando fclose para fechar o arquivo
     fclose(p_file);
-    printf("Dados gravados com sucesso! \n");
-
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            Dados gravados:                                              |||\n");
+    printf("|||            >> CADASTRADO FINALIZADO COM SUCESSO!                        |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     return 0;
 }
 
@@ -193,23 +189,7 @@ void list_sales(void) {
 
     while(fread(sl, sizeof(Sale), 1, p_file)) {
         if (sl->activated) {
-            FILE* p_file;
-            Product* pr;
-            pr = (Product*) malloc(sizeof(Product));
-            p_file = fopen("db_products.dat", "rb");
-            if (p_file == NULL) {
-                printf("Ops! Erro na abertura do arquivo!\n");
-                printf("Não é possível continuar...\n");
-                return;
-            }
-
-            while(fread(pr, sizeof(Product), 1, p_file)) {
-                if ((sl->product_id == pr->id_product) && (pr->activated)) {
-                    printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, pr->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
-                }
-            }
-            fclose(p_file);
-            free(pr);
+            printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
             found++;
             printf("\n");
         }
@@ -314,4 +294,146 @@ void remove_sale(char cpf[]) {
 
     fclose(p_file);
     free(sl);
+}
+
+void find_sales_by(char search[], int opc){
+    FILE* p_file;
+    Sale* sl;
+    int found = 0;
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return;
+    }
+
+    if (opc == 4)
+    {
+        printf("|||        --- CPF - Funcionário --- | --- Produto ---- | -- Data --        |||\n");
+    } else {
+        printf("|||        - Cliente - | Funcionário | --- Produto ---- | -- Data --        |||\n");
+
+    }
+    
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        switch (opc) {
+        case 1:
+            if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->date.tm_mday == tm.tm_mday) && (sl->activated)) {
+                printf("|||        %s | %s | %-16.16s |  %02d:%02d:%02d         |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 2:
+            if (((sl->date.tm_year + 1900) == (tm.tm_year + 1900)) && (sl->date.tm_mon == tm.tm_mon) && (sl->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d-%02d:%02d       |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 3:
+            if (!(sl->activated)) {
+                printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", sl->client_cpf, sl->worker_cpf, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900));
+                found++;
+                printf("\n");
+            } 
+            break;
+        case 4:
+            if ((strncmp(get_worker(sl->worker_cpf)->name, search, strlen(search)) == 0) && (sl->activated)) {
+                printf("|||        %-11.11s - %-11.11s | %-16.16s | %02d/%02d-%02d:%02d       |||", sl->worker_cpf, get_worker(sl->worker_cpf)->name, get_product(sl->product_id)->description, sl->date.tm_mday, (sl->date.tm_mon + 1), sl->date.tm_hour, sl->date.tm_min);
+                found++;
+                printf("\n");
+            }
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if (found == 0)
+    {
+        printf("|||                        NENHUMA VENDA ENCONTRADA                        |||\n");
+    }
+    
+    fclose(p_file);
+    free(sl);
+}
+
+void list_sales_date(void) {
+    FILE* p_file;
+    Sale* sl;
+    Sale* sales = NULL;
+    Sale* aux_sl;
+    int found = 0;
+    time_t t = time(NULL);
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- VERIFIQUE SE HÁ SERVIÇOS CADASTRADOS! ---------        |||\n");
+        return;
+    }
+
+    while(fread(sl, sizeof(Sale), 1, p_file)) {
+        if (sl->activated) {
+            if ((sales == NULL) || (difftime(mktime(&sl->date), t) < 0)) {
+                // substitui o topo da lista
+                sl->next = sales;
+                sales = sl;
+            } else {
+                Sale* prev = sales;
+                Sale* curr = sales->next;
+                while ((curr != NULL) && (difftime(mktime(&sl->date), t) > 0)) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+                prev->next = sl;
+                sl->next = curr;
+            }
+            sl = (Sale *) malloc(sizeof(Sale));
+            found++;
+        }
+    }
+
+    free(sl);
+    fclose(p_file);
+    aux_sl = sales;
+    do {
+        printf("|||        %s | %s | %-16.16s | %02d/%02d/%04d        |||", aux_sl->client_cpf, aux_sl->worker_cpf, get_product(aux_sl->product_id)->description, aux_sl->date.tm_mday, (aux_sl->date.tm_mon + 1), (aux_sl->date.tm_year + 1900));
+        printf("\n");
+        aux_sl = aux_sl->next;
+    } while (aux_sl != NULL);
+    
+    if (found == 0) {
+        printf("|||        --------------- NENHUM SERVIÇO CADASTRADO ---------------        |||\n");
+    }
+    clear_sale(sales);
+}
+
+void clear_sale(Sale* sl){
+    Sale* aux_sl;
+
+    while (sl != NULL) {
+        aux_sl = sl;
+        sl = sl->next;
+        free(aux_sl);
+    }  
+}
+
+Sale* get_sale(int sale_id) {
+    FILE* p_file;
+    Sale* sl;
+    sl = (Sale*) malloc(sizeof(Sale));
+    p_file = fopen("db_sales.dat", "rb");
+    if (p_file == NULL) {
+        printf("Ops! Erro na abertura do arquivo!\n");
+        printf("Verifique se há vendas cadastradas!\n");
+        return NULL;
+    }
+    while(fread(sl, sizeof(Sale), 1, p_file) && (sl->id_sale != sale_id));
+    fclose(p_file);
+    return sl; 
 }

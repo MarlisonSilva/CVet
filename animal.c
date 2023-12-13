@@ -28,6 +28,8 @@ char animal_menu() {
     printf("|||            3. Pesquisar os dados de um animal                           |||\n");
     printf("|||            4. Atualizar o cadastro de um animal                         |||\n");
     printf("|||            5. Excluir um animal do sistema                              |||\n");
+    printf("|||            6. Listagem filtrada                                         |||\n");
+    printf("|||            7. Listagem ordenada por nome                                |||\n");
     printf("|||            0. Voltar ao menu anterior                                   |||\n");
     printf("|||                                                                         |||\n");
     printf("|||            Escolha a opção desejada: ");
@@ -557,3 +559,94 @@ void delete_animal() {
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 } 
+
+void filtered_animals() {
+    char caractere;
+    int is_valid = 0;
+    char search[255];
+    int exit = 0;
+    int op = -1;
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = = = =  Pesquisar Animal = = = = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    
+    while (!exit && !is_valid) {
+        printf("|||            Escolha um filtro para a listagem:                           |||\n");
+        printf("|||            1- Por espécie do animal                                     |||\n");
+        printf("|||            2- Por raça do animal                                        |||\n");
+        printf("|||            3- Animais desativados                                       |||\n");
+        printf("|||            4- Animais com donos desativados                             |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            >> Insira: ");
+        scanf("%d", &op);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+        if (op < 1 || op > 4) {
+            printf("|||                                                                         |||\n");
+            printf("|||            >> Opção inválida/inexistente!                               |||\n");
+            printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
+        } else {
+            is_valid = 1;
+        }
+        
+    }
+    is_valid = 0;
+    while (!exit && !is_valid && op != 3 && op != 4) {
+        printf("|||            Informe o termo buscado: ");
+        scanf("%s", search);
+        while ((caractere = getchar()) != '\n' && caractere != EOF);  
+
+        printf("|||                                                                         |||\n");
+        printf("|||            Está certo disto? (s/n) ");
+        char opc = 'n';
+        scanf(" %c", &opc);
+        getchar();
+        if (opc == 's')
+        {
+            is_valid = 1;
+        }
+        printf("|||                                                                         |||\n");
+    }
+    find_animals_by(search, op);
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void all_animals_az() {
+    system("clear||cls");
+    printf("\n");
+    header();
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||            = = = = =  Lista de Animais por Nome  = = = = =              |||\n");
+    printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||         CPF tutor  | ---- Nome ---- | -- Espécie -- | Data Nasc.        |||\n");
+    list_az_animals();
+    printf("|||                                                                         |||\n");
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    printf("\n");
+    printf("\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
