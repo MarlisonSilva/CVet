@@ -304,7 +304,11 @@ void search_client() {
             printf("|||                                                                         |||\n");
         }
     }
-    find_client(cpf);
+    if (!exit){
+        find_client(cpf);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -368,12 +372,14 @@ void edit_client() {
             printf("|||                                                                         |||\n");
         }
     }
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    if (!exit)
-    {
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         update_client(cpf);
     } else {
-        printf("SAINDO!\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
     
     printf("\n");
@@ -436,12 +442,13 @@ void delete_client() {
         }
     }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         remove_client(cpf);
     } else {
-        printf("SAINDO! \n");
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
     
     printf("\n");
@@ -510,7 +517,11 @@ void filtered_clients() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_clients_by(search, op);
+    if(!exit){
+        find_clients_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
