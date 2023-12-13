@@ -46,6 +46,7 @@ void create_service() {
     char description[100], type[100];
     float price;
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -55,8 +56,7 @@ void create_service() {
     printf("|||            = = = = = = =  Cadastrar Serviço  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Descrição: ");
         scanf("%[^\n]%*c", description);
 
@@ -68,11 +68,20 @@ void create_service() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");     
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Tipo/categoria: ");
         scanf("%[^\n]%*c", type);
 
@@ -85,11 +94,20 @@ void create_service() {
             printf("|||            Tipo/categoria digitada inválida.                            |||\n");
             printf("|||            Digite apenas letras e espaços.                              |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n"); 
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Preço: ");
         scanf("%f", &price);
 
@@ -101,12 +119,26 @@ void create_service() {
         } else {
             printf("|||            Preço digitado inválido. Verifique se é maior que 0.         |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n"); 
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    insert_service(description, type, price);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        insert_service(description, type, price);
+    } else {
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -136,6 +168,7 @@ void search_service() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -145,8 +178,8 @@ void search_service() {
     printf("|||            = = = = = = =  Pesquisar Serviço  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
+
         printf("|||            Informe a descrição do serviço: ");
         scanf("%[^\n]%*c", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -157,9 +190,22 @@ void search_service() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    find_service(search);
+    }
+    if (!exit){
+        find_service(search);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }   
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -173,6 +219,7 @@ void edit_service() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -182,8 +229,7 @@ void edit_service() {
     printf("|||            = = = = = = =  Alterar Serviço  = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Informe a descrição do serviço: ");
         scanf("%[^\n]%*c", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -194,11 +240,26 @@ void edit_service() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_product(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     update_service(search);
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
@@ -210,6 +271,7 @@ void delete_service() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -219,8 +281,7 @@ void delete_service() {
     printf("|||            = = = = = = = = Excluir Serviço = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Informe a descrição do serviço: ");
         scanf("%[^\n]%*c", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -231,12 +292,27 @@ void delete_service() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    } 
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_service(search);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_service(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
+    
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -303,7 +379,11 @@ void filtered_services() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_services_by(search, op);
+    if (!exit){
+        find_services_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
