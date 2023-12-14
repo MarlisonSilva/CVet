@@ -60,18 +60,21 @@ void insert_service(char description[], char type[], float price) {
 // Função para imprimir um serviço
 void print_service(Service* sr) {
     if ((sr == NULL)) {
-        printf("\n= = = SERVIÇO INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = = SERVIÇO INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = SERVIÇO = = = \n");
-        printf("Descrição: %s\n", sr->description);
-        printf("Tipo: %s\n", sr->type);
-        printf("Preço: %.2f\n", sr->price);
+        printf("||| = = = = = = = = = = = = = = = = SERVIÇO = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            Descrição: %s\n", sr->description);
+        printf("|||            Tipo: %s\n", sr->type);
+        printf("|||            Preço: %.2f\n", sr->price);
         
         if (sr->activated) {
-            printf("Situação do serviço: Ativo \n");
+            printf("|||            Situação do serviço: Ativo \n");
         } else {
-            printf("Situação do serviço: Inativo \n");
+            printf("|||            Situação do serviço: Inativo \n");
         }
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM SERVIÇO = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }

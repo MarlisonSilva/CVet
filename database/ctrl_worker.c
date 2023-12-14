@@ -105,7 +105,7 @@ void print_worker(Worker* wk) {
             printf("|||            Situação do funcionário: Inativo \n");
         }
         printf("|||                                                                         |||\n");
-        printf("||| = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
+        printf("||| = FIM FUNCIONÁRIO = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }

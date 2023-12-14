@@ -82,7 +82,7 @@ void print_animal(Animal* an) {
             printf("|||            Situação do animal: Inativo \n");
         }
         printf("|||                                                                         |||\n");
-        printf("||| = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
+        printf("||| = FIM ANIMAL  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }

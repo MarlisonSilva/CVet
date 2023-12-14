@@ -279,10 +279,12 @@ void insert_appointment(char worker_cpf[], int animal_id, int service_id) {
 // Função para imprimir uma venda
 void print_appointment(Appointment* ap) {
     if ((ap == NULL)) {
-        printf("\n= = = CONSULTA INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = =  CONSULTA INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = CONSULTA = = = \n");
-        printf("CPF do Funcionário: %s\n", ap->worker_cpf);
+        printf("||| = = = = = = = = = = = = = = =  CONSULTA = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            CPF do Funcionário: %s\n", ap->worker_cpf);
+        printf("|||                                                                         |||\n");
         FILE* p_file;
         Animal* an;
         an = (Animal*) malloc(sizeof(Animal));
@@ -318,14 +320,15 @@ void print_appointment(Appointment* ap) {
         fclose(p_file);
         free(sr);
 
-        printf("Realizado em: %02d/%02d/%d - %02d:%02d:%02d\n", ap->date.tm_mday, ap->date.tm_mon, (ap->date.tm_year + 1900), ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
+        printf("|||            Realizado em: %02d/%02d/%d - %02d:%02d:%02d\n", ap->date.tm_mday, ap->date.tm_mon, (ap->date.tm_year + 1900), ap->date.tm_hour, ap->date.tm_min, ap->date.tm_sec);
 
         if (ap->activated) {
-            printf("Situação da consulta: Ativo \n");
+            printf("|||            Situação da consulta: Ativo \n");
         } else {
-            printf("Situação da consulta: Inativo \n");
+            printf("|||            Situação da consulta: Inativo \n");
         }        
-        printf(" = = = = = = = = = \n");
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM CONSULTA  = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
     }
 }
 

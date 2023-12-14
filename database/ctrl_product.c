@@ -64,21 +64,22 @@ void insert_product(char description[], char type[], float price, int day_expira
 void print_product(Product* pr) {
     
     if ((pr == NULL)) {
-        printf("\n= = = PRODUTO INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = = PRODUTO INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = PRODUTO = = = \n");
-        printf("ID: %d\n", pr->id_product);
-        printf("Descrição: %s\n", pr->description);
-        printf("Tipo: %s\n", pr->type);
-        printf("Preço: %.2f\n", pr->price);
-        printf("Data de validade: %02d/%02d/%04d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
+        printf("||| = = = = = = = = = = = = = = = = PRODUTO = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            Descrição: %s\n", pr->description);
+        printf("|||            Tipo: %s\n", pr->type);
+        printf("|||            Preço: %.2f\n", pr->price);
+        printf("|||            Data de validade: %02d/%02d/%04d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
 
         if (pr->activated) {
-            printf("Situação do produto: Ativo \n");
+            printf("|||            Situação do produto: Ativo \n");
         } else {
-            printf("Situação do produto: Inativo \n");
+            printf("|||            Situação do produto: Inativo \n");
         }
-        
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM PRODUTO = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
     }
 }
 

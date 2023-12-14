@@ -68,6 +68,10 @@ int choose_product() {
                             }
                         }
                     }
+                } else if (id == 0) {
+                    getchar();
+                    is_valid = false;
+                    found = 0;
                 } else {
                     printf("|||                                                                         |||\n");
                     printf("|||            >> Opção não encontrada!                                     |||\n");
@@ -140,11 +144,12 @@ void insert_sale(char client_cpf[], char worker_cpf[], int product_id) {
 // Função para imprimir uma venda
 void print_sale(Sale* sl) {
     if ((sl == NULL)) {
-        printf("\n= = = VENDA INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = =  VENDA INEXISTENTE  = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = VENDA = = = \n");
-        printf("CPF do Funcionário: %s\n", sl->worker_cpf);
-        printf("CPF do Cliente: %s\n", sl->client_cpf);
+        printf("||| = = = = = = = = = = = = = = = =  VENDA  = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            CPF do Funcionário: %s\n", sl->worker_cpf);
+        printf("|||            CPF do Cliente: %s\n", sl->client_cpf);
         FILE* p_file;
         Product* pr;
         pr = (Product*) malloc(sizeof(Product));
@@ -163,14 +168,15 @@ void print_sale(Sale* sl) {
         fclose(p_file);
         free(pr);
 
-        printf("Vendido(a) em: %02d/%02d/%04d - %02d:%02d:%02d\n", sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
+        printf("|||            Vendido(a) em: %02d/%02d/%04d - %02d:%02d:%02d\n", sl->date.tm_mday, (sl->date.tm_mon + 1), (sl->date.tm_year + 1900), sl->date.tm_hour, sl->date.tm_min, sl->date.tm_sec);
 
         if (sl->activated) {
-            printf("Situação da venda: Ativo \n");
+            printf("|||            Situação da venda: Ativo \n");
         } else {
-            printf("Situação da venda: Inativo \n");
+            printf("|||            Situação da venda: Inativo \n");
         }        
-        printf(" = = = = = = = = = \n");
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM VENDA = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
     }
 }
 

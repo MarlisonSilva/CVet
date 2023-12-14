@@ -102,7 +102,7 @@ void print_client(Client* cl) {
             printf("|||            Situação do cliente: Inativo \n");
         }
         printf("|||                                                                         |||\n");
-        printf("||| = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
+        printf("||| = FIM CLIENTE = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }
