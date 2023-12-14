@@ -64,21 +64,22 @@ void insert_product(char description[], char type[], float price, int day_expira
 void print_product(Product* pr) {
     
     if ((pr == NULL)) {
-        printf("\n= = = PRODUTO INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = = PRODUTO INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = PRODUTO = = = \n");
-        printf("ID: %d\n", pr->id_product);
-        printf("Descrição: %s\n", pr->description);
-        printf("Tipo: %s\n", pr->type);
-        printf("Preço: %.2f\n", pr->price);
-        printf("Data de validade: %02d/%02d/%04d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
+        printf("||| = = = = = = = = = = = = = = = = PRODUTO = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            Descrição: %s\n", pr->description);
+        printf("|||            Tipo: %s\n", pr->type);
+        printf("|||            Preço: %.2f\n", pr->price);
+        printf("|||            Data de validade: %02d/%02d/%04d\n", pr->day_expiration, pr->month_expiration, pr->year_expiration);
 
         if (pr->activated) {
-            printf("Situação do produto: Ativo \n");
+            printf("|||            Situação do produto: Ativo \n");
         } else {
-            printf("Situação do produto: Inativo \n");
+            printf("|||            Situação do produto: Inativo \n");
         }
-        
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM PRODUTO = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
     }
 }
 
@@ -120,8 +121,8 @@ void find_product(char search[]) {
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há produtos cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há produtos cadastrados! ---------        |||\n");
         return;
     }
 
@@ -152,8 +153,8 @@ void update_product(char search[]) {
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     while(fread(pr, sizeof(Product), 1, p_file)) {
@@ -329,8 +330,8 @@ void remove_product(char search[]) {
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -393,8 +394,8 @@ void find_products_by(char search[], int opc){
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há produtos cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há produtos cadastrados! ---------        |||\n");
         return;
     }
 
@@ -438,8 +439,8 @@ void find_products_by(char search[], int opc){
                 sl = (Sale*) malloc(sizeof(Sale));
                 p_file_sl = fopen("db_sales.dat", "rb");
                 if (p_file_sl == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há vendas cadastradas!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        ---------- Verifique se há vendas cadastrados! ----------        |||\n");
                     return;
                 }
                 while(fread(sl, sizeof(Sale), 1, p_file_sl)){
@@ -536,8 +537,8 @@ Product* get_product(int product_id) {
     pr = (Product*) malloc(sizeof(Product));
     p_file = fopen("db_products.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há produtos cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há produtos cadastrados! ---------        |||\n");
         return NULL;
     }
     while(fread(pr, sizeof(Product), 1, p_file) && (pr->id_product != product_id));

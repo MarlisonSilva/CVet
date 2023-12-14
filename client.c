@@ -218,12 +218,13 @@ void create_client() {
     }
     
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         insert_client(cpf, name, email, phone, day, month, year);
     } else {
-        printf("SAINDO!\n");
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
     
     printf("\n");
@@ -304,7 +305,11 @@ void search_client() {
             printf("|||                                                                         |||\n");
         }
     }
-    find_client(cpf);
+    if (!exit){
+        find_client(cpf);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -330,7 +335,7 @@ void edit_client() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     while (!exit && !is_valid) {
-    printf("|||            Informe o CPF (apenas números): ");
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -368,12 +373,15 @@ void edit_client() {
             printf("|||                                                                         |||\n");
         }
     }
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    if (!exit)
-    {
+    if (!exit) {
         update_client(cpf);
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     } else {
-        printf("SAINDO!\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
     
     printf("\n");
@@ -397,7 +405,7 @@ void delete_client() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     while (!exit && !is_valid) {
-    printf("|||            Informe o CPF (apenas números): ");
+        printf("|||            Informe o CPF (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -436,14 +444,13 @@ void delete_client() {
         }
     }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     if (!exit) {
         remove_client(cpf);
     } else {
-        printf("SAINDO! \n");
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
     }
-    
+    printf("|||                                                                         |||\n");
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -510,7 +517,11 @@ void filtered_clients() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_clients_by(search, op);
+    if(!exit){
+        find_clients_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

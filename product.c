@@ -48,6 +48,7 @@ void create_product() {
     float price;
     int day, month, year;
     int is_valid = 0;
+    int exit = 0;
 
     system("clear||cls");
     printf("\n");
@@ -58,8 +59,7 @@ void create_product() {
     printf("|||            = = = = = = =  Cadastrar Produto  = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid){
         printf("|||            Descrição: ");
         scanf("%[^\n]%*c", description);
 
@@ -71,11 +71,20 @@ void create_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");                
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Tipo/categoria: ");
         scanf("%[^\n]%*c", type);
 
@@ -88,11 +97,20 @@ void create_product() {
             printf("|||            Tipo/categoria digitada inválida.                            |||\n");
             printf("|||            Digite apenas letras e espaços.                              |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");                
         }
-    } while (!is_valid);
+    }
 
-    do
-    {
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Preço: ");
         scanf("%f", &price);
 
@@ -104,10 +122,20 @@ void create_product() {
         } else {
             printf("|||            Preço digitado inválido. Verifique se é maior que 0.         |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n"); 
         }
-    } while (!is_valid);
-    do
-    {
+    }
+
+    is_valid = 0;
+    while (!exit && !is_valid) {
         printf("|||            Validade (dd/mm/aaaa):                                       |||\n");
         printf("|||            (NOTA: insira 00/00/0000 para datas indeterminadas)          |||\n");
         printf("|||            Digite: ");
@@ -128,12 +156,26 @@ void create_product() {
         } else {
             printf("|||            Data digitada inválida.                                      |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n"); 
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    insert_product(description, type, price, day, month, year);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        insert_product(description, type, price, day, month, year);
+    } else {
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -163,6 +205,7 @@ void search_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -173,8 +216,7 @@ void search_product() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Informe a descrição do produto: ");
         scanf("%[^\n]%*c", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -185,9 +227,22 @@ void search_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
-    find_product(search);
+    }
+    if (!exit){
+        find_product(search);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -201,6 +256,7 @@ void edit_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -211,8 +267,7 @@ void edit_product() {
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
     
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Informe a descrição do produto: ");
         scanf("%[^\n]%*c", search);
         while ((caractere = getchar()) != '\n' && caractere != EOF);
@@ -223,12 +278,26 @@ void edit_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    update_product(search);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_product(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -239,6 +308,7 @@ void delete_product() {
     char caractere; 
     char search[100];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -248,8 +318,7 @@ void delete_product() {
     printf("|||            = = = = = = = = Excluir Produto = = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
+    while (!exit && !is_valid) {
         printf("|||            Descrição do produto: ");
         scanf("%[^\n]%*c", search);
 
@@ -261,13 +330,27 @@ void delete_product() {
         } else {
             printf("|||            Descrição digitada inválida.                                 |||\n");
             printf("|||                                                                         |||\n");
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
+            printf("|||                                                                         |||\n");
         }
-    } while (!is_valid);
+    }
     
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_product(search);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_product(search);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -334,8 +417,11 @@ void filtered_products() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_products_by(search, op);
-    printf("|||                                                                         |||\n");
+    if (!exit){
+        find_products_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     

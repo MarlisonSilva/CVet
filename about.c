@@ -15,8 +15,9 @@ void about_soft() {
     printf("|||  Programa desenvolvido na disciplina DCT1106 - Programação, para fins   |||\n");
     printf("|||  de estudo. O sistema em questão, nomeado CVet, é direcionado para a    |||\n");
     printf("|||  a gestão de uma clínica veterinária. O CVet conta com módulos de:      |||\n");
-    printf("|||  clientes, animais, produtos e serviços, funcionários e vendas. O CVet  |||\n");
-    printf("|||  foi desenvolvido por Marlison Soares, graduando em BSI.                |||\n");
+    printf("|||  clientes, animais, produtos, serviços, vendas, consultas e             |||\n");
+    printf("|||  funcionários. O CVet foi desenvolvido por Marlison Soares, graduando   |||\n");
+    printf("|||  do Bacharelado de Sistemas de Informação.                              |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");
@@ -38,7 +39,8 @@ void about_dev() {
     printf("|||            Marlison Soares da Silva                                     |||\n");
     printf("|||            E-mail: marlison.silva@ufrn.edu.br                           |||\n");
     printf("|||            Redes sociais: @iamrlison                                    |||\n");
-    printf("|||            Git: https://github.com/MarlisonSilva/CVet.git               |||\n");
+    printf("|||            Github: https://github.com/MarlisonSilva/CVet.git            |||\n");
+    printf("|||            Replit: https://replit.com/@marlisonss/CVet                  |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     printf("\n");

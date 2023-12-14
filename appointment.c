@@ -47,6 +47,7 @@ void create_appointment() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -56,9 +57,8 @@ void create_appointment() {
     printf("|||            = = = = = = =  Cadastrar Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            CPF do funcionário (apenas números): ");
+    while (!exit && !(is_valid && has_worker(cpf))) {
+        printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -83,29 +83,35 @@ void create_appointment() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(cpf)) {
+                printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_worker(cpf)));
+        } 
+    }
     int animal_id = choose_animal();
     int service_id = choose_service();
-    if (animal_id && service_id)
-    {
+    if (!exit && animal_id && service_id) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
         insert_appointment(cpf, animal_id, service_id);
     } else {
-        printf("|||            Informações ausentes! Tente novamente!                       |||\n");
+        printf("|||            DADOS INSUFICIENTE PARA CADASTRO!                            |||\n");
         printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
     }
-    
-    printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar(); 
@@ -135,6 +141,7 @@ void search_appointment() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -144,9 +151,8 @@ void search_appointment() {
     printf("|||            = = = = = = =  Pesquisar Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            CPF do funcionário (apenas números): ");
+    while (!exit && !(is_valid && has_worker(cpf))) {
+        printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -171,16 +177,30 @@ void search_appointment() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(cpf)) {
+                printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_worker(cpf)));
-    find_appointment(cpf);
+        } 
+    }
+    if (!exit){
+        find_appointment(cpf);
+    } else {
+        printf("|||            BUSCA CANCELADA!                                             |||\n");
+    }   
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
@@ -194,6 +214,7 @@ void delete_appointment() {
     char caractere; 
     char cpf[12];
     int is_valid = 0;
+    int exit = 0;
     system("clear||cls");
     printf("\n");
     header();
@@ -203,9 +224,8 @@ void delete_appointment() {
     printf("|||            = = = = = = = =  Excluir Consulta = = = = = = =              |||\n");
     printf("|||            = = = = = = = = = = = = = = = = = = = = = = = =              |||\n");
     printf("|||                                                                         |||\n");
-    do
-    {
-    printf("|||            CPF do funcionário (apenas números): ");
+    while (!exit && !(is_valid && has_worker(cpf))) {
+        printf("|||            CPF do funcionário (apenas números): ");
         scanf("%[0-9]", cpf);
         while ((caractere = getchar()) != '\n' && caractere != EOF);  
         is_valid = validate_cpf(cpf);
@@ -230,19 +250,34 @@ void delete_appointment() {
 
             printf("                                 |||\n");
             printf("|||                                                                         |||\n");
-        } else if (!has_worker(cpf))
-        {
-            printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
-            printf("|||                                                                         |||\n");
         } else {
-            printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+            if (!has_worker(cpf)){
+               printf("|||            CPF digitado inválido. Funcionário INEXISTENTE!              |||\n");
+                printf("|||                                                                         |||\n");
+            } else {
+                printf("|||            CPF digitado inválido. Lembre-se de digitar apenas números!  |||\n");
+                printf("|||                                                                         |||\n");
+            }
+            printf("|||            Tentar novamente? (s/n) ");
+            char opc = 's';
+            scanf(" %c", &opc);
+            getchar();
+            if (opc == 'n')
+            {
+                exit = 1;
+            }
             printf("|||                                                                         |||\n");
-        }
-    } while (!(is_valid && has_worker(cpf)));
+        } 
+    }
     printf("|||                                                                         |||\n");
-    printf("|||                                                                         |||\n");
-    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
-    remove_appointment(cpf);
+    if (!exit) {
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+        remove_appointment(cpf);
+    } else {
+        printf("|||            ATUALIZAÇÃO DE DADOS CANCELADA!                              |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+    }
     printf("\n");
     printf("\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
@@ -309,7 +344,11 @@ void filtered_appointments() {
         }
         printf("|||                                                                         |||\n");
     }
-    find_appointments_by(search, op);
+    if (!exit){
+        find_appointments_by(search, op);
+    } else {
+        printf("|||            BUSCA FILTRADA CANCELADA!                                    |||\n");
+    }    
     printf("|||                                                                         |||\n");
     printf("|||                                                                         |||\n");
     printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");

@@ -60,18 +60,21 @@ void insert_service(char description[], char type[], float price) {
 // Função para imprimir um serviço
 void print_service(Service* sr) {
     if ((sr == NULL)) {
-        printf("\n= = = SERVIÇO INEXISTENTE = = =\n");
+        printf("||| = = = = = = = = = = = = = SERVIÇO INEXISTENTE = = = = = = = = = = = = = |||\n");
     } else {
-        printf(" = = = SERVIÇO = = = \n");
-        printf("Descrição: %s\n", sr->description);
-        printf("Tipo: %s\n", sr->type);
-        printf("Preço: %.2f\n", sr->price);
+        printf("||| = = = = = = = = = = = = = = = = SERVIÇO = = = = = = = = = = = = = = = = |||\n");
+        printf("|||                                                                         |||\n");
+        printf("|||            Descrição: %s\n", sr->description);
+        printf("|||            Tipo: %s\n", sr->type);
+        printf("|||            Preço: %.2f\n", sr->price);
         
         if (sr->activated) {
-            printf("Situação do serviço: Ativo \n");
+            printf("|||            Situação do serviço: Ativo \n");
         } else {
-            printf("Situação do serviço: Inativo \n");
+            printf("|||            Situação do serviço: Inativo \n");
         }
+        printf("|||                                                                         |||\n");
+        printf("||| = FIM SERVIÇO = = = = = = = = = = = = = = = = = = = = = = = = = = = = = |||\n");
         
     }
 }
@@ -115,8 +118,8 @@ void find_service(char search[]) {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há serviços cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há serviços cadastrados! ---------        |||\n");
         return;
     }
 
@@ -147,8 +150,8 @@ void update_service(char search[]) {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     while(fread(sr, sizeof(Service), 1, p_file)) {
@@ -290,8 +293,8 @@ void remove_service(char search[]) {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "r+b");
     if (p_file == NULL) {
-        printf("Ops! Erro abertura do arquivo!\n");
-        printf("Não é possível continuar...\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------------- Não é possível continuar! ---------------        |||\n");
         return;
     }
     
@@ -354,8 +357,8 @@ void find_services_by(char search[], int opc){
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há produtos cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há produtos cadastrados! ---------        |||\n");
         return;
     }
 
@@ -393,8 +396,8 @@ void find_services_by(char search[], int opc){
                 ap = (Appointment*) malloc(sizeof(Appointment));
                 p_file_ap = fopen("db_appointments.dat", "rb");
                 if (p_file_ap == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há consultas cadastradas!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
                     return;
                 }
                 while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
@@ -421,8 +424,8 @@ void find_services_by(char search[], int opc){
                 ap = (Appointment*) malloc(sizeof(Appointment));
                 p_file_ap = fopen("db_appointments.dat", "rb");
                 if (p_file_ap == NULL) {
-                    printf("Ops! Erro na abertura do arquivo!\n");
-                    printf("Verifique se há consultas cadastradas!\n");
+                    printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+                    printf("|||        -------- Verifique se há consultas cadastradas! ---------        |||\n");
                     return;
                 }
                 while(fread(ap, sizeof(Appointment), 1, p_file_ap)){
@@ -516,8 +519,8 @@ Service* get_service(int service_id) {
     sr = (Service*) malloc(sizeof(Service));
     p_file = fopen("db_services.dat", "rb");
     if (p_file == NULL) {
-        printf("Ops! Erro na abertura do arquivo!\n");
-        printf("Verifique se há serviços cadastrados!\n");
+        printf("|||        ----------- Ops! Erro na abertura do arquivo! -----------        |||\n");
+        printf("|||        --------- Verifique se há serviços cadastrados! ---------        |||\n");
         return NULL;
     }
     while(fread(sr, sizeof(Service), 1, p_file) && (sr->id_service != service_id));
