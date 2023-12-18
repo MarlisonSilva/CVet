@@ -29,10 +29,32 @@ git clone https://github.com/MarlisonSilva/CVet.git
 
 Para executar o código, entre na pasta criada com o clone e insira os seguintes comandos:
 
+1. Manualmente
+   
+Para compilar e executar:
 ``` PowerShell
 gcc -c *.c database/*.c
 gcc -o cvet.out *.o
 ./cvet.out
+```
+
+2. Com Makefile
+   
+Para compilar e executar:
+``` PowerShell
+make all
+```
+ou
+``` PowerShell
+make
+```
+Para apenas executar:
+``` PowerShell
+make run
+```
+Para limpar arquivos de compilação e execução:
+``` PowerShell
+make clean
 ```
 
 ## No Windows/Externamente
